@@ -3,8 +3,6 @@ package com.example.lkm.ms_termproject_001;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -22,8 +20,6 @@ public class MainActivity extends AppCompatActivity {
     ViewFlipper flipper;
     ToggleButton toggle_Flipping;
 
-    boolean main_top_menu_left_btn = false;
-
     private SimpleSideDrawer mSlidingMenu;
 
     @Override
@@ -31,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        // ------- 이미지 슬라이드 관련 코드 start ------- //
         mSlidingMenu = new SimpleSideDrawer(this);
         mSlidingMenu.setLeftBehindContentView(R.layout.activiry_left_menu);
 
@@ -60,12 +58,15 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     flipper.setFlipInterval(3000);
                     flipper.startFlipping();
-            }
+                }
             }
         });
+        // ------- 이미지 슬라이드 관련 코드 end ------- //
 
     }
 
+
+    // ------- 이미지 슬라이드 관련 코드 start ------- //
     public void mOnClick(View v){
         switch( v.getId() ){
             case R.id.btn_previous:
@@ -77,19 +78,32 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+    // ------- 이미지 슬라이드 관련 코드 end ------- //
 
     public void topMenuClick(View v){
         switch( v.getId() ){
+            // ------- 왼쪽 메뉴바 관련 코드 start ------- //
             case R.id.main_top_menu_left_btn:
                 mSlidingMenu.toggleLeftDrawer();
 
+                Button btn_left = (Button)findViewById(R.id.test_btn);
+                btn_left.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(MainActivity.this, "test ok", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
                 break;
+            // ------- 왼쪽 메뉴바 관련 코드 end ------- //
+
+            // ------- 필터링 관련 코드 start ------- //
             case R.id.main_top_menu_filter_btn:
 
-
+                //...//
 
                 break;
+            // ------- 필터링 관련 코드 end ------- //
         }
     }
 }
