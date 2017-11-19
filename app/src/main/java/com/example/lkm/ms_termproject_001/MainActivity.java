@@ -1,14 +1,18 @@
 package com.example.lkm.ms_termproject_001;
 
+import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.ViewFlipper;
@@ -86,6 +90,21 @@ public class MainActivity extends AppCompatActivity {
             case R.id.main_top_menu_left_btn:
                 mSlidingMenu.toggleLeftDrawer();
 
+                boolean setUserProfile = setUserProfile();
+
+                if(setUserProfile){
+
+                }else{
+                    Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+
+
+
+
+
                 //Button btn_left = (Button)findViewById(R.id.test_btn);
                 //btn_left.setOnClickListener(new View.OnClickListener() {
                     //@Override
@@ -105,5 +124,32 @@ public class MainActivity extends AppCompatActivity {
                 break;
             // ------- 필터링 관련 코드 end ------- //
         }
+    }
+
+    // ------- 유저 프로필 설정 UI start ------- //
+    public boolean setUserProfile(){
+
+        // -- DB로부터 데이터 입력받음 -- //
+        ImageView imageview = (ImageView)findViewById(R.id.profile_img);
+        String name = "이강민";
+        String mail = "hopefuler@naver.com";
+        int point = 10100;
+
+        imageview.setImageResource(R.drawable.profile_test_01); // 바꾸는 코드
+
+        TextView txt_name = (TextView)findViewById(R.id.profile_name);
+        txt_name.setText(name);
+        txt_name.setTextColor(Color.BLACK);
+
+        TextView txt_mail = (TextView)findViewById(R.id.profile_mail);
+        txt_mail.setText(mail);
+        txt_mail.setTextColor(Color.BLACK);
+
+        TextView txt_point = (TextView)findViewById(R.id.profile_point);
+        txt_point.setText("포인트 : "+point+" P"); // 1000원 이상시 쉼표 추가 하는 함수 만들 것.  ex) 10000  ->  10,000
+        txt_point.setTextColor(Color.BLACK);
+
+
+        return true;
     }
 }

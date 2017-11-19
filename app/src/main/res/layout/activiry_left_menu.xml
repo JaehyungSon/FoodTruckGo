@@ -1,15 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/profile_layout"
         android:layout_width="250dp"
-        android:layout_height="79dp"
+        android:layout_height="80dp"
         android:orientation="horizontal"
         android:background="@drawable/leftmenu_profile_bg">
 
+        <ImageView
+            android:id="@+id/profile_img"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="left"
+            android:padding="10dp"
+            android:src="@drawable/profile_null" />
+
+        <LinearLayout
+            android:id="@+id/profile_context"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:orientation="vertical"
+            android:paddingLeft="19dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="3dp">
+
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NULL"/>
+
+            <TextView
+                android:id="@+id/profile_mail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NULL"/>
+
+            <TextView
+                android:id="@+id/profile_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NULL"/>
+        </LinearLayout>
+
     </LinearLayout>
+
 
 
 
