@@ -17,57 +17,32 @@
             android:id="@+id/top_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            >
+            xmlns:android="http://schemas.android.com/apk/res/android">
             <ImageView
                 android:id="@+id/main_top_bg"
                 android:layout_width="wrap_content"
                 android:layout_height="47dp"
                 android:src="@drawable/main_top_bg">
             </ImageView>
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                xmlns:android="http://schemas.android.com/apk/res/android">
-                <ImageView
-                    android:id="@+id/main_top_menu_leftn"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:background="#00ff0000"
-                    android:src="@drawable/main_top_menu_left_btn"
-                    android:layout_margin="9dp">
-                </ImageView>
-                <Button
-                    android:id="@+id/main_top_menu_left_btn"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="left"
-                    android:layout_margin="9dp"
-                    android:background="#00ff0000"
-                    android:onClick="topMenuClick"/>
-            </FrameLayout>
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                xmlns:android="http://schemas.android.com/apk/res/android">
-                <ImageView
-                    android:id="@+id/main_top_menu_filter"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/main_top_menu_filter_btn"
-                    android:layout_margin="9dp">
-                </ImageView>
-                <Button
-                    android:id="@+id/main_top_menu_filter_btn"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="left"
-                    android:layout_margin="9dp"
-                    android:background="#00ff0000"
-                    android:onClick="topMenuClick"/>
-            </FrameLayout>
+            <ImageButton
+                android:id="@+id/main_top_menu_left_btn"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/main_top_menu_left_btn"
+                android:layout_margin="9dp"
+                android:onClick="topMenuClick"
+                android:layout_gravity="left">
+            </ImageButton>
+
+            <ImageButton
+                android:id="@+id/main_top_menu_filter_btn"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/main_top_menu_filter_btn"
+                android:layout_margin="9dp"
+                android:onClick="topMenuClick"
+                android:layout_gravity="right">
+            </ImageButton>
         </FrameLayout>
 
         <FrameLayout
