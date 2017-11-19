@@ -7,6 +7,7 @@
     tools:context="com.example.lkm.ms_termproject_001.MainActivity">
 
     <LinearLayout
+        android:id="@+id/main_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -31,7 +32,7 @@
                 android:layout_gravity="left"
                 xmlns:android="http://schemas.android.com/apk/res/android">
                 <ImageView
-                    android:id="@+id/main_top_menu_left_btn"
+                    android:id="@+id/main_top_menu_leftn"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:background="#00ff0000"
@@ -39,11 +40,13 @@
                     android:layout_margin="9dp">
                 </ImageView>
                 <Button
+                    android:id="@+id/main_top_menu_left_btn"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="left"
                     android:layout_margin="9dp"
-                    android:background="#00ff0000"/>
+                    android:background="#00ff0000"
+                    android:onClick="topMenuClick"/>
             </FrameLayout>
             <FrameLayout
                 android:id="@+id/test2"
@@ -52,18 +55,20 @@
                 android:layout_gravity="right"
                 xmlns:android="http://schemas.android.com/apk/res/android">
                 <ImageView
-                    android:id="@+id/main_top_menu_filter_btn"
+                    android:id="@+id/main_top_menu_filter"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:src="@drawable/main_top_menu_filter_btn"
                     android:layout_margin="9dp">
                 </ImageView>
                 <Button
+                    android:id="@+id/main_top_menu_filter_btn"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="left"
                     android:layout_margin="9dp"
-                    android:background="#00ff0000"/>
+                    android:background="#00ff0000"
+                    android:onClick="topMenuClick"/>
             </FrameLayout>
         </FrameLayout>
 

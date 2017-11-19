@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     ViewFlipper flipper;
     ToggleButton toggle_Flipping;
 
+    boolean main_top_menu_left_btn = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,11 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     flipper.setFlipInterval(3000);
                     flipper.startFlipping();
-                    flipper.startFlipping();
-                    flipper.startFlipping();
-                    flipper.startFlipping();
-
-                }
+            }
             }
         });
     }
@@ -68,6 +66,22 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_next:
                 flipper.showNext();//다음 View로 교체
+                break;
+        }
+    }
+
+    public void topMenuClick(View v){
+        switch( v.getId() ){
+            case R.id.main_top_menu_left_btn:
+                View view = (View) findViewById(R.id.main_view);
+                if(main_top_menu_left_btn)
+                    view.setAlpha(1);
+                else
+                    view.setAlpha(0.4F);
+                main_top_menu_left_btn=!main_top_menu_left_btn;
+                break;
+            case R.id.main_top_menu_filter_btn:
+                // 필터링 코드
                 break;
         }
     }
