@@ -50,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     flipper.setFlipInterval(3000);
                     flipper.startFlipping();
+                    flipper.startFlipping();
+                    flipper.startFlipping();
+                    flipper.startFlipping();
+
                 }
             }
         });
