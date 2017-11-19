@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mSlidingMenu = new SimpleSideDrawer(this);
+        mSlidingMenu.setLeftBehindContentView(R.layout.activiry_left_menu);
 
         flipper= (ViewFlipper)findViewById(R.id.flipper);
 
@@ -59,6 +63,14 @@ public class MainActivity extends AppCompatActivity {
             }
             }
         });
+
+        Button btn = (Button)findViewById(R.id.main_top_menu_left_btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSlidingMenu.toggleLeftDrawer();
+            }
+        });
     }
 
     //onClick속성이 지정된 View가 클릭되었을 때 자동으로 호출되는 메소드.
@@ -73,21 +85,4 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
-    public void topMenuClick(View v){
-        switch( v.getId() ){
-            case R.id.main_top_menu_left_btn:
-                View view = (View) findViewById(R.id.main_view);
-                if(main_top_menu_left_btn)
-                    view.setAlpha(1);
-                else
-                    view.setAlpha(0.4F);
-                main_top_menu_left_btn=!main_top_menu_left_btn;
-                break;
-            case R.id.main_top_menu_filter_btn:
-                // 필터링 코드
-                break;
-        }
-    }
-
 }
