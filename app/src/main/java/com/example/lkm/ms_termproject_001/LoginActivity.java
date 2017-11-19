@@ -20,7 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     Button.OnClickListener login_start_btn = new View.OnClickListener() {
         public void onClick(View v) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         }
     };

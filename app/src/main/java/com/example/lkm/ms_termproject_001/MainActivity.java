@@ -44,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
             img.setImageResource(R.drawable.test_img_01+i);
             flipper.addView(img);
         }
-        Animation showIn= AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
+        Animation showIn= AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
 
         flipper.setInAnimation(showIn);
-        flipper.setOutAnimation(this, android.R.anim.slide_out_right);
+        flipper.setOutAnimation(this, android.R.anim.fade_out);
 
         flipper.setFlipInterval(3000);
         flipper.startFlipping();
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void testClick(View v){
         startActivity(new Intent(MainActivity.this, TestActivity.class));
-        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         finish();
     }
 
