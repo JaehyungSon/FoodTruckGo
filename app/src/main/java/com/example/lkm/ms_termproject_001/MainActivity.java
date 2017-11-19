@@ -86,13 +86,13 @@ public class MainActivity extends AppCompatActivity {
             case R.id.main_top_menu_left_btn:
                 mSlidingMenu.toggleLeftDrawer();
 
-                Button btn_left = (Button)findViewById(R.id.test_btn);
-                btn_left.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(MainActivity.this, "test ok", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                //Button btn_left = (Button)findViewById(R.id.test_btn);
+                //btn_left.setOnClickListener(new View.OnClickListener() {
+                    //@Override
+                    //public void onClick(View view) {
+                    //    Toast.makeText(MainActivity.this, "test ok", Toast.LENGTH_SHORT).show();
+                    //}
+                //});
 
                 break;
             // ------- 왼쪽 메뉴바 관련 코드 end ------- //
