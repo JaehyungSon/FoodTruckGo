@@ -106,6 +106,12 @@
                 android:onClick="mOnClick"/>
         </FrameLayout>
 
+        <Button
+            android:onClick="testClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="테스트 버튼"/>
+
     </LinearLayout>
 
 </LinearLayout>

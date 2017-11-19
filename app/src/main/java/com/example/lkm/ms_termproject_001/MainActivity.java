@@ -1,5 +1,6 @@
 package com.example.lkm.ms_termproject_001;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -69,6 +70,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    public void testClick(View v){
+        startActivity(new Intent(MainActivity.this, TestActivity.class));
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        finish();
+    }
 
     // ------- 이미지 슬라이드 관련 코드 start ------- //
     public void mOnClick(View v){
