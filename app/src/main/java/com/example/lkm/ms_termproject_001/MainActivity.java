@@ -60,11 +60,12 @@ public class MainActivity extends AppCompatActivity {
         switch( v.getId() ){
             case R.id.btn_previous:
                 flipper.showPrevious();//이전 View로 교체
+                flipper.showPrevious();
                 break;
             case R.id.btn_next:
                 flipper.showNext();//다음 View로 교체
                 break;
         }
     }
-}
 
+}
