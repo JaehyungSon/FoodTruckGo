@@ -14,12 +14,16 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.ViewFlipper;
 
+import com.navdrawer.SimpleSideDrawer;
+
 public class MainActivity extends AppCompatActivity {
 
     ViewFlipper flipper;
     ToggleButton toggle_Flipping;
 
     boolean main_top_menu_left_btn = false;
+
+    private SimpleSideDrawer mSlidingMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
