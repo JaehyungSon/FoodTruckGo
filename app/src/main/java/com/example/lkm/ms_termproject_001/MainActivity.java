@@ -64,16 +64,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btn = (Button)findViewById(R.id.main_top_menu_left_btn);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mSlidingMenu.toggleLeftDrawer();
-            }
-        });
     }
 
-    //onClick속성이 지정된 View가 클릭되었을 때 자동으로 호출되는 메소드.
     public void mOnClick(View v){
         switch( v.getId() ){
             case R.id.btn_previous:
@@ -82,6 +74,21 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_next:
                 flipper.showNext();//다음 View로 교체
+                break;
+        }
+    }
+
+    public void topMenuClick(View v){
+        switch( v.getId() ){
+            case R.id.main_top_menu_left_btn:
+                mSlidingMenu.toggleLeftDrawer();
+
+
+                break;
+            case R.id.main_top_menu_filter_btn:
+
+
+
                 break;
         }
     }
