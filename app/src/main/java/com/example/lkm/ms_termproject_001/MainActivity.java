@@ -19,12 +19,19 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.ViewFlipper;
 
+import com.kakao.network.ErrorResult;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.MeResponseCallback;
+import com.kakao.usermgmt.response.model.UserProfile;
 import com.navdrawer.SimpleSideDrawer;
 
 public class MainActivity extends AppCompatActivity {
 
     ViewFlipper flipper;
     ToggleButton toggle_Flipping;
+
+    String name = "ERROR";    //카카오와 연동하기위해
+    String mail = "ERROR";    //가장 위로 올림
 
     private SimpleSideDrawer mSlidingMenu;
 
@@ -68,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         // ------- 이미지 슬라이드 관련 코드 end ------- //
+
+        requestMe();
 
     }
 
@@ -140,8 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
         // -- DB로부터 데이터 입력받음 -- //
         ImageView imageview = (ImageView)findViewById(R.id.profile_img);
-        String name = "이강민";
-        String mail = "hopefuler@naver.com";
+
         int point = 10100;
 
         imageview.setImageResource(R.drawable.profile_test_01); // 바꾸는 코드
@@ -160,5 +168,37 @@ public class MainActivity extends AppCompatActivity {
 
 
         return true;
+    }
+
+    //----------카카오 유저정보 가져오기 -----------------
+    public void requestMe() {
+        //유저의 정보를 받아오는 함수
+
+        UserManagement.requestMe(new MeResponseCallback() {
+            @Override
+            public void onFailure(ErrorResult errorResult) {
+
+            }
+
+            @Override
+            public void onSessionClosed(ErrorResult errorResult) {
+
+            }
+
+            @Override
+            public void onNotSignedUp() {
+                //카카오톡 회원이 아닐시
+                //    Log.d(TAG, "onNotSignedUp ");
+
+            }
+
+            @Override
+            public void onSuccess(UserProfile result) {
+
+                name = result.getNickname();
+
+
+            }
+        });
     }
 }
