@@ -2,6 +2,7 @@ package com.example.lkm.ms_termproject_001;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+    //안녕하세요 ㅎㅎ 친해져요  -현아
     // ------- 이미지 슬라이드 관련 코드 end ------- //
 
     public void topMenuClick(View v){
