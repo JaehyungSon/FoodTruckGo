@@ -152,11 +152,11 @@
 
 
     <RelativeLayout
-        android:id="@+id/menu_05"
+        android:id="@+id/menu_04"
         android:layout_width="250dp"
         android:layout_height="65dp"
         android:layout_marginBottom="-3dp"
-        android:layout_above="@+id/menu_04">
+        android:layout_above="@+id/menu_05">
         <FrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -164,6 +164,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageButton
+                android:id="@+id/menu_04_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/leftmenu_menu_bg"/>
@@ -184,7 +185,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/menu_04"
+        android:id="@+id/menu_05"
         android:layout_width="250dp"
         android:layout_height="65dp"
         android:layout_marginBottom="48dp"

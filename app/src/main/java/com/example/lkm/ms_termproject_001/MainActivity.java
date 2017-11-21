@@ -15,9 +15,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -133,13 +136,20 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
                 }
 
-                //Button btn_left = (Button)findViewById(R.id.test_btn);
-                //btn_left.setOnClickListener(new View.OnClickListener() {
-                    //@Override
-                    //public void onClick(View view) {
-                    //    Toast.makeText(MainActivity.this, "test ok", Toast.LENGTH_SHORT).show();
-                    //}
-                //});
+                ImageButton test = (ImageButton)findViewById(R.id.menu_04_btn);
+                test.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(MainActivity.this, FoodtrcukRegistActivity.class));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        finish();
+                    }
+                });
+
+
+
+
+
 
                 break;
             // ------- 왼쪽 메뉴바 관련 코드 end ------- //
