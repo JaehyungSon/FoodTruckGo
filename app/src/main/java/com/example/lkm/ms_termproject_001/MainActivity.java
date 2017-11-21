@@ -146,34 +146,16 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 // -- 왼쪽 메뉴바 버튼 클릭 시 이벤트 start -- //
-                ImageButton test = (ImageButton)findViewById(R.id.menu_04_btn);
-                ImageButton test2 = (ImageButton)findViewById(R.id.menu_test_btn);
-                ImageButton test_map = (ImageButton)findViewById(R.id.menu_test2_btn);
-                ImageButton bookmark = (ImageButton)findViewById(R.id.bookmark_btn);
-                test.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startActivity(new Intent(MainActivity.this, FoodtrcukRegistActivity.class));
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    }
-                });
-                test2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
 
-                        Intent intent = new Intent(Intent.ACTION_PICK);
-                        intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
-                        intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
-                    }
-                });
-                test_map.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startActivity(new Intent(MainActivity.this, GoogleMapActivity.class));
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    }
-                });
+
+                ImageButton bookmark = (ImageButton)findViewById(R.id.bookmark_btn); // 즐겨찾기
+                ImageButton point_btn = (ImageButton)findViewById(R.id.point_btn); // 적립내역
+                //알림
+                ImageButton map_btn = (ImageButton)findViewById(R.id.map_btn); // 구글 맵
+
+                ImageButton adjust_btn = (ImageButton)findViewById(R.id.adjust_btn); // 등록 수정
+                // 로그아웃
+
                 bookmark.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -181,6 +163,34 @@ public class MainActivity extends AppCompatActivity {
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
                 });
+                point_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(MainActivity.this, PointActivity.class));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    }
+                });
+
+
+                map_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(MainActivity.this, GoogleMapActivity.class));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    }
+                });
+
+
+                adjust_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(MainActivity.this, FoodtrcukRegistActivity.class));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    }
+                });
+
+
+
                 // -- 왼쪽 메뉴바 버튼 클릭 시 이벤트 end -- //
 
                 break;

@@ -95,7 +95,6 @@
             android:layout_below="@+id/textView"
             android:layout_alignParentStart="true">
         </ListView>
-
     </RelativeLayout>
 
 

@@ -59,24 +59,57 @@ public class BookmarkActivity extends AppCompatActivity {
                 }
 
                 // -- 왼쪽 메뉴바 버튼 클릭 시 이벤트 start -- //
-                ImageButton test = (ImageButton)findViewById(R.id.menu_04_btn);
-                test.setOnClickListener(new View.OnClickListener() {
+                ImageButton bookmark = (ImageButton)findViewById(R.id.bookmark_btn); // 즐겨찾기
+                ImageButton point_btn = (ImageButton)findViewById(R.id.point_btn); // 적립내역
+                //알림
+                ImageButton map_btn = (ImageButton)findViewById(R.id.map_btn); // 구글 맵
+
+                ImageButton adjust_btn = (ImageButton)findViewById(R.id.adjust_btn); // 등록 수정
+                // 로그아웃
+
+                bookmark.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(BookmarkActivity.this,MainActivity.class));
+                        startActivity(new Intent(BookmarkActivity.this, BookmarkActivity.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        finish();
+                    }
+                });
+                point_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(BookmarkActivity.this, PointActivity.class));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        finish();
+                    }
+                });
+
+
+                map_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(BookmarkActivity.this, GoogleMapActivity.class));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        finish();
+                    }
+                });
+
+
+                adjust_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(BookmarkActivity.this, FoodtrcukRegistActivity.class));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        finish();
                     }
                 });
 
                 // -- 왼쪽 메뉴바 버튼 클릭 시 이벤트 end -- //
 
                 break;
-            // ------- 왼쪽 메뉴바 관련 코드 end ------- //
-
-            // ------- 필터링 관련 코드 start ------- //
-            // ------- 필터링 관련 코드 end ------- //
         }
     }
+    // ------- 왼쪽 메뉴바 관련 코드 end ------- //
 
     // ------- 유저 프로필 설정 UI start ------- //
     public boolean setUserProfile(){
@@ -107,6 +140,7 @@ public class BookmarkActivity extends AppCompatActivity {
 
         return true;
     }
+    // ------- 유저 프로필 설정 UI end ------- //
 
     // ------- 카카오 유저정보 가져오기 start ------- //
     public void requestMe() {

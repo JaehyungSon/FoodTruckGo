@@ -53,7 +53,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/menu_01"
+        android:id="@+id/bookmark"
         android:layout_width="250dp"
         android:layout_height="65dp"
         android:layout_marginBottom="-3dp"
@@ -87,11 +87,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/menu_02"
+        android:id="@+id/point"
         android:layout_width="250dp"
         android:layout_height="65dp"
         android:layout_marginBottom="-3dp"
-        android:layout_below="@+id/menu_01">
+        android:layout_below="@+id/bookmark">
         <FrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -99,6 +99,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageButton
+                android:id="@+id/point_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/leftmenu_menu_bg"/>
@@ -111,7 +112,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:text="적립하기"
+                android:text="적립내역"
                 android:textSize="18dp"
                 android:layout_marginTop="2dp"
                 android:layout_gravity="center"/>
@@ -119,11 +120,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/menu_03"
+        android:id="@+id/alert"
         android:layout_width="250dp"
         android:layout_height="65dp"
         android:layout_marginBottom="-3dp"
-        android:layout_below="@+id/menu_02">
+        android:layout_below="@+id/point">
         <FrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -131,6 +132,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageButton
+                android:id="@+id/alert_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/leftmenu_menu_bg"/>
@@ -151,11 +153,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/menu_test2"
+        android:id="@+id/map"
         android:layout_width="250dp"
         android:layout_height="65dp"
         android:layout_marginBottom="-3dp"
-        android:layout_below="@+id/menu_test">
+        android:layout_below="@+id/alert">
         <FrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -163,7 +165,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageButton
-                android:id="@+id/menu_test2_btn"
+                android:id="@+id/map_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/leftmenu_menu_bg"/>
@@ -183,47 +185,12 @@
         </FrameLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/menu_test"
-        android:layout_width="250dp"
-        android:layout_height="65dp"
-        android:layout_marginBottom="-3dp"
-        android:layout_below="@+id/menu_03">
-        <FrameLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageButton
-                android:id="@+id/menu_test_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/leftmenu_menu_bg"/>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/leftmenu_menu_notification"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:text="갤러리 사진받기"
-                android:textSize="18dp"
-                android:layout_marginTop="2dp"
-                android:layout_gravity="center"/>
-        </FrameLayout>
-    </LinearLayout>
-
-
-
     <RelativeLayout
-        android:id="@+id/menu_04"
+        android:id="@+id/adjust"
         android:layout_width="250dp"
         android:layout_height="65dp"
         android:layout_marginBottom="-3dp"
-        android:layout_above="@+id/menu_05">
+        android:layout_above="@+id/logout">
         <FrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -231,7 +198,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageButton
-                android:id="@+id/menu_04_btn"
+                android:id="@+id/adjust_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/leftmenu_menu_bg"/>
@@ -252,7 +219,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/menu_05"
+        android:id="@+id/logout"
         android:layout_width="250dp"
         android:layout_height="65dp"
         android:layout_marginBottom="48dp"
@@ -264,6 +231,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageButton
+                android:id="@+id/logout_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/leftmenu_menu_bg"/>
