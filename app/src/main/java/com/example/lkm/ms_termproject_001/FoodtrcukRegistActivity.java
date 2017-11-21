@@ -276,7 +276,7 @@ imgFlag=1;
                     if(imgFlag==1){
                         Truck[0] = data.getData();
                         TruckImg1 = data.getData();
-                        image = (ImageButton)findViewById(R.id.profileImg01);
+                        image = (ImageButton)findViewById(R.id.profileImg03);
                     }else if(imgFlag==2){
                         Truck[1] = data.getData();
                         TruckImg2=data.getData();
@@ -284,7 +284,7 @@ imgFlag=1;
                     }else{
                         Truck[2] = data.getData();
                         TruckImg3=data.getData();
-                        image = (ImageButton)findViewById(R.id.profileImg03);
+                        image = (ImageButton)findViewById(R.id.profileImg01);
                     }
                     image.setImageBitmap(image_bitmap);
                     //String name_Str = getImageNameToUri(data.getData());
@@ -310,24 +310,28 @@ imgFlag=1;
     public void requestMe() {
         //유저의 정보를 받아오는 함수
         UserManagement.requestMe(new MeResponseCallback() {
+
             @Override
             public void onFailure(ErrorResult errorResult) {
+                Toast.makeText(getApplicationContext(),"실패",Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onSessionClosed(ErrorResult errorResult) {
+                Toast.makeText(getApplicationContext(),"실패",Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onNotSignedUp() {
                 //카카오톡 회원이 아닐시
                 //    Log.d(TAG, "onNotSignedUp ");
+                Toast.makeText(getApplicationContext(),"실패",Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onSuccess(UserProfile result) {
-                uuid = result.getUUID();
 
+                uuid = result.getId()+"";
 
             }
         });
