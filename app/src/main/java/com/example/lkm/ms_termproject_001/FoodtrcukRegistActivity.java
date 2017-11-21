@@ -122,7 +122,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                     100, // 통지사이의 최소 시간간격 (miliSecond)
                     1, // 통지사이의 최소 변경거리 (m)
                     mLocationListener);
-    //                lm.removeUpdates(mLocationListener);  //  미수신할때는 반드시 자원해체를 해주어야 한다.
+            //                lm.removeUpdates(mLocationListener);  //  미수신할때는 반드시 자원해체를 해주어야 한다.
 
         }catch(SecurityException ex){
         }
@@ -238,19 +238,19 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                     }else if(imgFlag==2){
                         Truck[1] = data.getData();
                         TruckImg2=data.getData();
-                         image = (ImageButton)findViewById(R.id.profileImg02);
+                        image = (ImageButton)findViewById(R.id.profileImg02);
                     }else{
                         Truck[2] = data.getData();
                         TruckImg3=data.getData();
-                         image = (ImageButton)findViewById(R.id.profileImg03);
+                        image = (ImageButton)findViewById(R.id.profileImg03);
                     }
                     image.setImageBitmap(image_bitmap);
                     //String name_Str = getImageNameToUri(data.getData());
                     //이미지 데이터를 비트맵으로 받아온다.
-                 //   Bitmap image_bitmap 	= MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-                 //   ImageView image = (ImageView)findViewById(R.id.profile_img);
+                    //   Bitmap image_bitmap    = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                    //   ImageView image = (ImageView)findViewById(R.id.profile_img);
                     //배치해놓은 ImageView에 set
-                  //  image.setImageBitmap(image_bitmap);
+                    //  image.setImageBitmap(image_bitmap);
                     //Toast.makeText(getBaseContext(), "name_Str : "+name_Str , Toast.LENGTH_SHORT).show();
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
@@ -266,4 +266,3 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         }
     }
 }
-
