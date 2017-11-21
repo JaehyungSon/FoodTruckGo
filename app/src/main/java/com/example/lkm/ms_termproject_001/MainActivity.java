@@ -164,6 +164,14 @@ public class MainActivity extends AppCompatActivity {
                         startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
                     }
                 });
+                test_map.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(MainActivity.this, GoogleMapActivity.class));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        finish();
+                    }
+                });
 
 
 
