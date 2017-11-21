@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -30,6 +31,11 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.ViewFlipper;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
@@ -274,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(UserProfile result) {
                 GlobalApplication global = (GlobalApplication)getApplicationContext();
-                global.uuid = result.getUUID();
+                global.uuid = result.getId()+"";
 
                 name = result.getNickname();
                 profilePhotoURL = result.getProfileImagePath();
@@ -307,6 +313,43 @@ public class MainActivity extends AppCompatActivity {
 
     // ------- 리스트 뷰 start ------- //
     private void dataSetting(){
+        FirebaseDatabase fd = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = fd.getReference().child("FoodTrucks");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+               // Log.d("asdfasdf", "Value is: " + dataSnapshot);
+                String name;
+                String simpleExplain;
+                String photo;
+                for(DataSnapshot child : dataSnapshot.getChildren()){
+                    Log.e("key",child.getKey());
+                    for(DataSnapshot childchild : child.getChildren()){
+                        if(childchild.getKey().equals("name")){
+                      //      Log.e("we do",childchild.getValue().toString());
+                            name = childchild.getValue().toString();
+
+                        }
+                        if(childchild.getKey().equals("name")){
+                            simpleExplain = childchild.getValue().toString();
+                        }
+                        if(childchild.getKey().equals("1")){
+                            photo = childchild.getValue().toString();
+                        }
+
+                    }
+                    Log.e("AAAA",child+"");
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("asdfasdf", "Failed to read value.", error.toException());
+            }
+        });
+
         MyAdapter mMyAdapter = new MyAdapter();
 
         Bitmap img_1 = null;
