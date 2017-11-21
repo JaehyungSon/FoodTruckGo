@@ -1,54 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_margin="26dp">
-
-        <ImageView
-            android:id="@+id/iv_img"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-
         <LinearLayout
             android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="300dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="name.."
-                android:textSize="20dp"/>
-
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="3dp">
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/leftmenu_menu_favorite"/>
                 <TextView
-                    android:id="@+id/tv_contents"
+                    android:id="@+id/tv_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="contents.."/>
-                <TextView
-                    android:id="@+id/tv_distance"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="100m"
-                    android:gravity="right"/>
-
-
+                    android:text="name.."
+                    android:layout_weight="1"
+                    android:textSize="20dp"
+                    android:layout_toRightOf="@+id/iv_img"
+                    android:padding="5dp"
+                    android:layout_marginLeft="17dp"/>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:padding="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_below="@+id/tv_name"
+                    android:layout_toRightOf="@+id/iv_img">
+                    <TextView
+                        android:id="@+id/tv_contents"
+                        android:layout_width="180dp"
+                        android:layout_height="100dp"
+                        android:text="contents.."
+                        />
+                    <TextView
+                        android:id="@+id/tv_distance"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="100m"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        />
+                </RelativeLayout>
             </RelativeLayout>
-
-
         </LinearLayout>
-
     </LinearLayout>
-
 </LinearLayout>
