@@ -30,7 +30,9 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         Ref = fd.getReference();
         Ref = Ref.child("FoodTrucks");
 
-        String key = Ref.getKey();
+        GlobalApplication global = (GlobalApplication)getApplicationContext();
+
+        String key = "AAA";
 
 
 

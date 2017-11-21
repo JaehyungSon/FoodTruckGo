@@ -34,9 +34,7 @@ public class SplashActivity extends AppCompatActivity {
 
         setContentView(new SplashView(this));
 
-        FirebaseDatabase instance = FirebaseDatabase.getInstance();
-        DatabaseReference x = instance.getReference();
-        x.setValue("sadfasfasd");
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
