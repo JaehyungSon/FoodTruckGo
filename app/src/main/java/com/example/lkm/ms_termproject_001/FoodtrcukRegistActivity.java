@@ -38,7 +38,12 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
     ImageButton profileImg01,profileImg02,profileImg03;
     TextView tv;
     final int REQ_CODE_SELECT_IMAGE=100;
-  //  ToggleButton tb;
+    String truckImg1;
+    String truckImg2;
+    String truckImg3;
+    int imgFlag=0;
+
+    //  ToggleButton tb;
 
     double longitude=0;  //경도
     double latitude=0;   //위도
@@ -60,6 +65,27 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         profileImg01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                imgFlag=1;
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+                intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+            }
+        });
+        profileImg02.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imgFlag=2;
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+                intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+            }
+        });
+        profileImg03.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imgFlag=3;
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -182,13 +208,28 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
             if(resultCode== Activity.RESULT_OK)
             {
                 try {
+
+                    Bitmap image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                    ImageButton image;
                     //Uri에서 이미지 이름을 얻어온다.
-                    String name_Str = getImageNameToUri(data.getData());
-                    //이미지 데이터를 비트맵으로 받아온다.
-                    Bitmap image_bitmap 	= MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-                    ImageView image = (ImageView)findViewById(R.id.profile_img);
-                    //배치해놓은 ImageView에 set
+                    if(imgFlag==1){
+                        truckImg1=getImageNameToUri(data.getData());
+                        image = (ImageButton)findViewById(R.id.profileImg01);
+                    }else if(imgFlag==2){
+                        truckImg2=getImageNameToUri(data.getData());
+                         image = (ImageButton)findViewById(R.id.profileImg02);
+                    }else{
+                        truckImg3=getImageNameToUri(data.getData());
+                         image = (ImageButton)findViewById(R.id.profileImg03);
+                    }
                     image.setImageBitmap(image_bitmap);
+
+                    //String name_Str = getImageNameToUri(data.getData());
+                    //이미지 데이터를 비트맵으로 받아온다.
+                 //   Bitmap image_bitmap 	= MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                 //   ImageView image = (ImageView)findViewById(R.id.profile_img);
+                    //배치해놓은 ImageView에 set
+                  //  image.setImageBitmap(image_bitmap);
                     //Toast.makeText(getBaseContext(), "name_Str : "+name_Str , Toast.LENGTH_SHORT).show();
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
