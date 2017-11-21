@@ -13,6 +13,7 @@ public class GlobalApplication extends Application {
 
     private static volatile GlobalApplication obj = null;
     private static volatile Activity currentActivity = null;
+    String uuid;
 
     @Override
     public void onCreate() {

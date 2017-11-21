@@ -38,6 +38,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         data.put("name",foodTruckName.getText().toString());
         data.put("simpleExplain",FoodtruckSimpleExplain.getText().toString());
         data.put("explain",FoodtruckExplain.getText().toString());
+        data.put("openFlag","0");
 
         HashMap<String,Object> child = new HashMap<String,Object>();
         child.put(key,data);
@@ -45,5 +46,6 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
 
         Ref.updateChildren(child);
     }
+
 }
 

@@ -34,6 +34,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.microedition.khronos.opengles.GL;
+
 public class MainActivity extends AppCompatActivity {
 
     ViewFlipper flipper;
@@ -206,6 +208,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(UserProfile result) {
+                GlobalApplication global = (GlobalApplication)getApplicationContext();
+                global.uuid = result.getUUID();
 
                 name = result.getNickname();
                 profilePhotoURL = result.getProfileImagePath();
