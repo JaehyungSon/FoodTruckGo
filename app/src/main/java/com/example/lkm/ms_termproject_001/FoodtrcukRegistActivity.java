@@ -223,7 +223,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                          image = (ImageButton)findViewById(R.id.profileImg03);
                     }
                     image.setImageBitmap(image_bitmap);
-
+                    Log.e("image",truckImg1);
                     //String name_Str = getImageNameToUri(data.getData());
                     //이미지 데이터를 비트맵으로 받아온다.
                  //   Bitmap image_bitmap 	= MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
