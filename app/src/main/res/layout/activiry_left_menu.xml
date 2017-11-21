@@ -149,6 +149,39 @@
         </FrameLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/menu_test"
+        android:layout_width="250dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="-3dp"
+        android:layout_below="@+id/menu_03">
+        <FrameLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageButton
+                android:id="@+id/menu_test_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/leftmenu_menu_bg"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/leftmenu_menu_notification"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="갤러리 사진받기"
+                android:textSize="18dp"
+                android:layout_marginTop="2dp"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+    </LinearLayout>
+
 
 
     <RelativeLayout

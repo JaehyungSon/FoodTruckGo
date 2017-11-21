@@ -1,10 +1,14 @@
 package com.example.lkm.ms_termproject_001;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +36,7 @@ import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.navdrawer.SimpleSideDrawer;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -52,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     private SimpleSideDrawer mSlidingMenu;
 
     private ListView mListView;
+
+    final int REQ_CODE_SELECT_IMAGE=100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 ImageButton test = (ImageButton)findViewById(R.id.menu_04_btn);
+                ImageButton test2 = (ImageButton)findViewById(R.id.menu_test_btn);
                 test.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -145,9 +153,16 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                     }
                 });
+                test2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-
-
+                        Intent intent = new Intent(Intent.ACTION_PICK);
+                        intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+                        intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+                    }
+                });
 
 
 
@@ -258,4 +273,45 @@ public class MainActivity extends AppCompatActivity {
     }
     // ------- 리스트 뷰 end ------- //
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Toast.makeText(getBaseContext(), "resultCode : "+resultCode,Toast.LENGTH_SHORT).show();
+        if(requestCode == REQ_CODE_SELECT_IMAGE)
+        {
+            if(resultCode== Activity.RESULT_OK)
+            {
+                try {
+                    //Uri에서 이미지 이름을 얻어온다.
+                    //String name_Str = getImageNameToUri(data.getData());
+                    //이미지 데이터를 비트맵으로 받아온다.
+                    Bitmap image_bitmap 	= MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                    ImageView image = (ImageView)findViewById(R.id.profile_img);
+                    //배치해놓은 ImageView에 set
+                    image.setImageBitmap(image_bitmap);
+                    //Toast.makeText(getBaseContext(), "name_Str : "+name_Str , Toast.LENGTH_SHORT).show();
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public String getImageNameToUri(Uri data)
+    {
+        String[] proj = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(data, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String imgPath = cursor.getString(column_index);
+        String imgName = imgPath.substring(imgPath.lastIndexOf("/")+1);
+        Toast.makeText(getBaseContext(), "imgPath : "+imgPath +" //  imgName: "+imgName , Toast.LENGTH_SHORT).show();
+        return imgName;
+    }
 }
