@@ -58,6 +58,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
     Uri TruckImg1,TruckImg2,TruckImg3;
     Uri[] Truck = new Uri[3];
     String[] url;
+    boolean imgFlag1=true,imgFlag2=true,imgFlag3=true;
     //  ToggleButton tb;
     int count = 0 ;
     double longitude=0;  //경도
@@ -74,9 +75,9 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         foodTruckName = (EditText)findViewById(R.id.FoodtruckName);
         FoodtruckSimpleExplain = (EditText)findViewById(R.id.FoodtruckSimpleExplain);
         FoodtruckExplain= (EditText)findViewById(R.id.FoodtruckExplain);
-        profileImg01 =(ImageButton)findViewById(R.id.profileImg01);
+        profileImg03 =(ImageButton)findViewById(R.id.profileImg01);
         profileImg02 =(ImageButton)findViewById(R.id.profileImg02);
-        profileImg03 =(ImageButton)findViewById(R.id.profileImg03);
+        profileImg01 =(ImageButton)findViewById(R.id.profileImg03);
         tv = (TextView) findViewById(R.id.textView2); //위도경도 표시
 
         Truck[0]=null;
@@ -86,7 +87,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         profileImg01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+imgFlag=1;
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -96,7 +97,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         profileImg02.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                imgFlag=2;
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -106,7 +107,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         profileImg03.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                imgFlag=3;
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -162,7 +163,15 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                 break;
             }
             if(Truck[i]==null){
-                Log.d("nnnn","nnnn");
+                if(i==0){
+                    imgFlag1=false;
+                }
+                if(i==1){
+                    imgFlag2=false;
+                }
+                if(i==2){
+                    imgFlag3=false;
+                }
                 count++;
                 continue;
             }
@@ -184,9 +193,18 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                                 data.put("경도",longitude+"");
                                 data.put("위도",latitude+"");
                                 data.put("고도",altitude+"");
-                                data.put("1",url[0]);
-                                data.put("2",url[1]);
-                                data.put("3",url[2]);
+                                if(imgFlag1){
+
+                                    data.put("1",url[0]);
+                                }
+                                if(imgFlag2){
+
+                                    data.put("2",url[1]);
+                                }
+                                if(imgFlag3){
+
+                                    data.put("3",url[2]);
+                                }
 
 
                                 HashMap<String,Object> child = new HashMap<String,Object>();
