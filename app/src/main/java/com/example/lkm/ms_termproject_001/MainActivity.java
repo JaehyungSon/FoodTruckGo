@@ -355,20 +355,23 @@ public class MainActivity extends AppCompatActivity {
         Bitmap img_1 = null;
         String name_1 = "LeeKangMin";
         String content_1 = "안녕하세여 ㅎㅎㅎㅎㅎ";
+        String distance_1 = "100m";
 
         Bitmap img_2 = null;
         String name_2 = "Son";
         String content_2 = "꺼져 ㅋ";
+        String distance_2 = "100m";
 
         Bitmap img_3 = null;
         String name_3 = "Jung";
         String content_3 = "하하하하하하하하ㅏ핳하하하하하하";
+        String distance_3 = "100m";
 
         // 사진 가능하면 "profile_null" 자리에 추가하면 됨.
 
-        mMyAdapter.addItem(ContextCompat.getDrawable(getApplicationContext(), R.drawable.profile_null),name_1, content_1);
-        mMyAdapter.addItem(ContextCompat.getDrawable(getApplicationContext(), R.drawable.profile_null),name_2, content_2);
-        mMyAdapter.addItem(ContextCompat.getDrawable(getApplicationContext(), R.drawable.profile_null),name_3, content_3);
+        mMyAdapter.addItem(img_1, name_1, content_1, distance_1);
+        mMyAdapter.addItem(img_2, name_2, content_2, distance_2);
+        mMyAdapter.addItem(img_3, name_3, content_3, distance_3);
 
         /* 리스트뷰에 어댑터 등록 */
         mListView.setAdapter(mMyAdapter);
