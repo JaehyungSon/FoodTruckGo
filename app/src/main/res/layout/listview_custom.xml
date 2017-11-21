@@ -27,26 +27,24 @@
                 android:text="name.."
                 android:textSize="20dp"/>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:padding="3dp">
                 <TextView
                     android:id="@+id/tv_contents"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:text="contents.."/>
                 <TextView
                     android:id="@+id/tv_distance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:text="100m"
                     android:gravity="right"/>
 
 
-            </LinearLayout>
+            </RelativeLayout>
 
 
         </LinearLayout>
