@@ -11,6 +11,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -36,6 +37,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 
 public class FoodtrcukRegistActivity extends AppCompatActivity {
@@ -49,6 +51,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
     String truckImg2;
     String truckImg3;
     int imgFlag=0;
+    Uri TruckImg1;
 
     //  ToggleButton tb;
 
@@ -139,11 +142,10 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
 
         FirebaseStorage fs = FirebaseStorage.getInstance();
         StorageReference storageRef = fs.getReference();
-        Uri file1 = Uri.fromFile(new File(truckImg1));
+
 
         StorageReference riversRef = storageRef.child("images/0.jpg");
-
-        riversRef.putFile(file1)
+        riversRef.putFile(TruckImg1)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -228,6 +230,8 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         cursor.moveToFirst();
         String imgPath = cursor.getString(column_index);
         String imgName = imgPath.substring(imgPath.lastIndexOf("/")+1);
+        Log.e("uri data", data+"");
+//        Log.e("")
         Toast.makeText(getBaseContext(), "imgPath : "+imgPath +" //  imgName: "+imgName , Toast.LENGTH_SHORT).show();
         return imgPath;
     }
@@ -245,7 +249,8 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                     ImageButton image;
                     //Uri에서 이미지 이름을 얻어온다.
                     if(imgFlag==1){
-                        truckImg1=getImageNameToUri(data.getData());
+                        TruckImg1 = data.getData();
+//                        truckImg1=getImageNameToUri(data.getData());
                         image = (ImageButton)findViewById(R.id.profileImg01);
                     }else if(imgFlag==2){
                         truckImg2=getImageNameToUri(data.getData());
