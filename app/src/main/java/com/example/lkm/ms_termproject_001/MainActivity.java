@@ -295,16 +295,16 @@ public class MainActivity extends AppCompatActivity {
         MyAdapter mMyAdapter = new MyAdapter();
 
         Bitmap img_1 = null;
-        String name_1 = "";
-        String content_1 = "";
+        String name_1 = "LeeKangMin";
+        String content_1 = "안녕하세여 ㅎㅎㅎㅎㅎ";
 
         Bitmap img_2 = null;
-        String name_2 = "";
-        String content_2 = "";
+        String name_2 = "Son";
+        String content_2 = "꺼져 ㅋ";
 
         Bitmap img_3 = null;
-        String name_3 = "";
-        String content_3 = "";
+        String name_3 = "Jung";
+        String content_3 = "하하하하하하하하ㅏ핳하하하하하하";
 
         // 사진 가능하면 "profile_null" 자리에 추가하면 됨.
 
