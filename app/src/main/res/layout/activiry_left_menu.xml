@@ -171,7 +171,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
-                android:background="@drawable/leftmenu_menu_notification"/>
+                android:background="@drawable/leftmenu_menu_regi"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
@@ -186,7 +186,7 @@
         android:id="@+id/menu_04"
         android:layout_width="250dp"
         android:layout_height="65dp"
-        android:layout_marginBottom="-3dp"
+        android:layout_marginBottom="48dp"
         android:layout_alignParentBottom="true">
         <FrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -203,7 +203,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
-                android:background="@drawable/leftmenu_menu_notification"/>
+                android:background="@drawable/leftmenu_menu_plus"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
