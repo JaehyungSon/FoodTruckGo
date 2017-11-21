@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -33,10 +34,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.kakao.network.ErrorResult;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.MeResponseCallback;
+import com.kakao.usermgmt.response.model.UserProfile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
@@ -56,6 +63,8 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
     double longitude=0;  //경도
     double latitude=0;   //위도
     double altitude=0;   //고도
+    String uuid="0";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +79,14 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         profileImg03 =(ImageButton)findViewById(R.id.profileImg03);
         tv = (TextView) findViewById(R.id.textView2); //위도경도 표시
 
+        Truck[0]=null;
+        Truck[1]=null;
+        Truck[2]=null;
+
         profileImg01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imgFlag=1;
+
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -83,7 +96,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         profileImg02.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imgFlag=2;
+
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -93,14 +106,14 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         profileImg03.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imgFlag=3;
+
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
             }
         });
-
+        requestMe();
 
         //사용자에게 권한 물어봄
         ActivityCompat.requestPermissions(FoodtrcukRegistActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
@@ -141,8 +154,19 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         FirebaseStorage fs = FirebaseStorage.getInstance();
         StorageReference storageRef = fs.getReference();
         url = new String[3];
-        for(int i = 0 ; i <= 2; i ++){
-            StorageReference riversRef = storageRef.child("images/"+i+".jpg");
+        for(int i = 2 ; i >= 0; i --){
+            StorageReference riversRef = storageRef.child("images/"+uuid+"/"+i+".jpg");
+            Log.d("nn22nn","nnnn");
+            if(Truck[0]==null){
+                Toast.makeText(getApplicationContext(),"첫번째 사진은 필수로 등록 하셔야 합니다.",Toast.LENGTH_LONG).show();
+                break;
+            }
+            if(Truck[i]==null){
+                Log.d("nnnn","nnnn");
+                count++;
+                continue;
+            }
+
             riversRef.putFile(Truck[i])
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -150,7 +174,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                             Uri downloadUrl = taskSnapshot.getDownloadUrl();
                             url[count++] = downloadUrl.toString();
                             if(count==3){
-                                String key = "AAA";
+                                String key = uuid;
 
                                 HashMap<String,String> data = new HashMap<String,String>();
                                 data.put("name",foodTruckName.getText().toString());
@@ -264,5 +288,30 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+    public void requestMe() {
+        //유저의 정보를 받아오는 함수
+        UserManagement.requestMe(new MeResponseCallback() {
+            @Override
+            public void onFailure(ErrorResult errorResult) {
+            }
+
+            @Override
+            public void onSessionClosed(ErrorResult errorResult) {
+            }
+
+            @Override
+            public void onNotSignedUp() {
+                //카카오톡 회원이 아닐시
+                //    Log.d(TAG, "onNotSignedUp ");
+            }
+
+            @Override
+            public void onSuccess(UserProfile result) {
+                uuid = result.getUUID();
+
+
+            }
+        });
     }
 }
