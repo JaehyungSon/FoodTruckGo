@@ -61,7 +61,7 @@ public class BookmarkActivity extends AppCompatActivity {
                 // -- 왼쪽 메뉴바 버튼 클릭 시 이벤트 start -- //
                 ImageButton bookmark = (ImageButton)findViewById(R.id.bookmark_btn); // 즐겨찾기
                 ImageButton point_btn = (ImageButton)findViewById(R.id.point_btn); // 적립내역
-                //알림
+                ImageButton alert_btn = (ImageButton)findViewById(R.id.alert_btn); // 알림
                 ImageButton map_btn = (ImageButton)findViewById(R.id.map_btn); // 구글 맵
 
                 ImageButton adjust_btn = (ImageButton)findViewById(R.id.adjust_btn); // 등록 수정
@@ -79,6 +79,14 @@ public class BookmarkActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         startActivity(new Intent(BookmarkActivity.this, PointActivity.class));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        finish();
+                    }
+                });
+                alert_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(BookmarkActivity.this, AlertActivity.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         finish();
                     }

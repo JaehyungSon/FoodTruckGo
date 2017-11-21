@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
                 ImageButton bookmark = (ImageButton)findViewById(R.id.bookmark_btn); // 즐겨찾기
                 ImageButton point_btn = (ImageButton)findViewById(R.id.point_btn); // 적립내역
-                //알림
+                ImageButton alert_btn = (ImageButton)findViewById(R.id.alert_btn); // 알림
                 ImageButton map_btn = (ImageButton)findViewById(R.id.map_btn); // 구글 맵
 
                 ImageButton adjust_btn = (ImageButton)findViewById(R.id.adjust_btn); // 등록 수정
@@ -170,8 +170,14 @@ public class MainActivity extends AppCompatActivity {
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
                 });
-
-
+                alert_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(MainActivity.this, AlertActivity.class));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        finish();
+                    }
+                });
                 map_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
