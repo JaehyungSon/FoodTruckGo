@@ -159,6 +159,8 @@ public class MainActivity extends AppCompatActivity {
                 bookmark.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        finish();
+                        startActivity(new Intent(MainActivity.this, MainActivity.class));
                         startActivity(new Intent(MainActivity.this, BookmarkActivity.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
@@ -166,6 +168,8 @@ public class MainActivity extends AppCompatActivity {
                 point_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        finish();
+                        startActivity(new Intent(MainActivity.this, MainActivity.class));
                         startActivity(new Intent(MainActivity.this, PointActivity.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
@@ -173,14 +177,17 @@ public class MainActivity extends AppCompatActivity {
                 alert_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        finish();
+                        startActivity(new Intent(MainActivity.this, MainActivity.class));
                         startActivity(new Intent(MainActivity.this, AlertActivity.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        finish();
                     }
                 });
                 map_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        finish();
+                        startActivity(new Intent(MainActivity.this, MainActivity.class));
                         startActivity(new Intent(MainActivity.this, GoogleMapActivity.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
@@ -190,6 +197,8 @@ public class MainActivity extends AppCompatActivity {
                 adjust_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        finish();
+                        startActivity(new Intent(MainActivity.this, MainActivity.class));
                         startActivity(new Intent(MainActivity.this, FoodtrcukRegistActivity.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }

@@ -38,7 +38,6 @@ public class BookmarkActivity extends AppCompatActivity {
         mSlidingMenu = new SimpleSideDrawer(this);
         mSlidingMenu.setLeftBehindContentView(R.layout.activiry_left_menu);
 
-
         requestMe();  //카카오 정보 load
     }
 
