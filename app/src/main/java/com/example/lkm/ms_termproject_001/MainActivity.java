@@ -96,8 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void testClick(View v){
         startActivity(new Intent(MainActivity.this, TestActivity.class));
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        finish();
+
     }
 
     // ------- 이미지 슬라이드 관련 코드 start ------- //
@@ -164,9 +163,13 @@ public class MainActivity extends AppCompatActivity {
         ImageView imageview = (ImageView)findViewById(R.id.profile_img);
 
         int point = 10100;
+        if(profilePhotoURL.equals("")){
+            imageview.setImageResource(R.drawable.profile_test_01); // 바꾸는 코드
+        }else{
 
-//        imageview.setImageResource(R.drawable.profile_test_01); // 바꾸는 코드
             imageview.setImageBitmap(bitmap);
+        }
+
         TextView txt_name = (TextView)findViewById(R.id.profile_name);
         txt_name.setText(name);
         txt_name.setTextColor(Color.BLACK);
@@ -233,6 +236,8 @@ public class MainActivity extends AppCompatActivity {
 
                     mThread.join();
 
+
+//                    profile_img.setImageBitmap(bitmap);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
