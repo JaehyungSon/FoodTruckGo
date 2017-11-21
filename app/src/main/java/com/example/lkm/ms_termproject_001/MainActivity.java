@@ -194,26 +194,22 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    //----------카카오 유저정보 가져오기 -----------------
+    // ------- 카카오 유저정보 가져오기 start ------- //
     public void requestMe() {
         //유저의 정보를 받아오는 함수
-
         UserManagement.requestMe(new MeResponseCallback() {
             @Override
             public void onFailure(ErrorResult errorResult) {
-
             }
 
             @Override
             public void onSessionClosed(ErrorResult errorResult) {
-
             }
 
             @Override
             public void onNotSignedUp() {
                 //카카오톡 회원이 아닐시
                 //    Log.d(TAG, "onNotSignedUp ");
-
             }
 
             @Override
@@ -228,8 +224,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run(){
                         try{
-
-
                             URL url = new URL(profilePhotoURL);
                             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
                             conn.connect();
@@ -237,24 +231,20 @@ public class MainActivity extends AppCompatActivity {
                             bitmap = BitmapFactory.decodeStream(is);
 
                         }catch (IOException ex){
-
                         }
                     }
                 };
                 mThread.start();
                 try{
-
                     mThread.join();
-
-
-//                    profile_img.setImageBitmap(bitmap);
+                    //profile_img.setImageBitmap(bitmap);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
             }
         });
     }
+    // ------- 카카오 유저정보 가져오기 end ------- //
 
     // ------- 리스트 뷰 start ------- //
     private void dataSetting(){
