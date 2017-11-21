@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -39,7 +38,6 @@ import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
-import com.navdrawer.SimpleSideDrawer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -68,21 +66,11 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
     double altitude=0;   //고도
     String uuid="0";
 
-    String name = "ERROR";    //카카오와 연동하기위해
-    String mail = "ERROR";    //가장 위로 올림
-    String profilePhotoURL = "";
-    Bitmap bitmap;
-    private SimpleSideDrawer mSlidingMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foodtrcuk_regist);
-
-        mSlidingMenu = new SimpleSideDrawer(this);
-        mSlidingMenu.setLeftBehindContentView(R.layout.activiry_left_menu);
-
-        requestMe();  //카카오 정보 load
 
         foodTruckName = (EditText)findViewById(R.id.FoodtruckName);
         FoodtruckSimpleExplain = (EditText)findViewById(R.id.FoodtruckSimpleExplain);
@@ -99,7 +87,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         profileImg01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-imgFlag=1;
+                imgFlag=1;
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -169,7 +157,6 @@ imgFlag=1;
         url = new String[3];
         for(int i = 2 ; i >= 0; i --){
             StorageReference riversRef = storageRef.child("images/"+uuid+"/"+i+".jpg");
-            Log.d("nn22nn","nnnn");
             if(Truck[0]==null){
                 Toast.makeText(getApplicationContext(),"첫번째 사진은 필수로 등록 하셔야 합니다.",Toast.LENGTH_LONG).show();
                 break;
@@ -221,7 +208,6 @@ imgFlag=1;
 
                                 HashMap<String,Object> child = new HashMap<String,Object>();
                                 child.put(key,data);
-
 
                                 Ref.updateChildren(child);
 
@@ -288,7 +274,7 @@ imgFlag=1;
                     if(imgFlag==1){
                         Truck[0] = data.getData();
                         TruckImg1 = data.getData();
-                        image = (ImageButton)findViewById(R.id.profileImg01);
+                        image = (ImageButton)findViewById(R.id.profileImg03);
                     }else if(imgFlag==2){
                         Truck[1] = data.getData();
                         TruckImg2=data.getData();
@@ -296,7 +282,7 @@ imgFlag=1;
                     }else{
                         Truck[2] = data.getData();
                         TruckImg3=data.getData();
-                        image = (ImageButton)findViewById(R.id.profileImg03);
+                        image = (ImageButton)findViewById(R.id.profileImg01);
                     }
                     image.setImageBitmap(image_bitmap);
                     //String name_Str = getImageNameToUri(data.getData());
@@ -319,164 +305,33 @@ imgFlag=1;
             }
         }
     }
-
-
-    // ------- 왼쪽 메뉴바 관련 코드 start ------- //
-    public void topMenuClick(View v){
-        switch( v.getId() ){
-
-
-            case R.id.main_top_menu_left_btn:
-                mSlidingMenu.toggleLeftDrawer();
-
-                boolean setUserProfile = setUserProfile();
-
-                if(setUserProfile){
-
-                }else{
-                    Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
-                }
-
-                // -- 왼쪽 메뉴바 버튼 클릭 시 이벤트 start -- //
-                ImageButton bookmark = (ImageButton)findViewById(R.id.bookmark_btn); // 즐겨찾기
-                ImageButton point_btn = (ImageButton)findViewById(R.id.point_btn); // 적립내역
-                ImageButton alert_btn = (ImageButton)findViewById(R.id.alert_btn); // 알림
-                ImageButton map_btn = (ImageButton)findViewById(R.id.map_btn); // 구글 맵
-
-                ImageButton adjust_btn = (ImageButton)findViewById(R.id.adjust_btn); // 등록 수정
-                // 로그아웃
-
-                bookmark.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startActivity(new Intent(FoodtrcukRegistActivity.this, BookmarkActivity.class));
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        finish();
-                    }
-                });
-                point_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startActivity(new Intent(FoodtrcukRegistActivity.this, PointActivity.class));
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        finish();
-                    }
-                });
-                alert_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startActivity(new Intent(FoodtrcukRegistActivity.this, AlertActivity.class));
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        finish();
-                    }
-                });
-                map_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startActivity(new Intent(FoodtrcukRegistActivity.this, GoogleMapActivity.class));
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        finish();
-                    }
-                });
-
-
-                adjust_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startActivity(new Intent(FoodtrcukRegistActivity.this, FoodtrcukRegistActivity.class));
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        finish();
-                    }
-                });
-
-                // -- 왼쪽 메뉴바 버튼 클릭 시 이벤트 end -- //
-
-                break;
-        }
-    }
-    // ------- 왼쪽 메뉴바 관련 코드 end ------- //
-
-    // ------- 유저 프로필 설정 UI start ------- //
-    public boolean setUserProfile(){
-
-        // -- DB로부터 데이터 입력받음 -- //
-        ImageView imageview = (ImageView)findViewById(R.id.profile_img);
-
-        int point = 10100;
-        if(profilePhotoURL.equals("")){
-            imageview.setImageResource(R.drawable.profile_test_01); // 바꾸는 코드
-        }else{
-
-            imageview.setImageBitmap(bitmap);
-        }
-
-        TextView txt_name = (TextView)findViewById(R.id.profile_name);
-        txt_name.setText(name);
-        txt_name.setTextColor(Color.BLACK);
-
-        TextView txt_mail = (TextView)findViewById(R.id.profile_mail);
-        txt_mail.setText(mail);
-        txt_mail.setTextColor(Color.BLACK);
-
-        TextView txt_point = (TextView)findViewById(R.id.profile_point);
-        txt_point.setText("포인트 : "+point+" P"); // 1000원 이상시 쉼표 추가 하는 함수 만들 것.  ex) 10000  ->  10,000
-        txt_point.setTextColor(Color.BLACK);
-
-
-        return true;
-    }
-    // ------- 유저 프로필 설정 UI end ------- //
-
-
-    // ------- 카카오 유저정보 가져오기 start ------- //
     public void requestMe() {
         //유저의 정보를 받아오는 함수
         UserManagement.requestMe(new MeResponseCallback() {
+
             @Override
             public void onFailure(ErrorResult errorResult) {
+                Toast.makeText(getApplicationContext(),"실패",Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onSessionClosed(ErrorResult errorResult) {
+                Toast.makeText(getApplicationContext(),"실패",Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onNotSignedUp() {
                 //카카오톡 회원이 아닐시
                 //    Log.d(TAG, "onNotSignedUp ");
+                Toast.makeText(getApplicationContext(),"실패",Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onSuccess(UserProfile result) {
-                GlobalApplication global = (GlobalApplication)getApplicationContext();
-                global.uuid = result.getUUID();
 
-                name = result.getNickname();
-                profilePhotoURL = result.getProfileImagePath();
+                uuid = result.getId()+"";
 
-                Thread mThread = new Thread(){
-                    @Override
-                    public void run(){
-                        try{
-                            URL url = new URL(profilePhotoURL);
-                            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-                            conn.connect();
-                            InputStream is = conn.getInputStream();
-                            bitmap = BitmapFactory.decodeStream(is);
-
-                        }catch (IOException ex){
-                        }
-                    }
-                };
-                mThread.start();
-                try{
-                    mThread.join();
-                    //profile_img.setImageBitmap(bitmap);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
         });
     }
-    // ------- 카카오 유저정보 가져오기 end ------- //
 }
