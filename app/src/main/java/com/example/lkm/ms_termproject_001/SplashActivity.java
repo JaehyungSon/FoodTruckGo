@@ -15,6 +15,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
@@ -32,6 +34,9 @@ public class SplashActivity extends AppCompatActivity {
 
         setContentView(new SplashView(this));
 
+        FirebaseDatabase instance = FirebaseDatabase.getInstance();
+        DatabaseReference x = instance.getReference();
+        x.setValue("sadfasfasd");
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
