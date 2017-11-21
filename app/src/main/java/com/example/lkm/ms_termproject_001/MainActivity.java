@@ -42,6 +42,10 @@ import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.navdrawer.SimpleSideDrawer;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -116,8 +120,14 @@ public class MainActivity extends AppCompatActivity {
 
         requestMe();  //카카오 정보 load
 
-
-
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+                .threadPriority(Thread.NORM_PRIORITY-2)
+                .denyCacheImageMultipleSizesInMemory()
+                .discCacheFileNameGenerator(new Md5FileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                .writeDebugLogs()
+                .build();
+        ImageLoader.getInstance().init(config);
 
 
     }
@@ -341,36 +351,11 @@ public class MainActivity extends AppCompatActivity {
                         }
                         if(childchild.getKey().equals("1")){
                             final String photo = childchild.getValue().toString();
-                            Thread mThread2 = new Thread(){
-                                @Override
-                                public void run(){
-                                    try{
-                                        URL url = new URL(photo);
-                                        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-                                        conn.connect();
-                                        InputStream is = conn.getInputStream();
-                                        tempBitmap[0] = BitmapFactory.decodeStream(is);
-
-                                    }catch (IOException ex){
-                                    }
-                                }
-                            };
-                            mThread2.start();
-                            try{
-                                mThread2.join();
-                                //profile_img.setImageBitmap(bitmap);
-
-                                mMyAdapter.addItem(tempBitmap[0],name_2,simpleExplain,"100m");
-                                mListView.setAdapter(mMyAdapter);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-
-
+                            mMyAdapter.addItem(photo,name_2,simpleExplain,"100m");
+                            mMyAdapter.notifyDataSetChanged();
                         }
 
                     }
-                    Log.e("AAAA",child+"");
 
                 }
             }
@@ -384,26 +369,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Bitmap img_1 = null;
-        String name_1 = "LeeKangMin";
-        String content_1 = "안녕하세여 ㅎㅎㅎㅎㅎ";
-        String distance_1 = "100m";
 
-        Bitmap img_2 = null;
-        String name_2 = "Son";
-        String content_2 = "꺼져 ㅋ";
-        String distance_2 = "100m";
-
-        Bitmap img_3 = null;
-        String name_3 = "Jung";
-        String content_3 = "하하하하하하하하ㅏ핳하하하하하하";
-        String distance_3 = "100m";
-
-        // 사진 가능하면 "profile_null" 자리에 추가하면 됨.
-
-      //  mMyAdapter.addItem(img_1, name_1, content_1, distance_1);
-     //   mMyAdapter.addItem(img_2, name_2, content_2, distance_2);
-    ////    mMyAdapter.addItem(img_3, name_3, content_3, distance_3);
 
         /* 리스트뷰에 어댑터 등록 */
         mListView.setAdapter(mMyAdapter);

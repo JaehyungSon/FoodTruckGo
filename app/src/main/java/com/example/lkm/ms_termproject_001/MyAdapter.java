@@ -10,6 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import java.util.ArrayList;
 
 public class MyAdapter extends BaseAdapter {
@@ -53,7 +56,16 @@ public class MyAdapter extends BaseAdapter {
         MyItem myItem = getItem(position);
 
         /* 각 위젯에 세팅된 아이템을 뿌려준다 */
-        iv_img.setImageBitmap(myItem.getIcon());
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.kakao_default_profile_image)
+                .showImageForEmptyUri(R.drawable.kakao_default_profile_image)
+                .showImageOnFail(R.drawable.kakao_default_profile_image)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .considerExifParams(true)
+                .build();
+        ImageLoader.getInstance().displayImage(myItem.getIcon(), iv_img, options);
+
         tv_name.setText(myItem.getName());
         tv_contents.setText(myItem.getContents());
         tv_distance.setText(myItem.getdistance());
@@ -64,7 +76,7 @@ public class MyAdapter extends BaseAdapter {
     }
 
     /* 아이템 데이터 추가를 위한 함수. 자신이 원하는대로 작성 */
-    public void addItem(Bitmap img, String name, String contents, String distance) {
+    public void addItem(String img, String name, String contents, String distance) {
 
         MyItem mItem = new MyItem();
 
