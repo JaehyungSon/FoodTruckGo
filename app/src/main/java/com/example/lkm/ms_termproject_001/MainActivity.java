@@ -93,12 +93,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    public void testClick(View v){
-        startActivity(new Intent(MainActivity.this, TestActivity.class));
-
-    }
-
     // ------- 이미지 슬라이드 관련 코드 start ------- //
     public void mOnClick(View v){
         switch( v.getId() ){
@@ -111,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-    //안녕하세요 ㅎㅎ 친해져요  -현아
+
     // ------- 이미지 슬라이드 관련 코드 end ------- //
 
     public void topMenuClick(View v){
