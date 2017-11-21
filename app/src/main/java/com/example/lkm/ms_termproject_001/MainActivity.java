@@ -145,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
                 ImageButton test = (ImageButton)findViewById(R.id.menu_04_btn);
                 ImageButton test2 = (ImageButton)findViewById(R.id.menu_test_btn);
+                ImageButton test_map = (ImageButton)findViewById(R.id.menu_test2_btn);
                 test.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -161,6 +162,14 @@ public class MainActivity extends AppCompatActivity {
                         intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
                         intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+                    }
+                });
+                test_map.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(MainActivity.this, GoogleMapActivity.class));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        finish();
                     }
                 });
 

@@ -33,7 +33,8 @@
         <activity android:name=".FoodtrcukRegistActivity" />
         <activity android:name=".DetailFoodtruckActivity" />
         <activity android:name=".ReviewActivity" />
-        <activity android:name=".WriteReviewActivity"></activity>
+        <activity android:name=".WriteReviewActivity" />
+        <activity android:name=".GoogleMapActivity"></activity>
     </application>
 
 </manifest>
