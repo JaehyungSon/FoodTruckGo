@@ -53,7 +53,7 @@ public class MyAdapter extends BaseAdapter {
         MyItem myItem = getItem(position);
 
         /* 각 위젯에 세팅된 아이템을 뿌려준다 */
-        iv_img.setImageDrawable(myItem.getIcon());
+        iv_img.setImageBitmap(myItem.getIcon());
         tv_name.setText(myItem.getName());
         tv_contents.setText(myItem.getContents());
         tv_distance.setText(myItem.getdistance());
