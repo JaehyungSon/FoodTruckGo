@@ -294,12 +294,31 @@ public class MainActivity extends AppCompatActivity {
     private void dataSetting(){
         MyAdapter mMyAdapter = new MyAdapter();
 
-        for (int i=0; i<10; i++) {
-            mMyAdapter.addItem(ContextCompat.getDrawable(getApplicationContext(), R.drawable.profile_null), "name_" + i, "contents_" + i);
-        }
+        Bitmap img_1 = null;
+        String name_1 = "";
+        String content_1 = "";
+
+        Bitmap img_2 = null;
+        String name_2 = "";
+        String content_2 = "";
+
+        Bitmap img_3 = null;
+        String name_3 = "";
+        String content_3 = "";
+
+        // 사진 가능하면 "profile_null" 자리에 추가하면 됨.
+
+        mMyAdapter.addItem(ContextCompat.getDrawable(getApplicationContext(), R.drawable.profile_null),name_1, content_1);
+        mMyAdapter.addItem(ContextCompat.getDrawable(getApplicationContext(), R.drawable.profile_null),name_2, content_2);
+        mMyAdapter.addItem(ContextCompat.getDrawable(getApplicationContext(), R.drawable.profile_null),name_3, content_3);
+
         /* 리스트뷰에 어댑터 등록 */
         mListView.setAdapter(mMyAdapter);
+
     }
+
+
+
     // ------- 리스트 뷰 end ------- //
 
     // ------- 갤러리 - 이미지 start ------- //
