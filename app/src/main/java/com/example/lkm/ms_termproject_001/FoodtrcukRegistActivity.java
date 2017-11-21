@@ -2,29 +2,42 @@ package com.example.lkm.ms_termproject_001;
 
 import android.*;
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class FoodtrcukRegistActivity extends AppCompatActivity {
     EditText foodTruckName,FoodtruckSimpleExplain,FoodtruckExplain;
     FirebaseDatabase fd;    //데이터베이스
     DatabaseReference Ref;
+    ImageButton profileImg01,profileImg02,profileImg03;
     TextView tv;
+    final int REQ_CODE_SELECT_IMAGE=100;
   //  ToggleButton tb;
 
     double longitude=0;  //경도
@@ -39,12 +52,28 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         foodTruckName = (EditText)findViewById(R.id.FoodtruckName);
         FoodtruckSimpleExplain = (EditText)findViewById(R.id.FoodtruckSimpleExplain);
         FoodtruckExplain= (EditText)findViewById(R.id.FoodtruckExplain);
+        profileImg01 =(ImageButton)findViewById(R.id.profileImg01);
+        profileImg02 =(ImageButton)findViewById(R.id.profileImg02);
+        profileImg03 =(ImageButton)findViewById(R.id.profileImg03);
+        tv = (TextView) findViewById(R.id.textView2); //위도경도 표시
 
+        profileImg01.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+                intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+            }
+        });
+
+
+        //사용자에게 권한 물어봄
         ActivityCompat.requestPermissions(FoodtrcukRegistActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
 
 
 
-        tv = (TextView) findViewById(R.id.textView2);
+
 
         final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -59,11 +88,12 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                     100, // 통지사이의 최소 시간간격 (miliSecond)
                     1, // 통지사이의 최소 변경거리 (m)
                     mLocationListener);
-
     //                lm.removeUpdates(mLocationListener);  //  미수신할때는 반드시 자원해체를 해주어야 한다.
 
         }catch(SecurityException ex){
         }
+
+
 
 
     }
@@ -75,8 +105,6 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         GlobalApplication global = (GlobalApplication)getApplicationContext();
 
         String key = "AAA";
-
-
 
         HashMap<String,String> data = new HashMap<String,String>();
         data.put("name",foodTruckName.getText().toString());
@@ -113,6 +141,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
             String provider = location.getProvider();   //위치제공자
 
 
+
             //Gps 위치제공자에 의한 위치변화. 오차범위가 좁다.
             //Network 위치제공자에 의한 위치변화
             //Network 위치는 Gps에 비해 정확도가 많이 떨어진다.
@@ -133,5 +162,46 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
             Log.d("test", "onStatusChanged, provider:" + provider + ", status:" + status + " ,Bundle:" + extras);
         }
     };
+    public String getImageNameToUri(Uri data)
+    {
+        String[] proj = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(data, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String imgPath = cursor.getString(column_index);
+        String imgName = imgPath.substring(imgPath.lastIndexOf("/")+1);
+        Toast.makeText(getBaseContext(), "imgPath : "+imgPath +" //  imgName: "+imgName , Toast.LENGTH_SHORT).show();
+        return imgName;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Toast.makeText(getBaseContext(), "resultCode : "+resultCode,Toast.LENGTH_SHORT).show();
+        if(requestCode == REQ_CODE_SELECT_IMAGE)
+        {
+            if(resultCode== Activity.RESULT_OK)
+            {
+                try {
+                    //Uri에서 이미지 이름을 얻어온다.
+                    String name_Str = getImageNameToUri(data.getData());
+                    //이미지 데이터를 비트맵으로 받아온다.
+                    Bitmap image_bitmap 	= MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                    ImageView image = (ImageView)findViewById(R.id.profile_img);
+                    //배치해놓은 ImageView에 set
+                    image.setImageBitmap(image_bitmap);
+                    //Toast.makeText(getBaseContext(), "name_Str : "+name_Str , Toast.LENGTH_SHORT).show();
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
 

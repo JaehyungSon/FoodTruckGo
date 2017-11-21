@@ -62,20 +62,20 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <ImageButton
-                    android:layout_width="40dp"
+                    android:layout_width="60dp"
                     android:id="@+id/profileImg01"
-                    android:layout_height="40dp"
-                    android:src="@drawable/profile_test_01"/>
+                    android:layout_height="60dp"
+                    android:src="@drawable/photo_plus"/>
                 <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:id="@+id/profileImg02"
-                    android:src="@drawable/profile_test_01"/>
+                    android:src="@drawable/photo_plus"/>
                 <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:id="@+id/profileImg03"
-                    android:src="@drawable/profile_test_01"/>
+                    android:src="@drawable/photo_plus"/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
