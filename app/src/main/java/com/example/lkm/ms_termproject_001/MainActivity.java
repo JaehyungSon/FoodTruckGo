@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -312,29 +313,60 @@ public class MainActivity extends AppCompatActivity {
     // ------- 카카오 유저정보 가져오기 end ------- //
 
     // ------- 리스트 뷰 start ------- //
+    MyAdapter mMyAdapter = new MyAdapter();
+    String name_2="";
+    String simpleExplain="";
     private void dataSetting(){
         FirebaseDatabase fd = FirebaseDatabase.getInstance();
         DatabaseReference myRef = fd.getReference().child("FoodTrucks");
+
+
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                // Log.d("asdfasdf", "Value is: " + dataSnapshot);
-                String name;
-                String simpleExplain;
-                String photo;
+
+                final Bitmap[] tempBitmap = new Bitmap[1];
+                //String photo="";
                 for(DataSnapshot child : dataSnapshot.getChildren()){
                     Log.e("key",child.getKey());
                     for(DataSnapshot childchild : child.getChildren()){
                         if(childchild.getKey().equals("name")){
                       //      Log.e("we do",childchild.getValue().toString());
-                            name = childchild.getValue().toString();
+                            name_2 = childchild.getValue().toString();
 
                         }
-                        if(childchild.getKey().equals("name")){
+                        if(childchild.getKey().equals("simpleExplain")){
                             simpleExplain = childchild.getValue().toString();
                         }
                         if(childchild.getKey().equals("1")){
-                            photo = childchild.getValue().toString();
+                            final String photo = childchild.getValue().toString();
+                            Thread mThread2 = new Thread(){
+                                @Override
+                                public void run(){
+                                    try{
+                                        URL url = new URL(photo);
+                                        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+                                        conn.connect();
+                                        InputStream is = conn.getInputStream();
+                                        tempBitmap[0] = BitmapFactory.decodeStream(is);
+
+                                    }catch (IOException ex){
+                                    }
+                                }
+                            };
+                            mThread2.start();
+                            try{
+                                mThread2.join();
+                                //profile_img.setImageBitmap(bitmap);
+
+                                mMyAdapter.addItem(tempBitmap[0],name_2,simpleExplain,"100m");
+                                mListView.setAdapter(mMyAdapter);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+
                         }
 
                     }
@@ -350,7 +382,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        MyAdapter mMyAdapter = new MyAdapter();
+
 
         Bitmap img_1 = null;
         String name_1 = "LeeKangMin";
@@ -369,9 +401,9 @@ public class MainActivity extends AppCompatActivity {
 
         // 사진 가능하면 "profile_null" 자리에 추가하면 됨.
 
-        mMyAdapter.addItem(img_1, name_1, content_1, distance_1);
-        mMyAdapter.addItem(img_2, name_2, content_2, distance_2);
-        mMyAdapter.addItem(img_3, name_3, content_3, distance_3);
+      //  mMyAdapter.addItem(img_1, name_1, content_1, distance_1);
+     //   mMyAdapter.addItem(img_2, name_2, content_2, distance_2);
+    ////    mMyAdapter.addItem(img_3, name_3, content_3, distance_3);
 
         /* 리스트뷰에 어댑터 등록 */
         mListView.setAdapter(mMyAdapter);
