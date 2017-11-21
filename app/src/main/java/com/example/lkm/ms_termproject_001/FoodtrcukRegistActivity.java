@@ -47,11 +47,8 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
     ImageButton profileImg01,profileImg02,profileImg03;
     TextView tv;
     final int REQ_CODE_SELECT_IMAGE=100;
-    String truckImg1;
-    String truckImg2;
-    String truckImg3;
     int imgFlag=0;
-    Uri TruckImg1;
+    Uri TruckImg1,TruckImg2,TruckImg3;
 
     //  ToggleButton tb;
 
@@ -222,19 +219,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
             Log.d("test", "onStatusChanged, provider:" + provider + ", status:" + status + " ,Bundle:" + extras);
         }
     };
-    public String getImageNameToUri(Uri data)
-    {
-        String[] proj = { MediaStore.Images.Media.DATA };
-        Cursor cursor = managedQuery(data, proj, null, null, null);
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        String imgPath = cursor.getString(column_index);
-        String imgName = imgPath.substring(imgPath.lastIndexOf("/")+1);
-        Log.e("uri data", data+"");
-//        Log.e("")
-        Toast.makeText(getBaseContext(), "imgPath : "+imgPath +" //  imgName: "+imgName , Toast.LENGTH_SHORT).show();
-        return imgPath;
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -250,13 +235,12 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                     //Uri에서 이미지 이름을 얻어온다.
                     if(imgFlag==1){
                         TruckImg1 = data.getData();
-//                        truckImg1=getImageNameToUri(data.getData());
                         image = (ImageButton)findViewById(R.id.profileImg01);
                     }else if(imgFlag==2){
-                        truckImg2=getImageNameToUri(data.getData());
+                        TruckImg2=data.getData();
                          image = (ImageButton)findViewById(R.id.profileImg02);
                     }else{
-                        truckImg3=getImageNameToUri(data.getData());
+                        TruckImg3=data.getData();
                          image = (ImageButton)findViewById(R.id.profileImg03);
                     }
                     image.setImageBitmap(image_bitmap);
