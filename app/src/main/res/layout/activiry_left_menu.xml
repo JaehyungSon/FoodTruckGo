@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +10,8 @@
         android:layout_width="250dp"
         android:layout_height="80dp"
         android:orientation="horizontal"
-        android:background="@drawable/leftmenu_profile_bg">
+        android:background="@drawable/leftmenu_profile_bg"
+        android:layout_marginBottom="-3dp">
 
         <ImageView
             android:id="@+id/profile_img"
@@ -51,14 +52,18 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/menu_01"
         android:layout_width="250dp"
-        android:layout_height="75dp">
+        android:layout_height="65dp"
+        android:layout_marginBottom="-3dp"
+        android:layout_below="@+id/profile_layout">
         <FrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -80,8 +85,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/menu_02"
         android:layout_width="250dp"
-        android:layout_height="75dp">
+        android:layout_height="65dp"
+        android:layout_marginBottom="-3dp"
+        android:layout_below="@+id/menu_01">
         <FrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -109,8 +117,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/menu_03"
         android:layout_width="250dp"
-        android:layout_height="75dp">
+        android:layout_height="65dp"
+        android:layout_marginBottom="-3dp"
+        android:layout_below="@+id/menu_02">
         <FrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -137,16 +148,72 @@
         </FrameLayout>
     </LinearLayout>
 
+
+
     <RelativeLayout
+        android:id="@+id/menu_05"
         android:layout_width="250dp"
-        android:layout_height="75dp"
-        android:layout_weight="1"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp">
-
-
+        android:layout_height="65dp"
+        android:layout_marginBottom="-3dp"
+        android:layout_above="@+id/menu_04">
+        <FrameLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/leftmenu_menu_bg"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/leftmenu_menu_notification"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="등록/수정"
+                android:textSize="18dp"
+                android:layout_marginTop="2dp"
+                android:layout_gravity="center"/>
+        </FrameLayout>
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/menu_04"
+        android:layout_width="250dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="-3dp"
+        android:layout_alignParentBottom="true">
+        <FrameLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/leftmenu_menu_bg"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/leftmenu_menu_notification"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="로그 아웃"
+                android:textSize="18dp"
+                android:layout_marginTop="2dp"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+    </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>
+
+
