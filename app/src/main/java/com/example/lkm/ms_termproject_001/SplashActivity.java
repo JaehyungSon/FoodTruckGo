@@ -43,7 +43,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 requestMe();
             }
-        }, 3000);
+        }, 3500);
     }
 
     class SplashView extends View {
