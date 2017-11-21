@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lkm.ms_termproject_001">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".GlobalApplication"
         android:allowBackup="true"
@@ -10,8 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.kakao.sdk.AppKey"
-            android:value="@string/kakao_app_key"/>
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key" />
+
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,8 +24,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".TestActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".TestActivity" />
+        <activity android:name=".BookmarkActivity" />
+        <activity android:name=".PointActivity" />
+        <activity android:name=".AlertActivity" />
+        <activity android:name=".SellerRegistActivity" />
+        <activity android:name=".FoodtrcukRegistActivity" />
+        <activity android:name=".DetailFoodtruckActivity" />
+        <activity android:name=".ReviewActivity" />
+        <activity android:name=".WriteReviewActivity"></activity>
     </application>
 
 </manifest>
