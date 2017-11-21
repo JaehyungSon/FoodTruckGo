@@ -89,27 +89,27 @@ public class MainActivity extends AppCompatActivity {
         requestMe();  //카카오 정보 load
 
 
-//        Thread mThread = new Thread(){
-//          @Override
-//            public void run(){
-//              try{
-//                  URL url = new URL(profilePhotoURL);
-//                  HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-//                  conn.connect();
-//                  InputStream is = conn.getInputStream();
-//                  bitmap = BitmapFactory.decodeStream(is);
-//              }catch (IOException ex){
-//
-//              }
-//          }
-//        };
-//        mThread.start();
-//        try{
-//            mThread.join();
-//         //   profile_img.setImageBitmap(bitmap);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        Thread mThread = new Thread(){
+          @Override
+            public void run(){
+              try{
+                  URL url = new URL(profilePhotoURL);
+                  HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+                  conn.connect();
+                  InputStream is = conn.getInputStream();
+                  bitmap = BitmapFactory.decodeStream(is);
+              }catch (IOException ex){
+
+              }
+          }
+        };
+        mThread.start();
+        try{
+            mThread.join();
+         //   profile_img.setImageBitmap(bitmap);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
     }
