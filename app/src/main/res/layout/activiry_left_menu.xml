@@ -19,7 +19,8 @@
             android:layout_height="75dp"
             android:layout_gravity="left"
             android:padding="10dp"
-            android:src="@drawable/profile_null" />
+            android:src="@drawable/profile_null"
+            android:background="@drawable/rounded_edges"/>
 
         <LinearLayout
             android:id="@+id/profile_context"

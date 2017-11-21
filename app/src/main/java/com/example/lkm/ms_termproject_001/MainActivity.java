@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        profile_img = (ImageView)findViewById(R.id.profile_img);
+
         // ------- 이미지 슬라이드 관련 코드 start ------- //
         mSlidingMenu = new SimpleSideDrawer(this);
         mSlidingMenu.setLeftBehindContentView(R.layout.activiry_left_menu);
