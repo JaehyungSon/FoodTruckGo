@@ -1,9 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.lkm.ms_termproject_001.FoodtrcukRegistActivity">
+    <LinearLayout
+        android:id="@+id/main_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="0dp">
 
-</android.support.constraint.ConstraintLayout>
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/top_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/main_top_bg"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:src="@drawable/main_top_bg"></ImageView>
+
+          >
+
+            <ImageButton
+                android:id="@+id/main_top_menu_left_btn"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:layout_gravity="left"
+                android:layout_margin="12dp"
+                android:background="@drawable/main_top_menu_left_btn"
+                ></ImageButton>
+        </FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="푸드트럭 이름"
+                android:id="@+id/FoodtruckName"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="푸드트럭에 대한 간단한 설명 (20자이내)"
+                android:id="@+id/FoodtruckSimpleExplain"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="푸드트럭에 대한 자세한 설명 (메뉴 포함)"
+                android:id="@+id/FoodtruckExplain"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Food Truck 사진 올리기 (최대 3장)"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:id="@+id/profileImg01"
+                    android:layout_height="40dp"
+                    android:src="@drawable/profile_test_01"/>
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/profileImg02"
+                    android:src="@drawable/profile_test_01"/>
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/profileImg03"
+                    android:src="@drawable/profile_test_01"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="본 어플을 ~~~~"/>
+            <Button
+                android:layout_width="240dp"
+                android:layout_height="60dp"
+                android:text="장사 개시"
+                android:background="#019AE8"
+                android:textColor="#FFFFFF"
+                android:onClick="SellStartClick"
+                android:id="@+id/SellingStartBtn"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/SellingEndBtn"
+                android:src="@drawable/sellingend"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
