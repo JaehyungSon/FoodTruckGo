@@ -12,6 +12,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,9 +25,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
@@ -130,6 +137,31 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
 
         GlobalApplication global = (GlobalApplication)getApplicationContext();
 
+        FirebaseStorage fs = FirebaseStorage.getInstance();
+        StorageReference storageRef = fs.getReference();
+        Uri file1 = Uri.fromFile(new File(truckImg1));
+
+        StorageReference riversRef = storageRef.child("images/0.jpg");
+
+        riversRef.putFile(file1)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        Log.e("URL",downloadUrl+"");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                        // ...
+                    }
+                });
+
+
+
+
         String key = "AAA";
 
         HashMap<String,String> data = new HashMap<String,String>();
@@ -197,7 +229,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         String imgPath = cursor.getString(column_index);
         String imgName = imgPath.substring(imgPath.lastIndexOf("/")+1);
         Toast.makeText(getBaseContext(), "imgPath : "+imgPath +" //  imgName: "+imgName , Toast.LENGTH_SHORT).show();
-        return imgName;
+        return imgPath;
     }
 
     @Override
@@ -223,7 +255,6 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                          image = (ImageButton)findViewById(R.id.profileImg03);
                     }
                     image.setImageBitmap(image_bitmap);
-                    Log.e("image",truckImg1);
                     //String name_Str = getImageNameToUri(data.getData());
                     //이미지 데이터를 비트맵으로 받아온다.
                  //   Bitmap image_bitmap 	= MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
