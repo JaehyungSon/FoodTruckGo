@@ -325,7 +325,8 @@ public class MainActivity extends AppCompatActivity {
     // ------- 리스트 뷰 start ------- //
     MyAdapter mMyAdapter = new MyAdapter();
     String name_2="";
-    String simpleExplain="";
+    String simpleExplain="기본글";
+    String photo="";
     private void dataSetting(){
         FirebaseDatabase fd = FirebaseDatabase.getInstance();
         DatabaseReference myRef = fd.getReference().child("FoodTrucks");
@@ -350,14 +351,16 @@ public class MainActivity extends AppCompatActivity {
                             simpleExplain = childchild.getValue().toString();
                         }
                         if(childchild.getKey().equals("1")){
-                            final String photo = childchild.getValue().toString();
-                            mMyAdapter.addItem(photo,name_2,simpleExplain,"100m");
-                            mMyAdapter.notifyDataSetChanged();
+                            photo = childchild.getValue().toString();
+
                         }
 
                     }
+                    mMyAdapter.addItem(photo,name_2,simpleExplain,"100m");
+                    mMyAdapter.notifyDataSetChanged();
 
                 }
+
             }
 
             @Override
@@ -368,11 +371,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
+        mListView.setAdapter(mMyAdapter);
 
 
         /* 리스트뷰에 어댑터 등록 */
-        mListView.setAdapter(mMyAdapter);
+
 
     }
 
