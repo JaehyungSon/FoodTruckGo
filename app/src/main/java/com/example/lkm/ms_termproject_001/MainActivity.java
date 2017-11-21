@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     String mail = "ERROR";    //가장 위로 올림
     String profilePhotoURL = "";
     Bitmap bitmap;
-    ImageView profile_img;
 
     private SimpleSideDrawer mSlidingMenu;
 
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        profile_img = (ImageView)findViewById(R.id.profile_img);
+//        profile_img = (ImageView)findViewById(R.id.profile_img);
         // ------- 이미지 슬라이드 관련 코드 start ------- //
         mSlidingMenu = new SimpleSideDrawer(this);
         mSlidingMenu.setLeftBehindContentView(R.layout.activiry_left_menu);
@@ -89,27 +88,7 @@ public class MainActivity extends AppCompatActivity {
         requestMe();  //카카오 정보 load
 
 
-        Thread mThread = new Thread(){
-          @Override
-            public void run(){
-              try{
-                  URL url = new URL(profilePhotoURL);
-                  HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-                  conn.connect();
-                  InputStream is = conn.getInputStream();
-                  bitmap = BitmapFactory.decodeStream(is);
-              }catch (IOException ex){
 
-              }
-          }
-        };
-        mThread.start();
-        try{
-            mThread.join();
-         //   profile_img.setImageBitmap(bitmap);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
 
     }
@@ -137,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
     // ------- 이미지 슬라이드 관련 코드 end ------- //
 
     public void topMenuClick(View v){
-        Toast.makeText(getApplicationContext(),profilePhotoURL,Toast.LENGTH_LONG).show();
         switch( v.getId() ){
             // ------- 왼쪽 메뉴바 관련 코드 start ------- //
             case R.id.main_top_menu_left_btn:
@@ -187,8 +165,8 @@ public class MainActivity extends AppCompatActivity {
 
         int point = 10100;
 
-        imageview.setImageResource(R.drawable.profile_test_01); // 바꾸는 코드
-
+//        imageview.setImageResource(R.drawable.profile_test_01); // 바꾸는 코드
+            imageview.setImageBitmap(bitmap);
         TextView txt_name = (TextView)findViewById(R.id.profile_name);
         txt_name.setText(name);
         txt_name.setTextColor(Color.BLACK);
@@ -232,6 +210,32 @@ public class MainActivity extends AppCompatActivity {
 
                 name = result.getNickname();
                 profilePhotoURL = result.getProfileImagePath();
+
+                Thread mThread = new Thread(){
+                    @Override
+                    public void run(){
+                        try{
+
+
+                            URL url = new URL(profilePhotoURL);
+                            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+                            conn.connect();
+                            InputStream is = conn.getInputStream();
+                            bitmap = BitmapFactory.decodeStream(is);
+
+                        }catch (IOException ex){
+
+                        }
+                    }
+                };
+                mThread.start();
+                try{
+
+                    mThread.join();
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
             }
         });
