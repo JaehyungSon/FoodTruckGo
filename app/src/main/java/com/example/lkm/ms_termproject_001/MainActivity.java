@@ -71,10 +71,11 @@ public class MainActivity extends AppCompatActivity {
         /* 아이템 추가 및 어댑터 등록 */
         dataSetting();
 
-        // ------- 이미지 슬라이드 관련 코드 start ------- //
+
         mSlidingMenu = new SimpleSideDrawer(this);
         mSlidingMenu.setLeftBehindContentView(R.layout.activiry_left_menu);
 
+        // ------- 이미지 슬라이드 관련 코드 start ------- //
         flipper= (ViewFlipper)findViewById(R.id.flipper);
 
         for(int i=0;i<3;i++){
@@ -148,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 ImageButton test = (ImageButton)findViewById(R.id.menu_04_btn);
                 ImageButton test2 = (ImageButton)findViewById(R.id.menu_test_btn);
                 ImageButton test_map = (ImageButton)findViewById(R.id.menu_test2_btn);
+                ImageButton bookmark = (ImageButton)findViewById(R.id.bookmark_btn);
                 test.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -169,6 +171,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         startActivity(new Intent(MainActivity.this, GoogleMapActivity.class));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    }
+                });
+                bookmark.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(MainActivity.this, BookmarkActivity.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
                 });
