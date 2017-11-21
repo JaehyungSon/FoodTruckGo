@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -44,11 +46,18 @@ public class MainActivity extends AppCompatActivity {
 
     private SimpleSideDrawer mSlidingMenu;
 
+    private ListView mListView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /* 위젯과 멤버변수 참조 획득 */
+        mListView = (ListView)findViewById(R.id.listView);
+
+        /* 아이템 추가 및 어댑터 등록 */
+        dataSetting();
 
         // ------- 이미지 슬라이드 관련 코드 start ------- //
         mSlidingMenu = new SimpleSideDrawer(this);
@@ -121,13 +130,6 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
                 }
-
-
-
-
-
-
-
 
                 //Button btn_left = (Button)findViewById(R.id.test_btn);
                 //btn_left.setOnClickListener(new View.OnClickListener() {
@@ -239,4 +241,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    // ------- 리스트 뷰 start ------- //
+    private void dataSetting(){
+        MyAdapter mMyAdapter = new MyAdapter();
+
+        for (int i=0; i<10; i++) {
+            mMyAdapter.addItem(ContextCompat.getDrawable(getApplicationContext(), R.drawable.profile_null), "name_" + i, "contents_" + i);
+        }
+        /* 리스트뷰에 어댑터 등록 */
+        mListView.setAdapter(mMyAdapter);
+    }
+    // ------- 리스트 뷰 end ------- //
+
 }
