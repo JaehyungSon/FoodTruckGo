@@ -1,6 +1,7 @@
 package com.example.lkm.ms_termproject_001;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,7 @@ public class MyAdapter extends BaseAdapter {
         ImageView iv_img = (ImageView) convertView.findViewById(R.id.iv_img) ;
         TextView tv_name = (TextView) convertView.findViewById(R.id.tv_name) ;
         TextView tv_contents = (TextView) convertView.findViewById(R.id.tv_contents) ;
+        TextView tv_distance = (TextView) convertView.findViewById(R.id.tv_distance) ;
 
         /* 각 리스트에 뿌려줄 아이템을 받아오는데 mMyItem 재활용 */
         MyItem myItem = getItem(position);
@@ -54,6 +56,7 @@ public class MyAdapter extends BaseAdapter {
         iv_img.setImageDrawable(myItem.getIcon());
         tv_name.setText(myItem.getName());
         tv_contents.setText(myItem.getContents());
+        tv_distance.setText(myItem.getdistance());
 
         /* (위젯에 대한 이벤트리스너를 지정하고 싶다면 여기에 작성하면된다..)  */
 
@@ -61,7 +64,7 @@ public class MyAdapter extends BaseAdapter {
     }
 
     /* 아이템 데이터 추가를 위한 함수. 자신이 원하는대로 작성 */
-    public void addItem(Drawable img, String name, String contents) {
+    public void addItem(Bitmap img, String name, String contents, String distance) {
 
         MyItem mItem = new MyItem();
 
@@ -69,6 +72,7 @@ public class MyAdapter extends BaseAdapter {
         mItem.setIcon(img);
         mItem.setName(name);
         mItem.setContents(contents);
+        mItem.setdistance(distance);
 
         /* mItems에 MyItem을 추가한다. */
         mItems.add(mItem);

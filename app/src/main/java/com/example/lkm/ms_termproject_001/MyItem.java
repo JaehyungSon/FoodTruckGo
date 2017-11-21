@@ -1,18 +1,19 @@
 package com.example.lkm.ms_termproject_001;
 
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 
 public class MyItem {
 
-    private Drawable icon;
+    private Bitmap icon;
     private String name;
     private String contents;
+    private String distance;
 
-    public Drawable getIcon() {
+    public Bitmap getIcon() {
         return icon;
     }
 
-    public void setIcon(Drawable icon) {
+    public void setIcon(Bitmap icon) {
         this.icon = icon;
     }
 
@@ -30,6 +31,14 @@ public class MyItem {
 
     public void setContents(String contents) {
         this.contents = contents;
+    }
+
+    public String getdistance() {
+        return distance;
+    }
+
+    public void setdistance(String distance) {
+        this.distance = distance;
     }
 
 }
