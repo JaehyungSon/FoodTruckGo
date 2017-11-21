@@ -49,9 +49,10 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
     final int REQ_CODE_SELECT_IMAGE=100;
     int imgFlag=0;
     Uri TruckImg1,TruckImg2,TruckImg3;
-
+    Uri[] Truck = new Uri[3];
+    String[] url;
     //  ToggleButton tb;
-
+    int count = 0 ;
     double longitude=0;  //경도
     double latitude=0;   //위도
     double altitude=0;   //고도
@@ -139,51 +140,48 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
 
         FirebaseStorage fs = FirebaseStorage.getInstance();
         StorageReference storageRef = fs.getReference();
+        url = new String[3];
+        for(int i = 0 ; i <= 2; i ++){
+            StorageReference riversRef = storageRef.child("images/"+i+".jpg");
+            riversRef.putFile(Truck[i])
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            url[count++] = downloadUrl.toString();
+                            if(count==3){
+                                String key = "AAA";
+
+                                HashMap<String,String> data = new HashMap<String,String>();
+                                data.put("name",foodTruckName.getText().toString());
+                                data.put("simpleExplain",FoodtruckSimpleExplain.getText().toString());
+                                data.put("explain",FoodtruckExplain.getText().toString());
+                                data.put("openFlag","0");
+                                data.put("경도",longitude+"");
+                                data.put("위도",latitude+"");
+                                data.put("고도",altitude+"");
+                                data.put("1",url[0]);
+                                data.put("2",url[1]);
+                                data.put("3",url[2]);
 
 
-        StorageReference riversRef = storageRef.child("images/0.jpg");
-        riversRef.putFile(TruckImg1)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                        Log.e("URL",downloadUrl+"");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                        // ...
-                    }
-                });
+                                HashMap<String,Object> child = new HashMap<String,Object>();
+                                child.put(key,data);
 
 
+                                Ref.updateChildren(child);
 
-
-        String key = "AAA";
-
-        HashMap<String,String> data = new HashMap<String,String>();
-        data.put("name",foodTruckName.getText().toString());
-        data.put("simpleExplain",FoodtruckSimpleExplain.getText().toString());
-        data.put("explain",FoodtruckExplain.getText().toString());
-        data.put("openFlag","0");
-        data.put("경도",longitude+"");
-        data.put("위도",latitude+"");
-        data.put("고도",altitude+"");
-
-        HashMap<String,Object> child = new HashMap<String,Object>();
-        child.put(key,data);
-
-
-        Ref.updateChildren(child);
-
-
-
-
-
-
-
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                            // ...
+                        }
+                    });
+        }
     }
     private final LocationListener mLocationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
@@ -234,12 +232,15 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                     ImageButton image;
                     //Uri에서 이미지 이름을 얻어온다.
                     if(imgFlag==1){
+                        Truck[0] = data.getData();
                         TruckImg1 = data.getData();
                         image = (ImageButton)findViewById(R.id.profileImg01);
                     }else if(imgFlag==2){
+                        Truck[1] = data.getData();
                         TruckImg2=data.getData();
                          image = (ImageButton)findViewById(R.id.profileImg02);
                     }else{
+                        Truck[2] = data.getData();
                         TruckImg3=data.getData();
                          image = (ImageButton)findViewById(R.id.profileImg03);
                     }
