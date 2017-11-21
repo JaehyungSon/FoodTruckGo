@@ -4,16 +4,16 @@ import android.graphics.Bitmap;
 
 public class MyItem {
 
-    private Bitmap icon;
+    private String icon;
     private String name;
     private String contents;
     private String distance;
 
-    public Bitmap getIcon() {
+    public String getIcon() {
         return icon;
     }
 
-    public void setIcon(Bitmap icon) {
+    public void setIcon(String icon) {
         this.icon = icon;
     }
 

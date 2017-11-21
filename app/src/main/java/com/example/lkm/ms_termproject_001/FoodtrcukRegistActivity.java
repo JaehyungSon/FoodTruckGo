@@ -75,9 +75,9 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         foodTruckName = (EditText)findViewById(R.id.FoodtruckName);
         FoodtruckSimpleExplain = (EditText)findViewById(R.id.FoodtruckSimpleExplain);
         FoodtruckExplain= (EditText)findViewById(R.id.FoodtruckExplain);
-        profileImg03 =(ImageButton)findViewById(R.id.profileImg01);
+        profileImg01 =(ImageButton)findViewById(R.id.profileImg01);
         profileImg02 =(ImageButton)findViewById(R.id.profileImg02);
-        profileImg01 =(ImageButton)findViewById(R.id.profileImg03);
+        profileImg03 =(ImageButton)findViewById(R.id.profileImg03);
         tv = (TextView) findViewById(R.id.textView2); //위도경도 표시
 
         Truck[0]=null;
@@ -194,7 +194,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                                 data.put("고도",altitude+"");
                                 if(imgFlag1){
 
-                                    data.put("1",url[0]);
+                                    data.put("1",url[2]);
                                 }
                                 if(imgFlag2){
 
@@ -202,7 +202,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                                 }
                                 if(imgFlag3){
 
-                                    data.put("3",url[2]);
+                                    data.put("3",url[0]);
                                 }
 
 
@@ -274,7 +274,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                     if(imgFlag==1){
                         Truck[0] = data.getData();
                         TruckImg1 = data.getData();
-                        image = (ImageButton)findViewById(R.id.profileImg03);
+                        image = (ImageButton)findViewById(R.id.profileImg01);
                     }else if(imgFlag==2){
                         Truck[1] = data.getData();
                         TruckImg2=data.getData();
@@ -282,7 +282,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                     }else{
                         Truck[2] = data.getData();
                         TruckImg3=data.getData();
-                        image = (ImageButton)findViewById(R.id.profileImg01);
+                        image = (ImageButton)findViewById(R.id.profileImg03);
                     }
                     image.setImageBitmap(image_bitmap);
                     //String name_Str = getImageNameToUri(data.getData());
