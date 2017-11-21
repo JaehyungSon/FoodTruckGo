@@ -16,9 +16,9 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_google_map);
 
-            FragmentManager fragmentManager = getFragmentManager();
+                            FragmentManager fragmentManager = getFragmentManager();
             MapFragment mapFragment = (MapFragment)fragmentManager
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
@@ -36,7 +36,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
             map.addMarker(markerOptions);
 
             map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
-            map.animateCamera(CameraUpdateFactory.zoomTo(10));
+            map.animateCamera(CameraUpdateFactory.zoomTo(13));
         }
 
 }

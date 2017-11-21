@@ -126,12 +126,13 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
     // ------- 이미지 슬라이드 관련 코드 end ------- //
 
+    // ------- 왼쪽 메뉴바 관련 코드 start ------- //
     public void topMenuClick(View v){
         switch( v.getId() ){
-            // ------- 왼쪽 메뉴바 관련 코드 start ------- //
+
+
             case R.id.main_top_menu_left_btn:
                 mSlidingMenu.toggleLeftDrawer();
 
@@ -143,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
                 }
 
+                // -- 왼쪽 메뉴바 버튼 클릭 시 이벤트 start -- //
                 ImageButton test = (ImageButton)findViewById(R.id.menu_04_btn);
                 ImageButton test2 = (ImageButton)findViewById(R.id.menu_test_btn);
                 ImageButton test_map = (ImageButton)findViewById(R.id.menu_test2_btn);
@@ -172,8 +174,7 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                     }
                 });
-
-
+                // -- 왼쪽 메뉴바 버튼 클릭 시 이벤트 end -- //
 
                 break;
             // ------- 왼쪽 메뉴바 관련 코드 end ------- //
@@ -181,7 +182,9 @@ public class MainActivity extends AppCompatActivity {
             // ------- 필터링 관련 코드 start ------- //
             case R.id.main_top_menu_filter_btn:
 
+
                 //...//
+
 
                 break;
             // ------- 필터링 관련 코드 end ------- //
@@ -282,6 +285,7 @@ public class MainActivity extends AppCompatActivity {
     }
     // ------- 리스트 뷰 end ------- //
 
+    // ------- 갤러리 - 이미지 start ------- //
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Toast.makeText(getBaseContext(), "resultCode : "+resultCode,Toast.LENGTH_SHORT).show();
@@ -323,4 +327,6 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getBaseContext(), "imgPath : "+imgPath +" //  imgName: "+imgName , Toast.LENGTH_SHORT).show();
         return imgName;
     }
+    // ------- 갤러리 - 이미지 end ------- //
+
 }
