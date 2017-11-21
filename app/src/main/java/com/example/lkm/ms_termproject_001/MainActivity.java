@@ -153,7 +153,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         startActivity(new Intent(MainActivity.this, FoodtrcukRegistActivity.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        finish();
                     }
                 });
                 test2.setOnClickListener(new View.OnClickListener() {
@@ -171,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         startActivity(new Intent(MainActivity.this, GoogleMapActivity.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        finish();
                     }
                 });
                 // -- 왼쪽 메뉴바 버튼 클릭 시 이벤트 end -- //

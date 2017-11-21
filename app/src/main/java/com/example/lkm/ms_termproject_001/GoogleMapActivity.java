@@ -6,6 +6,7 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,7 +37,14 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
 
 
 
-            //아래부분은 지피에스
+
+        }
+
+        @Override
+        public void onMapReady(final GoogleMap map) {
+
+
+//아래부분은 지피에스
 
             ActivityCompat.requestPermissions(GoogleMapActivity.this,new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},1);
 
@@ -61,21 +69,32 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
 
             }catch(SecurityException ex){
             }
-        }
 
-        @Override
-        public void onMapReady(final GoogleMap map) {
 
-            LatLng SEOUL = new LatLng(37.56, 126.97);
 
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(SEOUL);
-            markerOptions.title("서울");
-            markerOptions.snippet("한국의 수도");
-            map.addMarker(markerOptions);
 
-            map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
-            map.animateCamera(CameraUpdateFactory.zoomTo(13));
+
+
+
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    LatLng SEOUL = new LatLng(latitude, longitude);
+
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(SEOUL);
+                    markerOptions.title("서울");
+                    markerOptions.snippet("한국의 수도");
+                    map.addMarker(markerOptions);
+
+                    map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
+                    map.animateCamera(CameraUpdateFactory.zoomTo(13));
+                }
+            }, 3000);
+
+
         }
 
         private final LocationListener mLocationListener = new LocationListener() {
