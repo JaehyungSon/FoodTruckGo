@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/iv_img"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:src="@drawable/leftmenu_menu_favorite"/>
@@ -29,14 +29,10 @@
                     android:text="name.."
                     android:layout_weight="1"
                     android:textSize="20dp"
-                    android:layout_toRightOf="@+id/iv_img"
-                    android:padding="5dp"
-                    android:layout_marginLeft="17dp"/>
+                    android:layout_toRightOf="@+id/iv_img"/>
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:padding="5dp"
-                    android:layout_marginLeft="20dp"
                     android:layout_below="@+id/tv_name"
                     android:layout_toRightOf="@+id/iv_img">
                     <TextView
