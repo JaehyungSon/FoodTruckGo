@@ -150,8 +150,6 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         Ref = fd.getReference();
         Ref = Ref.child("FoodTrucks");
 
-        GlobalApplication global = (GlobalApplication)getApplicationContext();
-
         FirebaseStorage fs = FirebaseStorage.getInstance();
         StorageReference storageRef = fs.getReference();
         url = new String[3];
