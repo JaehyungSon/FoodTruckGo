@@ -39,6 +39,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.navdrawer.SimpleSideDrawer;
@@ -171,8 +172,16 @@ public class MainActivity extends AppCompatActivity {
                 ImageButton map_btn = (ImageButton)findViewById(R.id.map_btn); // 구글 맵
 
                 ImageButton adjust_btn = (ImageButton)findViewById(R.id.adjust_btn); // 등록 수정
-                // 로그아웃
+                ImageButton logout_btn = (ImageButton)findViewById(R.id.logout_btn); // 로그아웃 ( 모든 엑티비티 복사 )
 
+                logout_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onClickLogout();
+
+
+                    }
+                });
                 bookmark.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -427,4 +436,17 @@ public class MainActivity extends AppCompatActivity {
     }
     // ------- 갤러리 - 이미지 end ------- //
 
+
+    //로그아웃 - 모든 엑티비티에 복사해놓아야합니다
+    private void onClickLogout() {
+        UserManagement.requestLogout(new LogoutResponseCallback() {
+            @Override
+            public void onCompleteLogout() {
+
+                startActivity(new Intent(MainActivity.this, SplashActivity.class));
+                finish();
+//                                    redirectLoginActivity();
+            }
+        });
+    }
 }

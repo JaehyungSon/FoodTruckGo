@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.kakao.auth.ErrorCode;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
@@ -19,8 +21,12 @@ import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
 
+import java.util.HashMap;
+
 public class LoginActivity extends AppCompatActivity {
     SessionCallback callback;
+    FirebaseDatabase fd;    //데이터베이스
+    DatabaseReference Ref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +77,25 @@ public class LoginActivity extends AppCompatActivity {
                     //로그인에 성공하면 로그인한 사용자의 일련번호, 닉네임, 이미지url등을 리턴합니다.
                     //사용자 ID는 보안상의 문제로 제공하지 않고 일련번호는 제공합니다.
                     Log.e("UserProfile", userProfile.toString());
+                    fd = FirebaseDatabase.getInstance();
+                    Ref = fd.getReference();
+                    Ref = Ref.child("Users");
+
+
+                    HashMap<String,String> data = new HashMap<String,String>();
+
+                    data.put("name", userProfile.getNickname());
+                    data.put("회원등급","1");//1은 손님  2는 사업자
+                    data.put("uuid",userProfile.getId()+"");
+
+                    HashMap<String,Object> child = new HashMap<String,Object>();
+
+                    String key = userProfile.getId()+"";
+                    child.put(key,data);
+
+                    Ref.updateChildren(child);
+
+
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
