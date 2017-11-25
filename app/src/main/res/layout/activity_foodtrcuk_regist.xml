@@ -11,52 +11,115 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="0dp">
-
         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/top_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <ImageView
                 android:id="@+id/main_top_bg"
                 android:layout_width="match_parent"
                 android:layout_height="47dp"
-                android:src="@drawable/main_top_bg"></ImageView>
-
-          >
-
+                android:src="@drawable/main_top_bg">
+            </ImageView>
             <ImageButton
                 android:id="@+id/main_top_menu_left_btn"
                 android:layout_width="25dp"
                 android:layout_height="20dp"
                 android:layout_gravity="left"
                 android:layout_margin="12dp"
-                android:background="@drawable/main_top_menu_left_btn"
-                ></ImageButton>
+                android:background="@drawable/main_top_menu_left_btn">
+                </ImageButton>
         </FrameLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <EditText
+            android:orientation="vertical"
+            android:layout_margin="30dp">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="푸드트럭 이름"
-                android:id="@+id/FoodtruckName"/>
-            <EditText
+                android:orientation="horizontal"
+                android:background="@drawable/text_bg"
+                android:padding="8dp"
+                android:layout_margin="1dp"
+                >
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="name"
+                    android:textSize="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="10dp"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="푸드트럭 이름"
+                    android:background="@drawable/text_bg"
+                    android:padding="5dp"
+                    android:layout_margin="1dp"
+                    android:id="@+id/FoodtruckName"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="푸드트럭에 대한 간단한 설명 (20자이내)"
-                android:id="@+id/FoodtruckSimpleExplain"/>
-            <EditText
+                android:orientation="horizontal"
+                android:background="@drawable/text_bg"
+                android:padding="8dp"
+                android:layout_margin="1dp"
+                >
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="context"
+                    android:textSize="17dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="10dp"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="간단한 설명"
+                    android:id="@+id/FoodtruckSimpleExplain"
+                    android:padding="5dp"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/text_bg"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="푸드트럭에 대한 자세한 설명 (메뉴 포함)"
-                android:id="@+id/FoodtruckExplain"/>
+                android:orientation="horizontal"
+                android:background="@drawable/text_bg"
+                android:padding="8dp"
+                android:layout_margin="1dp"
+                >
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="context"
+                    android:textSize="17dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="10dp"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_margin="1dp"
+                    android:hint="자세한 설명"
+                    android:id="@+id/FoodtruckExplain"
+                    android:background="@drawable/text_bg"
+                    />
+            </LinearLayout>
+
+
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Food Truck 사진 올리기 (최대 3장)"/>
+                android:text="Food Truck 사진 올리기 (최대 3장)"
+                android:layout_marginTop="40dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,8 +158,6 @@
                 android:id="@+id/SellingEndBtn"
                 android:scaleType="fitXY"
                 android:src="@drawable/sellingend"/>
-
-
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
