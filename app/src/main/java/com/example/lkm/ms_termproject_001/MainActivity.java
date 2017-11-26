@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     ViewFlipper flipper;
     ToggleButton toggle_Flipping;
+    Boolean img_check=true;
 
     String name = "ERROR";    //카카오와 연동하기위해
     String mail = "ERROR";    //가장 위로 올림
@@ -111,9 +112,11 @@ public class MainActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 if(isChecked){
                     flipper.stopFlipping();
+                    img_check=false;
                 }else{
                     flipper.setFlipInterval(3000);
                     flipper.startFlipping();
+                    img_check=true;
                 }
             }
         });
@@ -137,11 +140,20 @@ public class MainActivity extends AppCompatActivity {
     public void mOnClick(View v){
         switch( v.getId() ){
             case R.id.btn_previous:
+                flipper.stopFlipping();
                 flipper.showPrevious();//이전 View로 교체
-                flipper.showPrevious();
+                if(img_check) {
+                    flipper.setFlipInterval(3000);
+                    flipper.startFlipping();
+                }
                 break;
             case R.id.btn_next:
+                flipper.stopFlipping();
                 flipper.showNext();//다음 View로 교체
+                if(img_check) {
+                    flipper.setFlipInterval(3000);
+                    flipper.startFlipping();
+                }
                 break;
         }
     }
