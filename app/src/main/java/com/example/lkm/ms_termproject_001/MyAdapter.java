@@ -91,4 +91,7 @@ public class MyAdapter extends BaseAdapter {
         mItems.add(mItem);
 
     }
+    public void removeAll(){
+        mItems.clear();
+    }
 }
