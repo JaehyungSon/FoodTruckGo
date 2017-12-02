@@ -81,7 +81,6 @@ public class LoginActivity extends AppCompatActivity {
                     Ref = fd.getReference();
                     Ref = Ref.child("Users");
 
-
                     HashMap<String,String> data = new HashMap<String,String>();
 
                     data.put("name", userProfile.getNickname());
@@ -95,13 +94,11 @@ public class LoginActivity extends AppCompatActivity {
 
                     Ref.updateChildren(child);
 
-
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 }
             });
-
         }
 
         @Override

@@ -43,7 +43,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 requestMe();
             }
-        }, 3500);
+        }, 4000);
     }
 
     class SplashView extends View {
@@ -64,7 +64,7 @@ public class SplashActivity extends AppCompatActivity {
             height = display.getHeight();         // 화면의 세로폭
             x = 0;                               // 캐릭터의 현재 x위치
             y = (height / 2) - 180;                               // 캐릭터의 현재 y위치
-            dx = 10;                               // 캐릭터가 x축으로 이동할 거리
+            dx = 40;                               // 캐릭터가 x축으로 이동할 거리
             dy = 10;                               // 캐릭터가 y축으로 이동할 거리
 
             // 캐릭터의 비트맵 읽기
@@ -78,7 +78,7 @@ public class SplashActivity extends AppCompatActivity {
             cw = character[0].getWidth() / 2;          // 캐릭터의 폭/2
             ch = character[0].getHeight() / 2;          // 캐릭터의 높이/2
 
-            mHandler.sendEmptyMessageDelayed(0, 10);
+            mHandler.sendEmptyMessageDelayed(0, 100);
         }
 
         //-----------------------------------
@@ -88,9 +88,10 @@ public class SplashActivity extends AppCompatActivity {
         public void onDraw(Canvas canvas) {
             x += dx;                                               // 가로 방향으로 이동
             counter++;
-            int n = counter % 2; // 바퀴 굴리는 부분
+            //int n = counter % 2; // 바퀴 굴리는 부분
             canvas.drawBitmap(bg_img[0], 0, 0, null);
-            canvas.drawBitmap(character[n], x - cw, y - ch, null);
+            canvas.drawBitmap(character[0], x - cw, y - ch, null);
+            //canvas.drawBitmap(character[0], x - cw -10, y - ch, null);
         } // onDraw 끝
 
         //------------------------------------
@@ -100,7 +101,7 @@ public class SplashActivity extends AppCompatActivity {
         Handler mHandler = new Handler() {              // 타이머로 사용할 Handler
             public void handleMessage(Message msg) {
                 invalidate();                              // onDraw() 다시 실행
-                mHandler.sendEmptyMessageDelayed(0, 4);
+                mHandler.sendEmptyMessageDelayed(0, 100);
             }
         }; // Handler
     } // SplashView 끝
