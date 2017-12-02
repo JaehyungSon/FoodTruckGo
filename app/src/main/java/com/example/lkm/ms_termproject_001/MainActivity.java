@@ -378,7 +378,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                // Log.d("asdfasdf", "Value is: " + dataSnapshot);
-
+                mMyAdapter.removeAll();
                 final Bitmap[] tempBitmap = new Bitmap[1];
                 //String photo="";
                 for(DataSnapshot child : dataSnapshot.getChildren()){
@@ -500,28 +500,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
+//////////GPS부분 건드리지말것
+    boolean gpsFlag=true;
     //내위치 가져오기
     public void onMapReady() {
         //아래부분은 지피에스
         ActivityCompat.requestPermissions(MainActivity.this,new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},1);
         final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        try{
-            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, // 등록할 위치제공자
-                    100, // 통지사이의 최소 시간간격 (miliSecond)
-                    1, // 통지사이의 최소 변경거리 (m)
-                    mLocationListener);
-            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, // 등록할 위치제공자
-                    100, // 통지사이의 최소 시간간격 (miliSecond)
-                    1, // 통지사이의 최소 변경거리 (m)
-                    mLocationListener);
-            //lm.removeUpdates(mLocationListener);  //  미수신할때는 반드시 자원해체를 해주어야 한다.
-        }catch(SecurityException ex){
+        if(gpsFlag){
+            try{
+                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, // 등록할 위치제공자
+                        100, // 통지사이의 최소 시간간격 (miliSecond)
+                        1, // 통지사이의 최소 변경거리 (m)
+                        mLocationListener);
+                lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, // 등록할 위치제공자
+                        100, // 통지사이의 최소 시간간격 (miliSecond)
+                        1, // 통지사이의 최소 변경거리 (m)
+                        mLocationListener);
+                //lm.removeUpdates(mLocationListener);  //  미수신할때는 반드시 자원해체를 해주어야 한다.
+            }catch(SecurityException ex){
+            }
+        }else{
+            lm.removeUpdates(mLocationListener);
         }
     }
 
     private final LocationListener mLocationListener = new LocationListener() {
+
         public void onLocationChanged(Location location) {
             //여기서 위치값이 갱신되면 이벤트가 발생한다.
             //값은 Location 형태로 리턴되며 좌표 출력 방법은 다음과 같다.
@@ -536,6 +541,10 @@ public class MainActivity extends AppCompatActivity {
             //Network 위치는 Gps에 비해 정확도가 많이 떨어진다.
             //tv.setText("위도 : " + longitude + "\n경도 : " + latitude);
             dataSetting();
+            gpsFlag=false;
+            onMapReady();
+
+
 
         }
         public void onProviderDisabled(String provider) {
@@ -601,5 +610,5 @@ public class MainActivity extends AppCompatActivity {
     private static double rad2deg(double rad) {
         return (rad * 180 / Math.PI);
     }
-
+/////////GPS부분 끝!!!!
 }
