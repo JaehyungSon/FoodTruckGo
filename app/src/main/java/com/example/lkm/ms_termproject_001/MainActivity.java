@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
@@ -62,6 +63,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 
 import javax.microedition.khronos.opengles.GL;
 
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     double longitude=0;  //경도
     double latitude=0;   //위도
     double altitude=0;   //고도
-
+    MyAdapter mMyAdapter = new MyAdapter();// 리스트뷰 선언
 
     private SimpleSideDrawer mSlidingMenu;
 
@@ -148,6 +150,20 @@ public class MainActivity extends AppCompatActivity {
                 .writeDebugLogs()
                 .build();
         ImageLoader.getInstance().init(config);
+
+        //푸드트럭 자세한 페이지로 이동하는 부분
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent detailFoodtruck = new Intent(MainActivity.this,DetailFoodtruckActivity.class);
+                detailFoodtruck.putExtra("foodTruckId",mMyAdapter.getItem(position).getId());
+                detailFoodtruck.putExtra("longitude",longitude+"");
+                detailFoodtruck.putExtra("latitude",latitude+"");
+                detailFoodtruck.putExtra("altitude",altitude+"");
+
+                startActivity(detailFoodtruck);
+            }
+        });
 
 
     }
@@ -360,7 +376,7 @@ public class MainActivity extends AppCompatActivity {
     // ------- 카카오 유저정보 가져오기 end ------- //
 
     // ------- 리스트 뷰 start ------- //
-    MyAdapter mMyAdapter = new MyAdapter();
+
     String name_2="";
     String simpleExplain="기본글";
     String photo="";
@@ -383,7 +399,7 @@ public class MainActivity extends AppCompatActivity {
                 //String photo="";
                 for(DataSnapshot child : dataSnapshot.getChildren()){
                     Log.e("key",child.getKey());
-                    for(DataSnapshot childchild : child.getChildren()){
+;                    for(DataSnapshot childchild : child.getChildren()){
                         if(childchild.getKey().equals("name")){
                       //      Log.e("we do",childchild.getValue().toString());
                             name_2 = childchild.getValue().toString();
@@ -410,9 +426,9 @@ public class MainActivity extends AppCompatActivity {
                             distance(tempLatitude, tempLongitude, latitude, longitude, "meter");
 
                     if(latitude!=0){
-                        mMyAdapter.addItem(photo,name_2,simpleExplain,Math.round(distanceMeter)+"m");
+                        mMyAdapter.addItem(photo,name_2,simpleExplain,Math.round(distanceMeter)+"m",child.getKey());
                     }else{
-                        mMyAdapter.addItem(photo,name_2,simpleExplain,"");
+                        mMyAdapter.addItem(photo,name_2,simpleExplain,"",child.getKey());
                     }
 
                     mMyAdapter.notifyDataSetChanged();

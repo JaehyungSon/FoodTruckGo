@@ -18,7 +18,8 @@
                 android:id="@+id/main_top_bg"
                 android:layout_width="match_parent"
                 android:layout_height="47dp"
-                android:src="@drawable/main_top_bg"></ImageView>
+                android:src="@drawable/main_top_bg"
+                android:scaleType="centerCrop"></ImageView>
 
             <ImageButton
                 android:id="@+id/main_top_menu_filter_btn"

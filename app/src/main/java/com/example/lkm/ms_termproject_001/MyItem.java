@@ -8,6 +8,11 @@ public class MyItem {
     private String name;
     private String contents;
     private String distance;
+    private String id;
+
+    public String getId(){return id;}
+
+    public void setId(String id){this.id=id;}
 
     public String getIcon() {
         return icon;

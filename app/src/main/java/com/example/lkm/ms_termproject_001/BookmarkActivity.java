@@ -67,7 +67,6 @@ public class BookmarkActivity extends AppCompatActivity {
         onMapReady();//경도 위도 가져오기
 
         mListView=(ListView)findViewById(R.id.bookmarkListView);
-        temp();
         localBookmarkGet(); //저장된 리스트 불러오기
         dataSetting();  //리스트뷰에 뿌려주기
 
@@ -278,14 +277,14 @@ public class BookmarkActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    //파일 저장 코드 (즐겨찾기 목록)
-    private void temp(){
-        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString(String.valueOf(0), String.valueOf(566779173));
-        editor.putString(String.valueOf(1), String.valueOf(566781065));
-        editor.commit();
-    }
+//    //파일 저장 코드 (즐겨찾기 목록)
+//    private void temp(){
+//        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = pref.edit();
+//        editor.putString(String.valueOf(0), String.valueOf(566779173));
+//        editor.putString(String.valueOf(1), String.valueOf(566781065));
+//        editor.commit();
+//    }
     //로컬에 저장되어있는 파일을 가져옴
     private void localBookmarkGet(){
         int i=0;
