@@ -146,6 +146,7 @@
                         android:text="200m"
                         android:textColor="#FFFFFF"
                         android:gravity="right|bottom"
+
                         android:layout_margin="8dp"/>
                 </LinearLayout>
             </LinearLayout>
@@ -236,7 +237,8 @@
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:src="@drawable/mapicon"
-                            android:layout_gravity="top|center" />
+                            android:layout_gravity="top|center"
+                            android:id="@+id/googleMapSearch"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

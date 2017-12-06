@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -37,9 +38,12 @@ import java.net.URL;
 public class DetailFoodtruckActivity extends AppCompatActivity {
 
 
-    double longitude = 0;  //경도
-    double latitude = 0;   //위도
-    double altitude = 0;   //고도
+    double myLongitude = 0;  //경도
+    double myLatitude = 0;   //위도
+    double myAltitude = 0;   //고도
+
+    double truckLongitude = 0;  //경도
+    double truckLatitude = 0;   //위도
     String foodTruckId = "";
 
     TextView foodTruckName;
@@ -49,7 +53,9 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
     Bitmap bitmap;
     String phoneNumber;
 
+    TextView foodTruckDistance;
     ImageView detailFoodTruckCallBtn,DetailBookmark;
+    ImageView googleMapSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +63,9 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_foodtruck);
 
         Intent intent = getIntent();
-        longitude = Double.parseDouble(intent.getExtras().getString("longitude"));
-        latitude = Double.parseDouble(intent.getExtras().getString("latitude"));
-        altitude = Double.parseDouble(intent.getExtras().getString("altitude"));
+        myLongitude = Double.parseDouble(intent.getExtras().getString("longitude"));
+        myLatitude = Double.parseDouble(intent.getExtras().getString("latitude"));
+        myAltitude = Double.parseDouble(intent.getExtras().getString("altitude"));
         foodTruckId = intent.getExtras().getString("foodTruckId");
 
         foodTruckName = (TextView) findViewById(R.id.foodTruckName);
@@ -67,8 +73,8 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
         detailFoodTruckPhoto = (ImageView) findViewById(R.id.detailFoodTruckPhoto);
         detailFoodTruckCallBtn = (ImageView) findViewById(R.id.detailFoodTruckCallBtn);
         DetailBookmark = (ImageView)findViewById(R.id.DetailBookmark);
-
-        Toast.makeText(this, foodTruckId + " " + longitude, Toast.LENGTH_SHORT).show();
+        googleMapSearch =(ImageView)findViewById(R.id.googleMapSearch);
+        foodTruckDistance = (TextView)findViewById(R.id.distance);
 
         //파이어베이스 정보 가져오는 부분
         FirebaseDatabase fd = FirebaseDatabase.getInstance();
@@ -107,7 +113,24 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
                     if (child.getKey().equals("phoneNumber")) {
                         phoneNumber = child.getValue().toString();
                     }
+                    if(child.getKey().equals("위도")){
+                        truckLatitude=Double.parseDouble(child.getValue().toString());
 
+                    }
+                    if(child.getKey().equals("경도")){
+                        truckLongitude=Double.parseDouble(child.getValue().toString());
+                    }
+
+                }
+                // 미터(Meter) 단위
+                Toast.makeText(DetailFoodtruckActivity.this, myLatitude+" "+myLongitude+" "+truckLatitude+" "+truckLongitude, Toast.LENGTH_SHORT).show();
+                double distanceMeter =
+                        distance(myLatitude, myLongitude, truckLatitude, truckLongitude, "meter");
+
+                if(myLatitude!=0){
+                    foodTruckDistance.setText(Math.round(distanceMeter)+"m");
+                }else{
+                    foodTruckDistance.setText("");
                 }
 
 
@@ -118,7 +141,12 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
                 // Failed to read value
                 Log.w("asdfasdf", "Failed to read value.", error.toException());
             }
+
         });
+        //파이어베이스 부분 종료
+
+        //거리 계산해서 보여주는 부분
+
 
         detailFoodTruckCallBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,16 +171,36 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
             int count;
             @Override
             public void onClick(View v) {
-                if(getPreferences("count")!=""){
+
+               //
+                 if(getPreferences("count").equals("")){
                     count=0;
-                }
-               count=Integer.parseInt( getPreferences("count"));
-               count++;
+                }else{
+                     count=Integer.parseInt( getPreferences("count"));
+                     count++;
+                 }
+
                savePreferences("count",count);
                savePreferences(count,Integer.parseInt(foodTruckId));
                 Toast.makeText(DetailFoodtruckActivity.this, "즐겨찾기에 추가되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
+
+        googleMapSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String uri ="http://maps.google.com/maps?saddr="+myLatitude+","+myLongitude+"&daddr="+truckLatitude+","+truckLongitude;
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse(uri));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addCategory(Intent.CATEGORY_LAUNCHER );
+                intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+                startActivity(intent);
+            }
+        });
+
+
 
 
     }
@@ -176,4 +224,45 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
         return pref.getString(key, "");
     }
+
+    /**
+     * 두 지점간의 거리 계산
+     *
+     * @param lat1 지점 1 위도
+     * @param lon1 지점 1 경도
+     * @param lat2 지점 2 위도
+     * @param lon2 지점 2 경도
+     * @param unit 거리 표출단위
+     * @return
+     */
+    private static double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
+
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+
+        if (unit == "kilometer") {
+            dist = dist * 1.609344;
+        } else if(unit == "meter"){
+            dist = dist * 1609.344;
+        }
+
+        return (dist);
+    }
+
+
+    // This function converts decimal degrees to radians
+    private static double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    // This function converts radians to decimal degrees
+    private static double rad2deg(double rad) {
+        return (rad * 180 / Math.PI);
+    }
+
+
 }
