@@ -1,18 +1,11 @@
 package com.example.lkm.ms_termproject_001;
 
-import android.graphics.Bitmap;
-
-public class MyItem {
+public class BookmarkMyItem {
 
     private String icon;
     private String name;
     private String contents;
     private String distance;
-    private String id;
-
-    public String getId(){return id;}
-
-    public void setId(String id){this.id=id;}
 
     public String getIcon() {
         return icon;

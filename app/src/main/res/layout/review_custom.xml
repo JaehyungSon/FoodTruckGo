@@ -5,13 +5,8 @@
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="7dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="7dp"
-        android:background="@drawable/main_list_bg">
+        android:layout_height="80dp"
+        android:orientation="horizontal">
         <LinearLayout
             android:layout_weight="1"
             android:layout_width="wrap_content"
@@ -22,43 +17,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:id="@+id/iv_img"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:id="@+id/userImg"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_weight="1"
                     android:layout_margin="4dp"
-
-                    android:scaleType="centerCrop"
                     android:src="@drawable/leftmenu_menu_favorite"/>
                 <TextView
-                    android:id="@+id/tv_name"
+                    android:id="@+id/userName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="name.."
                     android:layout_weight="1"
                     android:textSize="20dp"
                     android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/iv_img"/>
+                    android:layout_toRightOf="@+id/userImg"/>
+
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:layout_below="@+id/tv_name"
-                    android:layout_toRightOf="@+id/iv_img"
+                    android:layout_below="@+id/userName"
+                    android:layout_toRightOf="@+id/userImg"
                     android:layout_margin="8dp">
                     <TextView
-                        android:id="@+id/tv_contents"
-                        android:layout_width="180dp"
+                        android:id="@+id/userContents"
+                        android:layout_width="280dp"
                         android:layout_height="100dp"
                         android:text="contents.."
                         />
-                    <TextView
-                        android:id="@+id/tv_distance"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:text="100m"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        />
+
                 </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>

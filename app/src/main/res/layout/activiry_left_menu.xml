@@ -174,7 +174,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
-                android:background="@drawable/leftmenu_menu_notification"/>
+                android:background="@drawable/leftmenu_menu_map"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"

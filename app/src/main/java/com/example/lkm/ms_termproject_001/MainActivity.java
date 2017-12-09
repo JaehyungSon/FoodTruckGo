@@ -1,15 +1,20 @@
 package com.example.lkm.ms_termproject_001;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
@@ -32,6 +38,10 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.ViewFlipper;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,6 +63,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 
 import javax.microedition.khronos.opengles.GL;
 
@@ -66,6 +77,11 @@ public class MainActivity extends AppCompatActivity {
     String mail = "ERROR";    //가장 위로 올림
     String profilePhotoURL = "";
     Bitmap bitmap;
+
+    double longitude=0;  //경도
+    double latitude=0;   //위도
+    double altitude=0;   //고도
+    MyAdapter mMyAdapter = new MyAdapter();// 리스트뷰 선언
 
     private SimpleSideDrawer mSlidingMenu;
 
@@ -83,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
 
         /* 아이템 추가 및 어댑터 등록 */
         dataSetting();
+
+        onMapReady();//경도 위도 가져오기
 
 
         mSlidingMenu = new SimpleSideDrawer(this);
@@ -132,6 +150,20 @@ public class MainActivity extends AppCompatActivity {
                 .writeDebugLogs()
                 .build();
         ImageLoader.getInstance().init(config);
+
+        //푸드트럭 자세한 페이지로 이동하는 부분
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent detailFoodtruck = new Intent(MainActivity.this,DetailFoodtruckActivity.class);
+                detailFoodtruck.putExtra("foodTruckId",mMyAdapter.getItem(position).getId());
+                detailFoodtruck.putExtra("longitude",longitude+"");
+                detailFoodtruck.putExtra("latitude",latitude+"");
+                detailFoodtruck.putExtra("altitude",altitude+"");
+
+                startActivity(detailFoodtruck);
+            }
+        });
 
 
     }
@@ -344,10 +376,15 @@ public class MainActivity extends AppCompatActivity {
     // ------- 카카오 유저정보 가져오기 end ------- //
 
     // ------- 리스트 뷰 start ------- //
-    MyAdapter mMyAdapter = new MyAdapter();
+
     String name_2="";
     String simpleExplain="기본글";
     String photo="";
+
+    double tempLongitude=0;  //경도 푸드트럭의
+    double tempLatitude=0;   //위도
+   // double tempAltitude=0;   //고도
+
     private void dataSetting(){
         FirebaseDatabase fd = FirebaseDatabase.getInstance();
         DatabaseReference myRef = fd.getReference().child("FoodTrucks");
@@ -357,12 +394,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                // Log.d("asdfasdf", "Value is: " + dataSnapshot);
-
+                mMyAdapter.removeAll();
                 final Bitmap[] tempBitmap = new Bitmap[1];
                 //String photo="";
                 for(DataSnapshot child : dataSnapshot.getChildren()){
                     Log.e("key",child.getKey());
-                    for(DataSnapshot childchild : child.getChildren()){
+;                    for(DataSnapshot childchild : child.getChildren()){
                         if(childchild.getKey().equals("name")){
                       //      Log.e("we do",childchild.getValue().toString());
                             name_2 = childchild.getValue().toString();
@@ -375,9 +412,25 @@ public class MainActivity extends AppCompatActivity {
                             photo = childchild.getValue().toString();
 
                         }
+                        if(childchild.getKey().equals("경도")){
+                            tempLongitude = Double.parseDouble(childchild.getValue().toString());
+                        }
+                        if(childchild.getKey().equals("위도")){
+                            tempLatitude = Double.parseDouble(childchild.getValue().toString());
+                        }
+
 
                     }
-                    mMyAdapter.addItem(photo,name_2,simpleExplain,"100m");
+                    // 미터(Meter) 단위
+                    double distanceMeter =
+                            distance(tempLatitude, tempLongitude, latitude, longitude, "meter");
+
+                    if(latitude!=0){
+                        mMyAdapter.addItem(photo,name_2,simpleExplain,Math.round(distanceMeter)+"m",child.getKey());
+                    }else{
+                        mMyAdapter.addItem(photo,name_2,simpleExplain,"",child.getKey());
+                    }
+
                     mMyAdapter.notifyDataSetChanged();
 
                 }
@@ -390,8 +443,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.w("asdfasdf", "Failed to read value.", error.toException());
             }
         });
-
-
+        mMyAdapter.removeAll();
         mListView.setAdapter(mMyAdapter);
 
 
@@ -435,6 +487,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //이미지 로더
     public String getImageNameToUri(Uri data)
     {
         String[] proj = { MediaStore.Images.Media.DATA };
@@ -461,4 +514,117 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+//////////GPS부분 건드리지말것
+    boolean gpsFlag=true;
+    //내위치 가져오기
+    public void onMapReady() {
+        //아래부분은 지피에스
+        ActivityCompat.requestPermissions(MainActivity.this,new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},1);
+        final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if(gpsFlag){
+            try{
+                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, // 등록할 위치제공자
+                        100, // 통지사이의 최소 시간간격 (miliSecond)
+                        1, // 통지사이의 최소 변경거리 (m)
+                        mLocationListener);
+                lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, // 등록할 위치제공자
+                        100, // 통지사이의 최소 시간간격 (miliSecond)
+                        1, // 통지사이의 최소 변경거리 (m)
+                        mLocationListener);
+                //lm.removeUpdates(mLocationListener);  //  미수신할때는 반드시 자원해체를 해주어야 한다.
+            }catch(SecurityException ex){
+            }
+        }else{
+            lm.removeUpdates(mLocationListener);
+        }
+    }
+
+    private final LocationListener mLocationListener = new LocationListener() {
+
+        public void onLocationChanged(Location location) {
+            //여기서 위치값이 갱신되면 이벤트가 발생한다.
+            //값은 Location 형태로 리턴되며 좌표 출력 방법은 다음과 같다.
+            Log.d("test", "onLocationChanged, location:" + location);
+            longitude = location.getLongitude(); //경도
+            latitude = location.getLatitude();   //위도
+            altitude = location.getAltitude();   //고도
+            float accuracy = location.getAccuracy();    //정확도
+            String provider = location.getProvider();   //위치제공자
+            //Gps 위치제공자에 의한 위치변화. 오차범위가 좁다.
+            //Network 위치제공자에 의한 위치변화
+            //Network 위치는 Gps에 비해 정확도가 많이 떨어진다.
+            //tv.setText("위도 : " + longitude + "\n경도 : " + latitude);
+            dataSetting();
+            gpsFlag=false;
+            onMapReady();
+
+
+
+        }
+        public void onProviderDisabled(String provider) {
+            // Disabled시
+            Log.d("test", "onProviderDisabled, provider:" + provider);
+        }
+
+        public void onProviderEnabled(String provider) {
+            // Enabled시
+            Log.d("test", "onProviderEnabled, provider:" + provider);
+        }
+
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            // 변경시
+            Log.d("test", "onStatusChanged, provider:" + provider + ", status:" + status + " ,Bundle:" + extras);
+        }
+    };
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 두 지점간의 거리 계산
+     *
+     * @param lat1 지점 1 위도
+     * @param lon1 지점 1 경도
+     * @param lat2 지점 2 위도
+     * @param lon2 지점 2 경도
+     * @param unit 거리 표출단위
+     * @return
+     */
+    private static double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
+
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+
+        if (unit == "kilometer") {
+            dist = dist * 1.609344;
+        } else if(unit == "meter"){
+            dist = dist * 1609.344;
+        }
+
+        return (dist);
+    }
+
+
+    // This function converts decimal degrees to radians
+    private static double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    // This function converts radians to decimal degrees
+    private static double rad2deg(double rad) {
+        return (rad * 180 / Math.PI);
+    }
+/////////GPS부분 끝!!!!
 }

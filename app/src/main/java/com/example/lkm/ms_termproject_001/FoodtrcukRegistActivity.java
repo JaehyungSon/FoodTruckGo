@@ -48,7 +48,7 @@ import java.net.URL;
 import java.util.HashMap;
 
 public class FoodtrcukRegistActivity extends AppCompatActivity {
-    EditText foodTruckName,FoodtruckSimpleExplain,FoodtruckExplain;
+    EditText foodTruckName,FoodtruckSimpleExplain,FoodtruckExplain,FoodtruckPhoneNumber;
     FirebaseDatabase fd;    //데이터베이스
     DatabaseReference Ref;
     ImageButton profileImg01,profileImg02,profileImg03;
@@ -75,6 +75,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
         foodTruckName = (EditText)findViewById(R.id.FoodtruckName);
         FoodtruckSimpleExplain = (EditText)findViewById(R.id.FoodtruckSimpleExplain);
         FoodtruckExplain= (EditText)findViewById(R.id.FoodtruckExplain);
+        FoodtruckPhoneNumber=(EditText)findViewById(R.id.FoodtruckPhoneNumber);
         profileImg01 =(ImageButton)findViewById(R.id.profileImg01);
         profileImg02 =(ImageButton)findViewById(R.id.profileImg02);
         profileImg03 =(ImageButton)findViewById(R.id.profileImg03);
@@ -186,6 +187,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                                 data.put("name",foodTruckName.getText().toString());
                                 data.put("simpleExplain",FoodtruckSimpleExplain.getText().toString());
                                 data.put("explain",FoodtruckExplain.getText().toString());
+                                data.put("phoneNumber",FoodtruckPhoneNumber.getText().toString());
                                 data.put("openFlag","0");
                                 data.put("경도",longitude+"");
                                 data.put("위도",latitude+"");
@@ -208,6 +210,8 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                                 child.put(key,data);
 
                                 Ref.updateChildren(child);
+
+                                Toast.makeText(FoodtrcukRegistActivity.this, "ㅍㅜ드ㅌ", Toast.LENGTH_SHORT).show();
 
                             }
                         }
