@@ -63,22 +63,22 @@ public class SplashActivity extends AppCompatActivity {
             width = display.getWidth();           // 화면의 가로폭
             height = display.getHeight();         // 화면의 세로폭
             x = 0;                               // 캐릭터의 현재 x위치
-            y = (height / 2) - 180;                               // 캐릭터의 현재 y위치
+            y = (height / 2) - 270;                               // 캐릭터의 현재 y위치
             dx = 40;                               // 캐릭터가 x축으로 이동할 거리
             dy = 10;                               // 캐릭터가 y축으로 이동할 거리
 
             // 캐릭터의 비트맵 읽기
             character[0] = BitmapFactory.decodeResource(getResources(), R.drawable.logo_img);
-            character[1] = BitmapFactory.decodeResource(getResources(), R.drawable.logo_img);
+            //character[1] = BitmapFactory.decodeResource(getResources(), R.drawable.logo_img);
             bg_img[0] = BitmapFactory.decodeResource(getResources(), R.drawable.splash_bg);
-            character[0] = Bitmap.createScaledBitmap(character[0], width / 3 + 50, (height / 5) - 50, true);
-            character[1] = Bitmap.createScaledBitmap(character[1], width / 3 + 50, (height / 5) - 50, true);
+            character[0] = Bitmap.createScaledBitmap(character[0], width / 3 + 50, (height / 5) - 30, true);
+            //character[1] = Bitmap.createScaledBitmap(character[1], width / 3 + 50, (height / 5) - 30, true);
             bg_img[0] = Bitmap.createScaledBitmap(bg_img[0], width, height, true);
 
             cw = character[0].getWidth() / 2;          // 캐릭터의 폭/2
-            ch = character[0].getHeight() / 2;          // 캐릭터의 높이/2
+            ch = character[0].getHeight() / 2-10;          // 캐릭터의 높이/2
 
-            mHandler.sendEmptyMessageDelayed(0, 100);
+            mHandler.sendEmptyMessageDelayed(0, 0);
         }
 
         //-----------------------------------
@@ -101,7 +101,7 @@ public class SplashActivity extends AppCompatActivity {
         Handler mHandler = new Handler() {              // 타이머로 사용할 Handler
             public void handleMessage(Message msg) {
                 invalidate();                              // onDraw() 다시 실행
-                mHandler.sendEmptyMessageDelayed(0, 100);
+                mHandler.sendEmptyMessageDelayed(0, 0);
             }
         }; // Handler
     } // SplashView 끝
