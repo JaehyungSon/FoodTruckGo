@@ -59,6 +59,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_margin="10dp"
                             android:layout_width="40dp"
+                            android:id="@+id/reviewBtn"
                             android:layout_height="40dp"
                             android:src="@drawable/commenticon"/>
 

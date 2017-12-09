@@ -211,6 +211,8 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
 
                                 Ref.updateChildren(child);
 
+                                Toast.makeText(FoodtrcukRegistActivity.this, "ㅍㅜ드ㅌ", Toast.LENGTH_SHORT).show();
+
                             }
                         }
                     })

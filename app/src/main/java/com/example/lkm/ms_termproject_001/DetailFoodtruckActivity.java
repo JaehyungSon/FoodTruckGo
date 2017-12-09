@@ -56,6 +56,7 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
     TextView foodTruckDistance;
     ImageView detailFoodTruckCallBtn,DetailBookmark;
     ImageView googleMapSearch;
+    ImageView reviewBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,7 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
         googleMapSearch =(ImageView)findViewById(R.id.googleMapSearch);
         foodTruckDistance = (TextView)findViewById(R.id.distance);
 
+        reviewBtn = (ImageView)findViewById(R.id.reviewBtn);
         //파이어베이스 정보 가져오는 부분
         FirebaseDatabase fd = FirebaseDatabase.getInstance();
         DatabaseReference myRef = fd.getReference().child("FoodTrucks").child(foodTruckId);
@@ -197,6 +199,15 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
                 intent.addCategory(Intent.CATEGORY_LAUNCHER );
                 intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
                 startActivity(intent);
+            }
+        });
+
+        reviewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent detailFoodtruck = new Intent(DetailFoodtruckActivity.this,ReviewActivity.class);
+                detailFoodtruck.putExtra("foodTruckId",foodTruckId);
+                startActivity(detailFoodtruck);
             }
         });
 
