@@ -78,7 +78,7 @@ public class SplashActivity extends AppCompatActivity {
             cw = character[0].getWidth() / 2;          // 캐릭터의 폭/2
             ch = character[0].getHeight() / 2-10;          // 캐릭터의 높이/2
 
-            mHandler.sendEmptyMessageDelayed(0, 0);
+            mHandler.sendEmptyMessageDelayed(0, 100);
         }
 
         //-----------------------------------
@@ -101,7 +101,7 @@ public class SplashActivity extends AppCompatActivity {
         Handler mHandler = new Handler() {              // 타이머로 사용할 Handler
             public void handleMessage(Message msg) {
                 invalidate();                              // onDraw() 다시 실행
-                mHandler.sendEmptyMessageDelayed(0, 0);
+                mHandler.sendEmptyMessageDelayed(0, 100);
             }
         }; // Handler
     } // SplashView 끝
