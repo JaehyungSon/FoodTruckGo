@@ -32,6 +32,8 @@ public class ReviewActivity extends AppCompatActivity {
     Bitmap bitmap;
     private SimpleSideDrawer mSlidingMenu;
     ListView reviewListView;
+    String foodTruckId;
+    ImageButton reviewWriteMoveBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +43,24 @@ public class ReviewActivity extends AppCompatActivity {
         mSlidingMenu = new SimpleSideDrawer(this);
         mSlidingMenu.setLeftBehindContentView(R.layout.activiry_left_menu);
         reviewListView = (ListView)findViewById(R.id.reviewListView);
-
+        reviewWriteMoveBtn=(ImageButton)findViewById(R.id.reviewWriteMoveBtn);
         ReviewMyAdapter adapter = new ReviewMyAdapter();
         adapter.addItem("","123","!23");
         reviewListView.setAdapter(adapter);
         requestMe();  //카카오 정보 load
+
+        Intent intent = getIntent();
+        foodTruckId = intent.getExtras().getString("foodTruckId");
+        Toast.makeText(this, foodTruckId+"", Toast.LENGTH_SHORT).show();
+
+        reviewWriteMoveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent writeReviewIntent = new Intent(ReviewActivity.this,WriteReviewActivity.class);
+                writeReviewIntent.putExtra("foodTruckId",foodTruckId);
+                startActivity(new Intent(writeReviewIntent));
+            }
+        });
     }
 
     // ------- 왼쪽 메뉴바 관련 코드 start ------- //
