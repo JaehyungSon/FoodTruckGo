@@ -4,6 +4,7 @@ import android.*;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -16,10 +17,12 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -66,6 +69,8 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
     double altitude=0;   //고도
     String uuid="0";
 
+    final Context context = this;
+    String category="업종";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -336,4 +341,46 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
             }
         });
     }
+
+    // -------------------------- 학년, 나이, 성별 선택 alertDialog 이벤트 Start -------------------------- //
+    public void memSelectClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.category_button:
+                final CharSequence[] items = { "한식", "중식", "일식"
+                        , "양식","기타"};
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                // 제목셋팅
+                alertDialogBuilder.setTitle("업종을 선택해주세요.");
+                alertDialogBuilder.setItems(items,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // 프로그램을 종료한다
+                                category =items[id]+""; // 전역변수 저장
+
+                                Button age_button = (Button)findViewById(R.id.category_button);
+
+                                if(id==0)
+                                    age_button.setText("한식");
+                                else if(id==1)
+                                    age_button.setText("중식");
+                                else if(id==2)
+                                    age_button.setText("일식");
+                                else if(id==3)
+                                    age_button.setText("양식");
+                                else if(id==4)
+                                    age_button.setText("기타");
+
+                                dialog.dismiss();
+                            }
+                        });
+                // 다이얼로그 생성
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // 다이얼로그 보여주기
+                alertDialog.show();
+                break;
+
+        }
+    }
+    // -------------------------- 학년, 나이, 성별 선택 alertDialog 이벤트 End -------------------------- //
 }

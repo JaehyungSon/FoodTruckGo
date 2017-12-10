@@ -2,6 +2,7 @@ package com.example.lkm.ms_termproject_001;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -88,6 +90,9 @@ public class MainActivity extends AppCompatActivity {
     private ListView mListView;
 
     final int REQ_CODE_SELECT_IMAGE=100;
+
+    final Context context = this;
+    String category="업종";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -283,11 +288,32 @@ public class MainActivity extends AppCompatActivity {
 
             // ------- 필터링 관련 코드 start ------- //
             case R.id.main_top_menu_filter_btn:
+                final CharSequence[] items = { "한식", "중식", "일식"
+                        , "양식","기타"};
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                // 제목셋팅
+                alertDialogBuilder.setTitle("푸드트럭의 종류");
+                alertDialogBuilder.setItems(items,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // 프로그램을 종료한다
+
+                                category =items[id]+""; // 전역변수 저장
+
+                                /*
+                                *       id[0] = 한식
+                                *       id[1] = 중식
+                                *       ...
+                                * */
 
 
-                //...//
-
-
+                                dialog.dismiss();
+                            }
+                        });
+                // 다이얼로그 생성
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // 다이얼로그 보여주기
+                alertDialog.show();
                 break;
             // ------- 필터링 관련 코드 end ------- //
         }
