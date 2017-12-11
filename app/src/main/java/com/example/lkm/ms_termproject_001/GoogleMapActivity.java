@@ -27,6 +27,11 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
@@ -91,15 +96,69 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
                 @Override
                 public void run() {
                     LatLng SEOUL = new LatLng(latitude, longitude);
+                    if(longitude==0){
+                        Toast.makeText(GoogleMapActivity.this, "위치 정보를 가져올 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    }else {
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        markerOptions.position(SEOUL);
+                        markerOptions.title("서울");
+                        markerOptions.snippet("한국의 수도");
+                        map.addMarker(markerOptions);
 
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.position(SEOUL);
-                    markerOptions.title("서울");
-                    markerOptions.snippet("한국의 수도");
-                    map.addMarker(markerOptions);
+                        map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
+                        map.animateCamera(CameraUpdateFactory.zoomTo(13));
+                    }
 
-                    map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
-                    map.animateCamera(CameraUpdateFactory.zoomTo(13));
+
+
+                    FirebaseDatabase fd = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = fd.getReference().child("FoodTrucks");
+
+
+                    myRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot child : dataSnapshot.getChildren()) {
+
+                                String tempName="",simpleExplain="";
+                                double tempLongitude=0,tempLatitude=0;
+                                for (DataSnapshot childchild : child.getChildren()) {
+                                    if (childchild.getKey().equals("name")) {
+                                        //      Log.e("we do",childchild.getValue().toString());
+                                        tempName = childchild.getValue().toString();
+
+                                    }
+                                    if (childchild.getKey().equals("simpleExplain")) {
+                                        simpleExplain = childchild.getValue().toString();
+                                    }
+                                    if (childchild.getKey().equals("경도")) {
+                                        tempLongitude = Double.parseDouble(childchild.getValue().toString());
+                                    }
+                                    if (childchild.getKey().equals("위도")) {
+                                        tempLatitude = Double.parseDouble(childchild.getValue().toString());
+                                    }
+
+                                }
+                                LatLng marker = new LatLng(tempLatitude, tempLongitude);
+                                MarkerOptions markerOptions = new MarkerOptions();
+                                markerOptions.position(marker);
+                                markerOptions.title(tempName);
+                                markerOptions.snippet(simpleExplain);
+                                map.addMarker(markerOptions);
+
+
+                            }
+
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
                 }
             }, 3000);
         }

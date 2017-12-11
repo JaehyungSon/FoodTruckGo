@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     final int REQ_CODE_SELECT_IMAGE=100;
 
     final Context context = this;
-    String category="업종";
+    String category="모두보기";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
                 detailFoodtruck.putExtra("longitude",longitude+"");
                 detailFoodtruck.putExtra("latitude",latitude+"");
                 detailFoodtruck.putExtra("altitude",altitude+"");
-
                 startActivity(detailFoodtruck);
             }
         });
@@ -288,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
 
             // ------- 필터링 관련 코드 start ------- //
             case R.id.main_top_menu_filter_btn:
-                final CharSequence[] items = { "한식", "중식", "일식"
+                final CharSequence[] items = {"모두보기", "한식", "중식", "일식"
                         , "양식","기타"};
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
                 // 제목셋팅
@@ -299,13 +298,12 @@ public class MainActivity extends AppCompatActivity {
                                 // 프로그램을 종료한다
 
                                 category =items[id]+""; // 전역변수 저장
-
                                 /*
                                 *       id[0] = 한식
                                 *       id[1] = 중식
                                 *       ...
                                 * */
-
+                                dataSetting();
 
                                 dialog.dismiss();
                             }
@@ -424,6 +422,7 @@ public class MainActivity extends AppCompatActivity {
                 final Bitmap[] tempBitmap = new Bitmap[1];
                 //String photo="";
                 for(DataSnapshot child : dataSnapshot.getChildren()){
+                    boolean flag=false;
                     Log.e("key",child.getKey());
 ;                    for(DataSnapshot childchild : child.getChildren()){
                         if(childchild.getKey().equals("name")){
@@ -444,9 +443,27 @@ public class MainActivity extends AppCompatActivity {
                         if(childchild.getKey().equals("위도")){
                             tempLatitude = Double.parseDouble(childchild.getValue().toString());
                         }
+                        if(childchild.getKey().equals("업종")){
+                            if(category.equals("모두보기")){
+                                flag=true;
+
+                            }else if(category.equals(childchild.getValue().toString())){
+                                flag=true;
+                            }
+//                            if(category.equals("모두보기")){
+//
+//                            }else{
+//                                if(category.equals(childchild.getValue().toString())){
+//
+//                                }else{
+//                                    flag=false;
+//                                }
+//                            }
+                        }
 
 
                     }
+                    if(flag){
                     // 미터(Meter) 단위
                     double distanceMeter =
                             distance(tempLatitude, tempLongitude, latitude, longitude, "meter");
@@ -457,7 +474,9 @@ public class MainActivity extends AppCompatActivity {
                         mMyAdapter.addItem(photo,name_2,simpleExplain,"",child.getKey());
                     }
 
-                    mMyAdapter.notifyDataSetChanged();
+
+                        mMyAdapter.notifyDataSetChanged();
+                    }
 
                 }
 
