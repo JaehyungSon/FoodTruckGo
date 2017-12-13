@@ -25,13 +25,26 @@
                     android:src="@drawable/leftmenu_menu_favorite"/>
                 <TextView
                     android:id="@+id/userName"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="name.."
                     android:layout_weight="1"
                     android:textSize="20dp"
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@+id/userImg"/>
+
+
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/userRating"
+                    android:color="#FFFFFF"
+                    android:max="5"
+                    android:numStars="5"
+                    android:rating="5"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="10dp"/>
 
                 <RelativeLayout
                     android:layout_width="wrap_content"

@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
 import android.media.Image;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
@@ -34,6 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 public class DetailFoodtruckActivity extends AppCompatActivity {
 
@@ -53,7 +56,7 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
     Bitmap bitmap;
     String phoneNumber;
 
-    TextView foodTruckDistance;
+    TextView foodTruckDistance,detailCategory,detailGeocoding,detailReviewCount;
     ImageView detailFoodTruckCallBtn,DetailBookmark;
     ImageView googleMapSearch;
     ImageView reviewBtn;
@@ -76,8 +79,13 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
         DetailBookmark = (ImageView)findViewById(R.id.DetailBookmark);
         googleMapSearch =(ImageView)findViewById(R.id.googleMapSearch);
         foodTruckDistance = (TextView)findViewById(R.id.distance);
+        detailCategory = (TextView)findViewById(R.id.detailCategory);
+        detailGeocoding = (TextView)findViewById(R.id.detailGeocoding);
+        detailReviewCount = (TextView)findViewById(R.id.detailReviewCount);
 
         reviewBtn = (ImageView)findViewById(R.id.reviewBtn);
+
+
         //파이어베이스 정보 가져오는 부분
         FirebaseDatabase fd = FirebaseDatabase.getInstance();
         DatabaseReference myRef = fd.getReference().child("FoodTrucks").child(foodTruckId);
@@ -107,7 +115,6 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
 
                         ImageLoader.getInstance().displayImage(child.getValue().toString(), detailFoodTruckPhoto, options); //이미지 불러오는과정
 
-
                     }
                     if (child.getKey().equals("name")) {
                         foodTruckName.setText(child.getValue().toString());
@@ -122,8 +129,15 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
                     if(child.getKey().equals("경도")){
                         truckLongitude=Double.parseDouble(child.getValue().toString());
                     }
+                    if(child.getKey().equals("업종")){
+                        detailCategory.setText(child.getValue().toString());
+                    }
+                    if(child.getKey().equals("count")){
+                        detailReviewCount.setText(child.getValue().toString()+"개의 리뷰");
+                    }
 
                 }
+
                 // 미터(Meter) 단위
                 Toast.makeText(DetailFoodtruckActivity.this, myLatitude+" "+myLongitude+" "+truckLatitude+" "+truckLongitude, Toast.LENGTH_SHORT).show();
                 double distanceMeter =
@@ -136,6 +150,29 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
                 }
 
 
+
+                final Geocoder geocoder = new Geocoder(getApplicationContext());
+
+                String location="";
+                List<Address> address = null; //주소
+
+
+                try {
+                    address = geocoder.getFromLocation(
+                            truckLatitude, // 위도
+                            truckLongitude, // 경도
+                            10); // 얻어올 값의 개수
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (address != null) {
+                    String cut[] = address.get(0).toString().split(" ");
+                    for (int i = 0; i < cut.length; i++) {
+                        System.out.println("cut[" + i + "] : " + cut[i]);
+                    }
+                    detailGeocoding.setText(cut[1] + " " + cut[2] + " " + cut[3]);
+                    //Toast.makeText(getApplicationContext(), "주소"+cut[1] + " " + cut[2] + " " + cut[3], Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -146,6 +183,7 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
 
         });
         //파이어베이스 부분 종료
+
 
         //거리 계산해서 보여주는 부분
 
@@ -214,6 +252,17 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
     }
 
     //파일 저장 코드 (즐겨찾기 목록)
@@ -274,6 +323,10 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
     private static double rad2deg(double rad) {
         return (rad * 180 / Math.PI);
     }
+
+
+
+
 
 
 }

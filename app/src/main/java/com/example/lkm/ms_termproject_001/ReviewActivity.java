@@ -86,31 +86,26 @@ public class ReviewActivity extends AppCompatActivity {
                 String userName="";
                 String userReview="";
                 String userPhoto="";
+                float rating=0;
 
                 for(DataSnapshot child : dataSnapshot.getChildren()){
                     for(DataSnapshot childchild : child.getChildren()){
                         if(childchild.getKey().equals("userName")){
                             userName = childchild.getValue().toString();
-
                         }
                         if(childchild.getKey().equals("userReview")){
                             userReview = childchild.getValue().toString();
                         }
-                        if(childchild.getKey().equals("userPhoto")){
+                        if(childchild.getKey().equals("userPhoto")) {
                             userPhoto = childchild.getValue().toString();
-
                         }
-
-
+                        if(childchild.getKey().equals("userStar")){
+                            rating=Float.parseFloat(childchild.getValue().toString());
+                        }
                     }
-
-                    adapter.addItem(userPhoto,userName,userReview);
-
+                    adapter.addItem(userPhoto,userName,userReview,rating);
                     adapter.notifyDataSetChanged();
-
-
                 }
-
             }
 
             @Override

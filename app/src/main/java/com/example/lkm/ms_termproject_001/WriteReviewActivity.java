@@ -8,8 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 
 public class WriteReviewActivity extends AppCompatActivity {
 
@@ -40,6 +43,13 @@ public class WriteReviewActivity extends AppCompatActivity {
     private SimpleSideDrawer mSlidingMenu;
     ImageView reviewWirteFoodTruckPhoto;
     TextView reviewWriteFoodTruckName;
+    String userProfileURL="";
+    String userName="";
+    String userID="";
+    String count="0";
+    ImageButton reviewWriteImageBtn;
+    RatingBar reviewWriteRatingBar;
+    EditText reviewWirteReview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,22 +61,67 @@ public class WriteReviewActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        String foodTruckId = intent.getExtras().getString("foodTruckId");
+        final String foodTruckId = intent.getExtras().getString("foodTruckId");
         reviewWirteFoodTruckPhoto=(ImageView)findViewById(R.id.reviewWirteFoodTruckPhoto);
         reviewWriteFoodTruckName =(TextView)findViewById(R.id.reviewWriteFoodTruckName);
+        reviewWriteImageBtn = (ImageButton)findViewById(R.id.reviewWriteImageBtn);
+        reviewWriteRatingBar =(RatingBar)findViewById(R.id.reviewWriteRatingBar);
+        reviewWirteReview = (EditText)findViewById(R.id.reviewWirteReview);
 
 
         requestMe();  //카카오 정보 load
+
+
+        //푸드트럭 등록하는부분
+        reviewWriteImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseDatabase fd;    //데이터베이스
+                DatabaseReference Ref;
+
+                fd = FirebaseDatabase.getInstance();
+                Ref = fd.getReference();
+                Ref = Ref.child("FoodTrucks").child(foodTruckId).child("review");
+
+                String rating = String.valueOf(reviewWriteRatingBar.getRating());
+                String review = reviewWirteReview.getText().toString();
+
+                HashMap<String,String> data = new HashMap<String,String>();
+                data.put("userStar",rating);
+                data.put("userReview",review);
+                data.put("userName",userName);
+                data.put("userPhoto",userProfileURL);
+                data.put("uesrID",userID);
+
+                HashMap<String,Object> child = new HashMap<String,Object>();
+                child.put(count,data);
+                Ref.updateChildren(child);
+
+
+                Ref = fd.getReference();
+                Ref = Ref.child("FoodTrucks").child(foodTruckId);
+                HashMap<String,Object> countData = new HashMap<>();
+                count = String.valueOf(Integer.parseInt(count)+1);
+                countData.put("count",count);
+                Ref.updateChildren(countData);
+
+
+                //Ref.setValue("reviewCount",String.valueOf(Integer.parseInt(count)+1));
+               // HashMap<String,Object> count = new HashMap<String,Object>();
+               // count.put("count",count);
+               // Ref.
+
+
+            }
+        });
 
 
         //파이어베이스 정보 가져오는 부분
         FirebaseDatabase fd = FirebaseDatabase.getInstance();
         DatabaseReference myRef = fd.getReference().child("FoodTrucks").child(foodTruckId);
 
-
-
         //푸드트럭 정보 가져오는 부분
-
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -86,11 +141,14 @@ public class WriteReviewActivity extends AppCompatActivity {
                                 .build();
 
                         ImageLoader.getInstance().displayImage(child.getValue().toString(), reviewWirteFoodTruckPhoto, options); //이미지 불러오는과정
-
-
                     }
                     if (child.getKey().equals("name")) {
                         reviewWriteFoodTruckName.setText(child.getValue().toString());
+                    }
+                    if(child.getKey().equals("count")){
+
+                        count=String.valueOf(child.getValue().toString());
+
                     }
                 }
             }
@@ -242,6 +300,9 @@ public class WriteReviewActivity extends AppCompatActivity {
 
                 name = result.getNickname();
                 profilePhotoURL = result.getProfileImagePath();
+                userProfileURL=profilePhotoURL;
+                userName = result.getNickname();
+                userID = String.valueOf(result.getId());
 
                 Thread mThread = new Thread(){
                     @Override

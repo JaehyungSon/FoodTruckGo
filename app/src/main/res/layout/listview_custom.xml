@@ -56,6 +56,16 @@
                         android:text="100m"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
+                        android:gravity="right"
+                        />
+                    <TextView
+                        android:id="@+id/tv_catagory"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="한식"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:gravity="right"
                         />
                 </RelativeLayout>
             </RelativeLayout>

@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
     String name = "ERROR";    //카카오와 연동하기위해
     String mail = "ERROR";    //가장 위로 올림
     String profilePhotoURL = "";
+    String catagory="";
     Bitmap bitmap;
 
     double longitude=0;  //경도
@@ -424,6 +425,7 @@ public class MainActivity extends AppCompatActivity {
     double tempLongitude=0;  //경도 푸드트럭의
     double tempLatitude=0;   //위도
    // double tempAltitude=0;   //고도
+    boolean distanceFlag=false;
 
     private void dataSetting(){
         FirebaseDatabase fd = FirebaseDatabase.getInstance();
@@ -460,6 +462,7 @@ public class MainActivity extends AppCompatActivity {
                             tempLatitude = Double.parseDouble(childchild.getValue().toString());
                         }
                         if(childchild.getKey().equals("업종")){
+                            catagory = childchild.getValue().toString();
                             if(category.equals("모두보기")){
                                 flag=true;
 
@@ -485,12 +488,14 @@ public class MainActivity extends AppCompatActivity {
                             distance(tempLatitude, tempLongitude, latitude, longitude, "meter");
 
                     if(latitude!=0){
-                        mMyAdapter.addItem(photo,name_2,simpleExplain,Math.round(distanceMeter)+"m",child.getKey());
+                        mMyAdapter.addItem(photo,name_2,simpleExplain,Math.round(distanceMeter)+"m",child.getKey(),catagory);
                     }else{
-                        mMyAdapter.addItem(photo,name_2,simpleExplain,"",child.getKey());
+                        mMyAdapter.addItem(photo,name_2,simpleExplain,"",child.getKey(),catagory);
                     }
+                    if(distanceFlag==true){
 
-
+                        mMyAdapter.Sort();
+                    }
                         mMyAdapter.notifyDataSetChanged();
                     }
 
@@ -504,8 +509,10 @@ public class MainActivity extends AppCompatActivity {
                 Log.w("asdfasdf", "Failed to read value.", error.toException());
             }
         });
+
         mMyAdapter.removeAll();
         mListView.setAdapter(mMyAdapter);
+
 
 
         /* 리스트뷰에 어댑터 등록 */
@@ -617,6 +624,7 @@ public class MainActivity extends AppCompatActivity {
             //Network 위치제공자에 의한 위치변화
             //Network 위치는 Gps에 비해 정확도가 많이 떨어진다.
             //tv.setText("위도 : " + longitude + "\n경도 : " + latitude);
+            distanceFlag=true;
             dataSetting();
             gpsFlag=false;
             onMapReady();

@@ -9,6 +9,39 @@ public class MyItem {
     private String contents;
     private String distance;
     private String id;
+    private String category="";
+    private String longitude;
+    private String latitude;
+    private float rating;
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getCategory(){return category;}
+
+    public void setCategory(String category){this.category=category;}
 
     public String getId(){return id;}
 

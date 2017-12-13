@@ -74,7 +74,7 @@ public class BookmarkMyAdapter extends BaseAdapter {
     }
 
     /* 아이템 데이터 추가를 위한 함수. 자신이 원하는대로 작성 */
-    public void addItem(String img, String name, String contents, String distance) {
+    public void addItem(String img, String name, String contents, String distance, String latitude, String longitude, String id) {
 
         MyItem mItem = new MyItem();
 
@@ -83,6 +83,9 @@ public class BookmarkMyAdapter extends BaseAdapter {
         mItem.setName(name);
         mItem.setContents(contents);
         mItem.setdistance(distance);
+        mItem.setLatitude(latitude);
+        mItem.setLongitude(longitude);
+        mItem.setId(id);
 
         /* mItems에 MyItem을 추가한다. */
         mItems.add(mItem);

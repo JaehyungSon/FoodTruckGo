@@ -83,7 +83,14 @@ public class BookmarkActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int index){
                                 switch (index){
                                     case 0:
-                                        Toast.makeText(BookmarkActivity.this, "자세히보기로 이동", Toast.LENGTH_SHORT).show();
+
+                                        Intent detailFoodtruck = new Intent(BookmarkActivity.this,DetailFoodtruckActivity.class);
+                                        detailFoodtruck.putExtra("foodTruckId",mMyAdapter.getItem(position).getId());
+                                        detailFoodtruck.putExtra("longitude",mMyAdapter.getItem(position).getLongitude());
+                                        detailFoodtruck.putExtra("latitude",mMyAdapter.getItem(position).getLatitude());
+                                        detailFoodtruck.putExtra("altitude","0");
+//                                        Toast.makeText(BookmarkActivity.this, mMyAdapter.getItem(position).getId()+" z "+mMyAdapter.getItem(position).getLongitude()+ "z "+mMyAdapter.getItem(position).getLatitude(), Toast.LENGTH_SHORT).show();
+                                        startActivity(detailFoodtruck);
                                         break;
                                     case 1:
                                         localBookmarkRemove(position);
@@ -344,6 +351,7 @@ public class BookmarkActivity extends AppCompatActivity {
                         continue;
                     }
                     bookmarkViewlist.add(Integer.parseInt(child.getKey()));
+                    String tempKey = child.getKey();
 
                     for(DataSnapshot childchild : child.getChildren()){
                         if(childchild.getKey().equals("name")){
@@ -370,9 +378,9 @@ public class BookmarkActivity extends AppCompatActivity {
                             distance(tempLatitude, tempLongitude, latitude, longitude, "meter");
 
                     if(latitude!=0){
-                        mMyAdapter.addItem(photo,name_2,simpleExplain,Math.round(distanceMeter)+"m");
+                        mMyAdapter.addItem(photo,name_2,simpleExplain,Math.round(distanceMeter)+"m",String.valueOf(tempLatitude),String.valueOf(tempLongitude),tempKey);
                     }else{
-                        mMyAdapter.addItem(photo,name_2,simpleExplain,"");
+                        mMyAdapter.addItem(photo,name_2,simpleExplain,"",String.valueOf(tempLatitude),String.valueOf(tempLongitude),tempKey);
                     }
 
                     mMyAdapter.notifyDataSetChanged();
@@ -389,6 +397,8 @@ public class BookmarkActivity extends AppCompatActivity {
 
         mMyAdapter.removeAll();
         mListView.setAdapter(mMyAdapter);
+
+
 
 
 
