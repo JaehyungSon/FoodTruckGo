@@ -157,14 +157,15 @@
                 android:id="@+id/category_button"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:text=""
+                android:text="한식"
                 android:textSize="15dp"
                 android:textColor="#000000"
                 android:background="#ffffff"
                 android:gravity="left"
                 android:onClick="memSelectClick"
                 android:padding="5dp"
-                android:layout_margin="1dp"/>
+                android:layout_margin="1dp"
+                />
         </LinearLayout>
 
 

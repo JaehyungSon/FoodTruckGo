@@ -68,6 +68,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
     double latitude=0;   //위도
     double altitude=0;   //고도
     String uuid="0";
+    Button age_button;
 
     final Context context = this;
     String category="업종";
@@ -165,6 +166,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"첫번째 사진은 필수로 등록 하셔야 합니다.",Toast.LENGTH_LONG).show();
                 break;
             }
+            Toast.makeText(FoodtrcukRegistActivity.this, "업로드 성공 문구가 보일때까지 기다려주세요.", Toast.LENGTH_SHORT).show();
             if(Truck[i]==null){
                 if(i==0){
                     imgFlag1=false;
@@ -197,6 +199,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                                 data.put("경도",longitude+"");
                                 data.put("위도",latitude+"");
                                 data.put("고도",altitude+"");
+                                data.put("업종",age_button.getText().toString());
                                 if(imgFlag1){
 
                                     data.put("1",url[2]);
@@ -216,7 +219,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
 
                                 Ref.updateChildren(child);
 
-                                Toast.makeText(FoodtrcukRegistActivity.this, "ㅍㅜ드ㅌ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(FoodtrcukRegistActivity.this, "업로드 성공", Toast.LENGTH_SHORT).show();
 
                             }
                         }
@@ -358,7 +361,7 @@ public class FoodtrcukRegistActivity extends AppCompatActivity {
                                 // 프로그램을 종료한다
                                 category =items[id]+""; // 전역변수 저장
 
-                                Button age_button = (Button)findViewById(R.id.category_button);
+                                age_button = (Button)findViewById(R.id.category_button);
 
                                 if(id==0)
                                     age_button.setText("한식");

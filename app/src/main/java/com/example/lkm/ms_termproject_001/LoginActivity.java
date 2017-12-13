@@ -85,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     data.put("name", userProfile.getNickname());
                     data.put("회원등급","1");//1은 손님  2는 사업자
+                    data.put("프로필사진",userProfile.getProfileImagePath());
                     data.put("uuid",userProfile.getId()+"");
 
                     HashMap<String,Object> child = new HashMap<String,Object>();

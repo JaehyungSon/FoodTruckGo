@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -13,6 +14,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
@@ -45,7 +51,7 @@ public class ReviewActivity extends AppCompatActivity {
         reviewListView = (ListView)findViewById(R.id.reviewListView);
         reviewWriteMoveBtn=(ImageButton)findViewById(R.id.reviewWriteMoveBtn);
         ReviewMyAdapter adapter = new ReviewMyAdapter();
-        adapter.addItem("","123","!23");
+
         reviewListView.setAdapter(adapter);
         requestMe();  //카카오 정보 load
 
@@ -61,6 +67,91 @@ public class ReviewActivity extends AppCompatActivity {
                 startActivity(new Intent(writeReviewIntent));
             }
         });
+
+        //adapter.addItem("","123","!23");
+
+
+        //리뷰 가져오는 부분
+        FirebaseDatabase fd = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = fd.getReference().child("FoodTrucks").child(foodTruckId);
+
+
+
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                // Log.d("asdfasdf", "Value is: " + dataSnapshot);
+//                mMyAdapter.removeAll();
+//                //String photo="";
+//                for(DataSnapshot child : dataSnapshot.getChildren()){
+//                    for(DataSnapshot childchild : child.getChildren()){
+//                        if(childchild.getKey().equals("name")){
+//                            name_2 = childchild.getValue().toString();
+//
+//                        }
+//                        if(childchild.getKey().equals("simpleExplain")){
+//                            simpleExplain = childchild.getValue().toString();
+//                        }
+//                        if(childchild.getKey().equals("1")){
+//                            photo = childchild.getValue().toString();
+//
+//                        }
+//                        if(childchild.getKey().equals("경도")){
+//                            tempLongitude = Double.parseDouble(childchild.getValue().toString());
+//                        }
+//                        if(childchild.getKey().equals("위도")){
+//                            tempLatitude = Double.parseDouble(childchild.getValue().toString());
+//                        }
+//                        if(childchild.getKey().equals("업종")){
+//                            if(category.equals("모두보기")){
+//                                flag=true;
+//
+//                            }else if(category.equals(childchild.getValue().toString())){
+//                                flag=true;
+//                            }
+////                            if(category.equals("모두보기")){
+////
+////                            }else{
+////                                if(category.equals(childchild.getValue().toString())){
+////
+////                                }else{
+////                                    flag=false;
+////                                }
+////                            }
+//                        }
+//
+//
+//                    }
+//                    if(flag){
+//                        // 미터(Meter) 단위
+//                        double distanceMeter =
+//                                distance(tempLatitude, tempLongitude, latitude, longitude, "meter");
+//
+//                        if(latitude!=0){
+//                            mMyAdapter.addItem(photo,name_2,simpleExplain,Math.round(distanceMeter)+"m",child.getKey());
+//                        }else{
+//                            mMyAdapter.addItem(photo,name_2,simpleExplain,"",child.getKey());
+//                        }
+//
+//
+//                        mMyAdapter.notifyDataSetChanged();
+//                    }
+//
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                // Failed to read value
+//                Log.w("asdfasdf", "Failed to read value.", error.toException());
+//            }
+//        });
+//        mMyAdapter.removeAll();
+//        mListView.setAdapter(mMyAdapter);
+
+
+        /* 리스트뷰에 어댑터 등록 */
     }
 
     // ------- 왼쪽 메뉴바 관련 코드 start ------- //
@@ -78,6 +169,7 @@ public class ReviewActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
                 }
+
 
                 // -- 왼쪽 메뉴바 버튼 클릭 시 이벤트 start -- //
                 ImageButton bookmark = (ImageButton) findViewById(R.id.bookmark_btn); // 즐겨찾기
