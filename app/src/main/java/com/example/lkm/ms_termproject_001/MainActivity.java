@@ -214,13 +214,34 @@ public class MainActivity extends AppCompatActivity {
                 // -- 왼쪽 메뉴바 버튼 클릭 시 이벤트 start -- //
 
 
+                // -- 왼쪽 메뉴바 버튼 클릭 시 이벤트 start -- //
+                TextView main_list_btn = (TextView)findViewById(R.id.main_list_btn); // 즐겨찾기
                 TextView bookmark = (TextView)findViewById(R.id.bookmark_btn); // 즐겨찾기
                 TextView point_btn = (TextView)findViewById(R.id.point_btn); // 적립내역
                 TextView alert_btn = (TextView)findViewById(R.id.alert_btn); // 알림
                 TextView map_btn = (TextView)findViewById(R.id.map_btn); // 구글 맵
+
                 TextView adjust_btn = (TextView)findViewById(R.id.adjust_btn); // 등록 수정
                 TextView logout_btn = (TextView)findViewById(R.id.logout_btn); // 로그아웃
 
+                main_list_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(MainActivity.this, MainActivity.class));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        finish();
+                    }
+                });
+
+                main_list_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        finish();
+                        startActivity(new Intent(MainActivity.this, MainActivity.class));
+                        startActivity(new Intent(MainActivity.this, MainActivity.class));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    }
+                });
                 logout_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
