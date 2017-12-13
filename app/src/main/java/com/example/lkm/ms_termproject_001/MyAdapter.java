@@ -16,6 +16,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_WORLD_WRITEABLE;
+import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
+
 public class MyAdapter extends BaseAdapter {
 
     /* 아이템을 세트로 담기 위한 어레이 */
@@ -80,7 +83,6 @@ public class MyAdapter extends BaseAdapter {
     public void addItem(String img, String name, String contents, String distance,String id) {
 
         MyItem mItem = new MyItem();
-
         /* MyItem에 아이템을 setting한다. */
         mItem.setIcon(img);
         mItem.setName(name);
