@@ -50,7 +50,7 @@ public class ReviewActivity extends AppCompatActivity {
         mSlidingMenu.setLeftBehindContentView(R.layout.activiry_left_menu);
         reviewListView = (ListView)findViewById(R.id.reviewListView);
         reviewWriteMoveBtn=(ImageButton)findViewById(R.id.reviewWriteMoveBtn);
-        ReviewMyAdapter adapter = new ReviewMyAdapter();
+        final ReviewMyAdapter adapter = new ReviewMyAdapter();
 
         reviewListView.setAdapter(adapter);
         requestMe();  //카카오 정보 load
@@ -73,82 +73,54 @@ public class ReviewActivity extends AppCompatActivity {
 
         //리뷰 가져오는 부분
         FirebaseDatabase fd = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = fd.getReference().child("FoodTrucks").child(foodTruckId);
+        DatabaseReference myRef = fd.getReference().child("FoodTrucks").child(foodTruckId).child("review");
 
 
 
-//        myRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // Log.d("asdfasdf", "Value is: " + dataSnapshot);
-//                mMyAdapter.removeAll();
-//                //String photo="";
-//                for(DataSnapshot child : dataSnapshot.getChildren()){
-//                    for(DataSnapshot childchild : child.getChildren()){
-//                        if(childchild.getKey().equals("name")){
-//                            name_2 = childchild.getValue().toString();
-//
-//                        }
-//                        if(childchild.getKey().equals("simpleExplain")){
-//                            simpleExplain = childchild.getValue().toString();
-//                        }
-//                        if(childchild.getKey().equals("1")){
-//                            photo = childchild.getValue().toString();
-//
-//                        }
-//                        if(childchild.getKey().equals("경도")){
-//                            tempLongitude = Double.parseDouble(childchild.getValue().toString());
-//                        }
-//                        if(childchild.getKey().equals("위도")){
-//                            tempLatitude = Double.parseDouble(childchild.getValue().toString());
-//                        }
-//                        if(childchild.getKey().equals("업종")){
-//                            if(category.equals("모두보기")){
-//                                flag=true;
-//
-//                            }else if(category.equals(childchild.getValue().toString())){
-//                                flag=true;
-//                            }
-////                            if(category.equals("모두보기")){
-////
-////                            }else{
-////                                if(category.equals(childchild.getValue().toString())){
-////
-////                                }else{
-////                                    flag=false;
-////                                }
-////                            }
-//                        }
-//
-//
-//                    }
-//                    if(flag){
-//                        // 미터(Meter) 단위
-//                        double distanceMeter =
-//                                distance(tempLatitude, tempLongitude, latitude, longitude, "meter");
-//
-//                        if(latitude!=0){
-//                            mMyAdapter.addItem(photo,name_2,simpleExplain,Math.round(distanceMeter)+"m",child.getKey());
-//                        }else{
-//                            mMyAdapter.addItem(photo,name_2,simpleExplain,"",child.getKey());
-//                        }
-//
-//
-//                        mMyAdapter.notifyDataSetChanged();
-//                    }
-//
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                // Failed to read value
-//                Log.w("asdfasdf", "Failed to read value.", error.toException());
-//            }
-//        });
-//        mMyAdapter.removeAll();
-//        mListView.setAdapter(mMyAdapter);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Log.d("asdfasdf", "Value is: " + dataSnapshot);
+                adapter.removeAll();
+                //String photo="";
+                String userName="";
+                String userReview="";
+                String userPhoto="";
+
+                for(DataSnapshot child : dataSnapshot.getChildren()){
+                    for(DataSnapshot childchild : child.getChildren()){
+                        if(childchild.getKey().equals("userName")){
+                            userName = childchild.getValue().toString();
+
+                        }
+                        if(childchild.getKey().equals("userReview")){
+                            userReview = childchild.getValue().toString();
+                        }
+                        if(childchild.getKey().equals("userPhoto")){
+                            userPhoto = childchild.getValue().toString();
+
+                        }
+
+
+                    }
+
+                    adapter.addItem(userPhoto,userName,userReview);
+
+                    adapter.notifyDataSetChanged();
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("asdfasdf", "Failed to read value.", error.toException());
+            }
+        });
+        adapter.removeAll();
+        reviewListView.setAdapter(adapter);
 
 
         /* 리스트뷰에 어댑터 등록 */
