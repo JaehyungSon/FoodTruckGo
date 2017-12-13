@@ -6,11 +6,12 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:paddingTop="50dp"
         android:id="@+id/profile_layout"
-        android:layout_width="250dp"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:background="@drawable/leftmenu_profile_bg"
+        android:layout_width="200dp"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:background="#4A90E2"
         android:layout_marginBottom="-3dp">
 
         <ImageView
@@ -19,237 +20,154 @@
             android:layout_height="75dp"
             android:layout_gravity="left"
             android:padding="10dp"
-            android:src="@drawable/profile_null"
-            android:background="@drawable/rounded_edges"/>
+            android:src="@drawable/profile_null"/>
+
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="2dp"
+            android:id="@+id/profile_name"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="left"
+            android:gravity="left"
+            android:textColor="#FFFFFF"
+            android:text="아이유"/>
+
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="2dp"
+            android:id="@+id/profile_point"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:layout_gravity="left"
+            android:gravity="left"
+            android:visibility="gone"
+            android:textColor="#FFFFFF"
+            android:text="10200p"/>
+
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:id="@+id/profile_mail"
+            android:visibility="gone"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="left"
+            android:gravity="top|left"
+            android:textColor="#FFFFFF"
+            android:textSize="10dp"
+            android:text="naver.com"/>
+
+
 
         <LinearLayout
-            android:id="@+id/profile_context"
-            android:layout_width="250dp"
-            android:layout_height="80dp"
-            android:orientation="vertical"
-            android:paddingLeft="19dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="3dp">
-
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/leftmenu_menu_favorite"/>
             <TextView
-                android:id="@+id/profile_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="NULL"/>
-
-            <TextView
-                android:id="@+id/profile_mail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:text="NULL"/>
-
-            <TextView
-                android:id="@+id/profile_point"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="NULL"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/bookmark"
-        android:layout_width="250dp"
-        android:layout_height="65dp"
-        android:layout_marginBottom="-3dp"
-        android:layout_below="@+id/profile_layout">
-        <FrameLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-            <ImageButton
                 android:id="@+id/bookmark_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/leftmenu_menu_bg"/>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/leftmenu_menu_favorite"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:text="즐겨찾기"
-                android:textSize="18dp"
-                android:layout_marginTop="2dp"
-                android:layout_gravity="center"/>
-        </FrameLayout>
-    </LinearLayout>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:textColor="#FFFFFF"
+                android:text="즐겨찾기"/>
+        </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/point"
-        android:layout_width="250dp"
-        android:layout_height="65dp"
-        android:layout_marginBottom="-3dp"
-        android:layout_below="@+id/bookmark">
-        <FrameLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageButton
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/leftmenu_menu_point"/>
+            <TextView
                 android:id="@+id/point_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/leftmenu_menu_bg"/>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/leftmenu_menu_point"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:text="적립내역"
-                android:textSize="18dp"
-                android:layout_marginTop="2dp"
-                android:layout_gravity="center"/>
-        </FrameLayout>
-    </LinearLayout>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:textColor="#FFFFFF"
+                android:text="적립내역"/>
+        </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/alert"
-        android:layout_width="250dp"
-        android:layout_height="65dp"
-        android:layout_marginBottom="-3dp"
-        android:layout_below="@+id/point">
-        <FrameLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageButton
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/leftmenu_menu_point"/>
+            <TextView
                 android:id="@+id/alert_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/leftmenu_menu_bg"/>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/leftmenu_menu_notification"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:text="알림"
-                android:textSize="18dp"
-                android:layout_marginTop="2dp"
-                android:layout_gravity="center"/>
-        </FrameLayout>
-    </LinearLayout>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:textColor="#FFFFFF"
+                android:text="알림"/>
+        </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/map"
-        android:layout_width="250dp"
-        android:layout_height="65dp"
-        android:layout_marginBottom="-3dp"
-        android:layout_below="@+id/alert">
-        <FrameLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageButton
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/leftmenu_menu_map"/>
+            <TextView
                 android:id="@+id/map_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/leftmenu_menu_bg"/>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/leftmenu_menu_map"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:text="지도 보기"
-                android:textSize="18dp"
-                android:layout_marginTop="2dp"
-                android:layout_gravity="center"/>
-        </FrameLayout>
-    </LinearLayout>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:textColor="#FFFFFF"
+                android:text="지도 보기"/>
+        </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/adjust"
-        android:layout_width="250dp"
-        android:layout_height="65dp"
-        android:layout_marginBottom="-3dp"
-        android:layout_above="@+id/logout">
-        <FrameLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageButton
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/leftmenu_menu_regi"/>
+            <TextView
                 android:id="@+id/adjust_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/leftmenu_menu_bg"/>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/leftmenu_menu_regi"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:text="등록/수정"
-                android:textSize="18dp"
-                android:layout_marginTop="2dp"
-                android:layout_gravity="center"/>
-        </FrameLayout>
-    </RelativeLayout>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:textColor="#FFFFFF"
+                android:text="등록/수정"/>
+        </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/logout"
-        android:layout_width="250dp"
-        android:layout_height="65dp"
-        android:layout_marginBottom="48dp"
-        android:layout_alignParentBottom="true">
-        <FrameLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageButton
-                android:id="@+id/logout_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/leftmenu_menu_bg"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal">
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/leftmenu_menu_plus"/>
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/leftmenu_menu_plus"/>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:text="로그 아웃"
-                android:textSize="18dp"
-                android:layout_marginTop="2dp"
-                android:layout_gravity="center"/>
-        </FrameLayout>
-    </RelativeLayout>
+                android:id="@+id/logout_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:textColor="#FFFFFF"
+                android:text="로그 아웃"/>
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>
 

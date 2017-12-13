@@ -214,19 +214,17 @@ public class MainActivity extends AppCompatActivity {
                 // -- 왼쪽 메뉴바 버튼 클릭 시 이벤트 start -- //
 
 
-                ImageButton bookmark = (ImageButton)findViewById(R.id.bookmark_btn); // 즐겨찾기
-                ImageButton point_btn = (ImageButton)findViewById(R.id.point_btn); // 적립내역
-                ImageButton alert_btn = (ImageButton)findViewById(R.id.alert_btn); // 알림
-                ImageButton map_btn = (ImageButton)findViewById(R.id.map_btn); // 구글 맵
-
-                ImageButton adjust_btn = (ImageButton)findViewById(R.id.adjust_btn); // 등록 수정
-                ImageButton logout_btn = (ImageButton)findViewById(R.id.logout_btn); // 로그아웃 ( 모든 엑티비티 복사 )
+                TextView bookmark = (TextView)findViewById(R.id.bookmark_btn); // 즐겨찾기
+                TextView point_btn = (TextView)findViewById(R.id.point_btn); // 적립내역
+                TextView alert_btn = (TextView)findViewById(R.id.alert_btn); // 알림
+                TextView map_btn = (TextView)findViewById(R.id.map_btn); // 구글 맵
+                TextView adjust_btn = (TextView)findViewById(R.id.adjust_btn); // 등록 수정
+                TextView logout_btn = (TextView)findViewById(R.id.logout_btn); // 로그아웃
 
                 logout_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         onClickLogout();
-
 
                     }
                 });
@@ -333,15 +331,12 @@ public class MainActivity extends AppCompatActivity {
 
         TextView txt_name = (TextView)findViewById(R.id.profile_name);
         txt_name.setText(name);
-        txt_name.setTextColor(Color.BLACK);
 
         TextView txt_mail = (TextView)findViewById(R.id.profile_mail);
         txt_mail.setText(mail);
-        txt_mail.setTextColor(Color.BLACK);
 
         TextView txt_point = (TextView)findViewById(R.id.profile_point);
         txt_point.setText("포인트 : "+point+" P"); // 1000원 이상시 쉼표 추가 하는 함수 만들 것.  ex) 10000  ->  10,000
-        txt_point.setTextColor(Color.BLACK);
 
 
         return true;
