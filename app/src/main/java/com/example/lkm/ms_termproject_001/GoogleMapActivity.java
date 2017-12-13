@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -37,6 +39,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCallback
     {
@@ -50,6 +53,8 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         double longitude=0;  //경도
         double latitude=0;   //위도
         double altitude=0;   //고도
+        List<Address> address = null; //주소
+        String cut[] = null;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +108,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
                 }
             }, 3000);
         }
-
+        final Geocoder geocoder = new Geocoder(this);
         private final LocationListener mLocationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 //여기서 위치값이 갱신되면 이벤트가 발생한다.
@@ -112,6 +117,24 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
                 longitude = location.getLongitude(); //경도
                 latitude = location.getLatitude();   //위도
                 altitude = location.getAltitude();   //고도
+                try {
+                    address = geocoder.getFromLocation(
+                            latitude, // 위도
+                            longitude, // 경도
+                            10); // 얻어올 값의 개수
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if (address != null) {
+                    // 원래 통으로 나오는 주소값 문자열
+                    String cut[] = address.get(0).toString().split(" ");
+                    for (int i = 0; i < cut.length; i++) {
+                        System.out.println("cut[" + i + "] : " + cut[i]);
+                    } // cut[0] : Address[addressLines=[0:"대한민국
+                    // cut[1] : 서울특별시  cut[2] : 송파구  cut[3] : 오금동
+
+                }
                 float accuracy = location.getAccuracy();    //정확도
                 String provider = location.getProvider();   //위치제공자
                 //Gps 위치제공자에 의한 위치변화. 오차범위가 좁다.

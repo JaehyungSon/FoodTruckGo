@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
 import android.media.Image;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
@@ -34,6 +36,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
+
+import static com.kakao.auth.StringSet.error;
 
 public class DetailFoodtruckActivity extends AppCompatActivity {
 
@@ -41,6 +46,8 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
     double myLongitude = 0;  //경도
     double myLatitude = 0;   //위도
     double myAltitude = 0;   //고도
+    List<Address> address = null; //주소
+    String cut[] = null;
 
     double truckLongitude = 0;  //경도
     double truckLatitude = 0;   //위도
@@ -56,7 +63,7 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
     TextView foodTruckDistance;
     ImageView detailFoodTruckCallBtn,DetailBookmark;
     ImageView googleMapSearch;
-
+    final Geocoder geocoder = new Geocoder(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,17 +120,32 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
                     if (child.getKey().equals("phoneNumber")) {
                         phoneNumber = child.getValue().toString();
                     }
-                    if(child.getKey().equals("위도")){
-                        truckLatitude=Double.parseDouble(child.getValue().toString());
+                    if (child.getKey().equals("위도")) {
+                        truckLatitude = Double.parseDouble(child.getValue().toString());
+                    }
+                    if (child.getKey().equals("경도")) {
+                        truckLongitude = Double.parseDouble(child.getValue().toString());
+                    }
+                    try {
+                        address = geocoder.getFromLocation(
+                                truckLatitude, // 위도
+                                truckLongitude, // 경도
+                                10); // 얻어올 값의 개수
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    if (address != null) {
+                        // 원래 통으로 나오는 주소값 문자열
+                        String cut[] = address.get(0).toString().split(" ");
+                        for (int i = 0; i < cut.length; i++) {
+                            System.out.println("cut[" + i + "] : " + cut[i]);
+                        } // cut[0] : Address[addressLines=[0:"대한민국
+                        // cut[1] : 서울특별시  cut[2] : 송파구  cut[3] : 오금동
 
                     }
-                    if(child.getKey().equals("경도")){
-                        truckLongitude=Double.parseDouble(child.getValue().toString());
-                    }
-
                 }
                 // 미터(Meter) 단위
-                Toast.makeText(DetailFoodtruckActivity.this, myLatitude+" "+myLongitude+" "+truckLatitude+" "+truckLongitude, Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailFoodtruckActivity.this, cut[1] + " " + cut[2] + " " + cut[3], Toast.LENGTH_SHORT).show();
                 double distanceMeter =
                         distance(myLatitude, myLongitude, truckLatitude, truckLongitude, "meter");
 
