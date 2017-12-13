@@ -57,7 +57,6 @@ public class ReviewActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         foodTruckId = intent.getExtras().getString("foodTruckId");
-        Toast.makeText(this, foodTruckId+"", Toast.LENGTH_SHORT).show();
 
         reviewWriteMoveBtn.setOnClickListener(new View.OnClickListener() {
             @Override

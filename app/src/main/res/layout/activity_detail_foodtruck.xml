@@ -77,25 +77,34 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_weight="1.5"
+                    android:orientation="horizontal">
 
                     <RatingBar
                         style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
-                        android:layout_marginTop="8dp"
                         android:color="#FFFFFF"
                         android:max="5"
                         android:numStars="5"
-                        android:rating="5" />
+                        android:rating="5"
+                        android:id="@+id/detailStar"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1/1"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="#FFFFFF"
+                        android:layout_gravity="center"
+                        android:id="@+id/ratingDouble"/>
 
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="0.5">
 
 
                 </LinearLayout>
@@ -107,7 +116,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="0reviews"
+                        android:text="리뷰 없음"
                         android:textColor="#FFFFFF"
                         android:gravity="right|top"
                         android:layout_margin="8dp"

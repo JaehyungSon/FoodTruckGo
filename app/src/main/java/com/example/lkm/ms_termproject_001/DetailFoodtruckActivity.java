@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DetailFoodtruckActivity extends AppCompatActivity {
@@ -56,10 +58,11 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
     Bitmap bitmap;
     String phoneNumber;
 
-    TextView foodTruckDistance,detailCategory,detailGeocoding,detailReviewCount;
+    TextView foodTruckDistance,detailCategory,detailGeocoding,detailReviewCount,ratingDouble;
     ImageView detailFoodTruckCallBtn,DetailBookmark;
     ImageView googleMapSearch;
     ImageView reviewBtn;
+    RatingBar detailStar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,8 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
         detailCategory = (TextView)findViewById(R.id.detailCategory);
         detailGeocoding = (TextView)findViewById(R.id.detailGeocoding);
         detailReviewCount = (TextView)findViewById(R.id.detailReviewCount);
+        detailStar = (RatingBar)findViewById(R.id.detailStar);
+        ratingDouble=(TextView)findViewById(R.id.ratingDouble);
 
         reviewBtn = (ImageView)findViewById(R.id.reviewBtn);
 
@@ -135,11 +140,9 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
                     if(child.getKey().equals("count")){
                         detailReviewCount.setText(child.getValue().toString()+"개의 리뷰");
                     }
-
                 }
 
                 // 미터(Meter) 단위
-                Toast.makeText(DetailFoodtruckActivity.this, myLatitude+" "+myLongitude+" "+truckLatitude+" "+truckLongitude, Toast.LENGTH_SHORT).show();
                 double distanceMeter =
                         distance(myLatitude, myLongitude, truckLatitude, truckLongitude, "meter");
 
@@ -182,31 +185,65 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
             }
 
         });
-        //파이어베이스 부분 종료
 
+        myRef=myRef.child("review");
+        myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    ArrayList<String> ratingStar = new ArrayList<>();
+                    int count=0;
+                    for(DataSnapshot child : dataSnapshot.getChildren()){
+                        for(DataSnapshot childchild : child.getChildren()){
+                            if(childchild.getKey().equals("userStar")){
+                                ratingStar.add(childchild.getValue().toString());
+                                count++;
+                            }
 
-        //거리 계산해서 보여주는 부분
+                        }
+                    }
+                    float starAverage=0;
+                    for(int i=0;i<count;i++){
+                        starAverage=Float.parseFloat(ratingStar.get(i))+starAverage;
+                    }
+                    detailStar.setRating(starAverage/count);
 
+                    String str = String.format("%.2f", starAverage/count);
 
-        detailFoodTruckCallBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ActivityCompat.requestPermissions(DetailFoodtruckActivity.this, new String[]{Manifest.permission.CALL_PHONE}, 1);
+                    ratingDouble.setText(str+" / 5");
 
-
-                if (ActivityCompat.checkSelfPermission(DetailFoodtruckActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
                 }
-                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber)));
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
             }
-        });
+        );
+                //파이어베이스 부분 종료
+
+
+                //거리 계산해서 보여주는 부분
+
+
+                detailFoodTruckCallBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ActivityCompat.requestPermissions(DetailFoodtruckActivity.this, new String[]{Manifest.permission.CALL_PHONE}, 1);
+
+
+                        if (ActivityCompat.checkSelfPermission(DetailFoodtruckActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            // TODO: Consider calling
+                            //    ActivityCompat#requestPermissions
+                            // here to request the missing permissions, and then overriding
+                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                            //                                          int[] grantResults)
+                            // to handle the case where the user grants the permission. See the documentation
+                            // for ActivityCompat#requestPermissions for more details.
+                            return;
+                        }
+                        startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber)));
+                    }
+                });
         DetailBookmark.setOnClickListener(new View.OnClickListener() {
             int count;
             @Override
