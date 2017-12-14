@@ -85,37 +85,25 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
 
         //imgCount는 이미지의 수
 
-        imgCount=3;
+        imgCount=0;
 
-        for(int i=0;i<imgCount;i++){
-            ImageView img= new ImageView(this);
-            img.setImageResource(R.drawable.test_img_01+i); // 이미지 삽입
-            flipper.addView(img);
-        }
-        Animation showIn= AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
 
-        flipper.setInAnimation(showIn);
-        flipper.setOutAnimation(this, android.R.anim.fade_out);
 
-        flipper.setFlipInterval(3000);
-        flipper.startFlipping();
 
-        toggle_Flipping= (ToggleButton)findViewById(R.id.toggle_auto);
-        toggle_Flipping.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//        for(int i=0;i<imgCount;i++){
+//            ImageView img= new ImageView(this);
+//            img.setImageResource(R.drawable.test_img_01+i); // 이미지 삽입
+//            flipper.addView(img);
+//        }
+//        Animation showIn= AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
+//
+//        flipper.setInAnimation(showIn);
+//        flipper.setOutAnimation(this, android.R.anim.fade_out);
+//
+//        flipper.setFlipInterval(3000);
+//        flipper.startFlipping();
 
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // TODO Auto-generated method stub
-                if(isChecked){
-                    flipper.stopFlipping();
-                    img_check=false;
-                }else{
-                    flipper.setFlipInterval(3000);
-                    flipper.startFlipping();
-                    img_check=true;
-                }
-            }
-        });
+
         // ------- 이미지 슬라이드 관련 코드 end ------- //
 
         Intent intent = getIntent();
@@ -167,6 +155,56 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
                                 .considerExifParams(true)
                                 .build();
 
+                        ImageView img= new ImageView(DetailFoodtruckActivity.this);
+                        img.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        //img.setImageResource(R.drawable.test_img_02); // 이미지 삽입
+                        ImageLoader.getInstance().displayImage(child.getValue().toString(), img, options); //이미지 불러오는과정
+                        flipper.addView(img);
+                        imgCount++;
+                        //ImageLoader.getInstance().displayImage(child.getValue().toString(), detailFoodTruckPhoto, options); //이미지 불러오는과정
+
+
+                    }
+                    if (child.getKey().equals("2")) {
+                        //이미지 삽입
+                        ImageLoader imageLoader = ImageLoader.getInstance();
+                        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                                .showImageOnLoading(R.drawable.logo_img)
+                                .showImageForEmptyUri(R.drawable.logo_img)
+                                .showImageOnFail(R.drawable.logo_img)
+                                .cacheInMemory(true)
+                                .cacheOnDisk(true)
+                                .considerExifParams(true)
+                                .build();
+
+                        ImageView img= new ImageView(DetailFoodtruckActivity.this);
+                        img.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        //img.setImageResource(R.drawable.test_img_02); // 이미지 삽입
+                        ImageLoader.getInstance().displayImage(child.getValue().toString(), img, options); //이미지 불러오는과정
+                        flipper.addView(img);
+                        imgCount++;
+
+
+                    }
+                    if (child.getKey().equals("3")) {
+                        //이미지 삽입
+                        ImageLoader imageLoader = ImageLoader.getInstance();
+                        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                                .showImageOnLoading(R.drawable.logo_img)
+                                .showImageForEmptyUri(R.drawable.logo_img)
+                                .showImageOnFail(R.drawable.logo_img)
+                                .cacheInMemory(true)
+                                .cacheOnDisk(true)
+                                .considerExifParams(true)
+                                .build();
+
+                        ImageView img= new ImageView(DetailFoodtruckActivity.this);
+                        img.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        //img.setImageResource(R.drawable.test_img_02); // 이미지 삽입
+                        ImageLoader.getInstance().displayImage(child.getValue().toString(), img, options); //이미지 불러오는과정
+                        flipper.addView(img);
+                        imgCount++;
+
                         //ImageLoader.getInstance().displayImage(child.getValue().toString(), detailFoodTruckPhoto, options); //이미지 불러오는과정
 
                     }
@@ -190,6 +228,15 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
                         detailReviewCount.setText(child.getValue().toString()+"개의 리뷰");
                     }
                 }
+
+                Animation showIn= AnimationUtils.loadAnimation(DetailFoodtruckActivity.this, android.R.anim.fade_in);
+
+                flipper.setInAnimation(showIn);
+                flipper.setOutAnimation(DetailFoodtruckActivity.this, android.R.anim.fade_out);
+
+                flipper.setFlipInterval(3000);
+                flipper.startFlipping();
+
 
                 // 미터(Meter) 단위
                 double distanceMeter =
@@ -332,6 +379,22 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
                 Intent detailFoodtruck = new Intent(DetailFoodtruckActivity.this,ReviewActivity.class);
                 detailFoodtruck.putExtra("foodTruckId",foodTruckId);
                 startActivity(detailFoodtruck);
+            }
+        });
+        toggle_Flipping= (ToggleButton)findViewById(R.id.toggle_auto);
+        toggle_Flipping.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // TODO Auto-generated method stub
+                if(isChecked){
+                    flipper.stopFlipping();
+                    img_check=false;
+                }else{
+                    flipper.setFlipInterval(3000);
+                    flipper.startFlipping();
+                    img_check=true;
+                }
             }
         });
     }

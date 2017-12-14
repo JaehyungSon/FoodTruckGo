@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0;i<3;i++){
             ImageView img= new ImageView(this);
             img.setImageResource(R.drawable.test_img_01+i);
+            img.setScaleType(ImageView.ScaleType.CENTER_CROP);
             flipper.addView(img);
         }
         Animation showIn= AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
