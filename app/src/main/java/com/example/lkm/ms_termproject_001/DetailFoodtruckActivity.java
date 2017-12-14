@@ -16,11 +16,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+import android.widget.ViewFlipper;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,6 +47,11 @@ import java.util.List;
 
 public class DetailFoodtruckActivity extends AppCompatActivity {
 
+    int imgCount=0;
+
+    ViewFlipper flipper;
+    ToggleButton toggle_Flipping;
+    Boolean img_check=true;
 
     double myLongitude = 0;  //경도
     double myLatitude = 0;   //위도
@@ -69,6 +79,45 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_foodtruck);
 
+
+        // ------- 이미지 슬라이드 관련 코드 start ------- //
+        flipper= (ViewFlipper)findViewById(R.id.flipper);
+
+        //imgCount는 이미지의 수
+
+        imgCount=3;
+
+        for(int i=0;i<imgCount;i++){
+            ImageView img= new ImageView(this);
+            img.setImageResource(R.drawable.test_img_01+i); // 이미지 삽입
+            flipper.addView(img);
+        }
+        Animation showIn= AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
+
+        flipper.setInAnimation(showIn);
+        flipper.setOutAnimation(this, android.R.anim.fade_out);
+
+        flipper.setFlipInterval(3000);
+        flipper.startFlipping();
+
+        toggle_Flipping= (ToggleButton)findViewById(R.id.toggle_auto);
+        toggle_Flipping.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // TODO Auto-generated method stub
+                if(isChecked){
+                    flipper.stopFlipping();
+                    img_check=false;
+                }else{
+                    flipper.setFlipInterval(3000);
+                    flipper.startFlipping();
+                    img_check=true;
+                }
+            }
+        });
+        // ------- 이미지 슬라이드 관련 코드 end ------- //
+
         Intent intent = getIntent();
         myLongitude = Double.parseDouble(intent.getExtras().getString("longitude"));
         myLatitude = Double.parseDouble(intent.getExtras().getString("latitude"));
@@ -77,7 +126,7 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
 
         foodTruckName = (TextView) findViewById(R.id.foodTruckName);
         foodTruckDetailExample = (TextView) findViewById(R.id.detailExplain);
-        detailFoodTruckPhoto = (ImageView) findViewById(R.id.detailFoodTruckPhoto);
+        //detailFoodTruckPhoto = (ImageView) findViewById(R.id.detailFoodTruckPhoto);
         detailFoodTruckCallBtn = (ImageView) findViewById(R.id.detailFoodTruckCallBtn);
         DetailBookmark = (ImageView)findViewById(R.id.DetailBookmark);
         googleMapSearch =(ImageView)findViewById(R.id.googleMapSearch);
@@ -118,7 +167,7 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
                                 .considerExifParams(true)
                                 .build();
 
-                        ImageLoader.getInstance().displayImage(child.getValue().toString(), detailFoodTruckPhoto, options); //이미지 불러오는과정
+                        //ImageLoader.getInstance().displayImage(child.getValue().toString(), detailFoodTruckPhoto, options); //이미지 불러오는과정
 
                     }
                     if (child.getKey().equals("name")) {
@@ -285,22 +334,30 @@ public class DetailFoodtruckActivity extends AppCompatActivity {
                 startActivity(detailFoodtruck);
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
+
+    // ------- 이미지 슬라이드 관련 코드 start ------- //
+    public void mOnClick(View v){
+        switch( v.getId() ){
+            case R.id.btn_previous:
+                flipper.stopFlipping();
+                flipper.showPrevious();//이전 View로 교체
+                if(img_check) {
+                    flipper.setFlipInterval(3000);
+                    flipper.startFlipping();
+                }
+                break;
+            case R.id.btn_next:
+                flipper.stopFlipping();
+                flipper.showNext();//다음 View로 교체
+                if(img_check) {
+                    flipper.setFlipInterval(3000);
+                    flipper.startFlipping();
+                }
+                break;
+        }
+    }
+    // ------- 이미지 슬라이드 관련 코드 end ------- //
 
     //파일 저장 코드 (즐겨찾기 목록)
     private void savePreferences(int index,int value){

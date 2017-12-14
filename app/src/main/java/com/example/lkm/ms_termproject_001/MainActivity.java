@@ -228,21 +228,13 @@ public class MainActivity extends AppCompatActivity {
                 main_list_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        finish();
+                        startActivity(new Intent(MainActivity.this, MainActivity.class));
                         startActivity(new Intent(MainActivity.this, MainActivity.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        finish();
                     }
                 });
 
-                main_list_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        finish();
-                        startActivity(new Intent(MainActivity.this, MainActivity.class));
-                        startActivity(new Intent(MainActivity.this, MainActivity.class));
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    }
-                });
                 logout_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -250,6 +242,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
                 bookmark.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

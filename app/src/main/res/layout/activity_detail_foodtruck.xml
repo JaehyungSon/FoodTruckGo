@@ -14,12 +14,48 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2">
-            <ImageView
+
+            <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/detailFoodTruckPhoto"
-                android:scaleType="centerCrop"
-                android:src="@drawable/profile_test_01"/>
+                android:orientation="vertical">
+
+                <ViewFlipper
+                    android:id="@+id/flipper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></ViewFlipper>
+
+                <ToggleButton
+                    android:id="@+id/toggle_auto"
+                    android:layout_width="200dp"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:background="#00ff0000"
+                    android:textColor="#00ff0000" />
+
+                <Button
+                    android:id="@+id/btn_next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="right"
+                    android:background="#00ff0000"
+                    android:onClick="mOnClick" />
+
+                <Button
+                    android:id="@+id/btn_previous"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="left"
+                    android:background="#00ff0000"
+                    android:onClick="mOnClick" />
+            </FrameLayout>
+
+
+
+
+
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
