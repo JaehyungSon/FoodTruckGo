@@ -63,7 +63,7 @@ public class SplashActivity extends AppCompatActivity {
             width = display.getWidth();           // 화면의 가로폭
             height = display.getHeight();         // 화면의 세로폭
             x = 0;                               // 캐릭터의 현재 x위치
-            y = (height / 2) - 230;                               // 캐릭터의 현재 y위치
+            y = (height / 2) - 120;                               // 캐릭터의 현재 y위치
             dx = 40;                               // 캐릭터가 x축으로 이동할 거리
             dy = 10;                               // 캐릭터가 y축으로 이동할 거리
 

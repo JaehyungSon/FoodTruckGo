@@ -31,7 +31,8 @@
             android:layout_gravity="left"
             android:gravity="left"
             android:textColor="#FFFFFF"
-            android:text="이름: 아이유"/>
+            android:textSize="16dp"
+            android:text="아이유"/>
 
         <TextView
             android:layout_marginLeft="20dp"
@@ -59,12 +60,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/leftmenu_menu_mainlist"/>
             <TextView
                 android:id="@+id/main_list_btn"
@@ -72,17 +73,18 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:textColor="#FFFFFF"
+                android:textSize="18dp"
                 android:text="목록보기"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/leftmenu_menu_favorite"/>
             <TextView
                 android:id="@+id/bookmark_btn"
@@ -90,18 +92,19 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:textColor="#FFFFFF"
+                android:textSize="18dp"
                 android:text="즐겨찾기"/>
         </LinearLayout>
 
         <LinearLayout
             android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/leftmenu_menu_point"/>
             <TextView
                 android:id="@+id/point_btn"
@@ -109,17 +112,18 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:textColor="#FFFFFF"
+                android:textSize="18dp"
                 android:text="적립내역"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/leftmenu_menu_notification"/>
             <TextView
                 android:id="@+id/alert_btn"
@@ -127,17 +131,18 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:textColor="#FFFFFF"
+                android:textSize="18dp"
                 android:text="알림"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/leftmenu_menu_map"/>
             <TextView
                 android:id="@+id/map_btn"
@@ -145,17 +150,18 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:textColor="#FFFFFF"
+                android:textSize="18dp"
                 android:text="지도 보기"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/leftmenu_menu_regi"/>
             <TextView
                 android:id="@+id/adjust_btn"
@@ -163,17 +169,19 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:textColor="#FFFFFF"
+                android:textSize="18dp"
                 android:text="등록/수정"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/leftmenu_menu_plus"/>
             <TextView
                 android:id="@+id/logout_btn"
@@ -181,6 +189,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:textColor="#FFFFFF"
+                android:textSize="18dp"
                 android:text="로그 아웃"/>
         </LinearLayout>
 
