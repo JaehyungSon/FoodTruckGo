@@ -112,6 +112,12 @@ public class WriteReviewActivity extends AppCompatActivity {
                // count.put("count",count);
                // Ref.
 
+                finish();
+                Intent writeReviewIntent = new Intent(WriteReviewActivity.this,ReviewActivity.class);
+                writeReviewIntent.putExtra("foodTruckId",foodTruckId);
+                startActivity(new Intent(writeReviewIntent));
+
+
 
             }
         });
