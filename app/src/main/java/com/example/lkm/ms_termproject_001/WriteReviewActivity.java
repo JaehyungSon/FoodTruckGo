@@ -107,15 +107,9 @@ public class WriteReviewActivity extends AppCompatActivity {
                 Ref.updateChildren(countData);
 
 
-                //Ref.setValue("reviewCount",String.valueOf(Integer.parseInt(count)+1));
-               // HashMap<String,Object> count = new HashMap<String,Object>();
-               // count.put("count",count);
-               // Ref.
 
                 finish();
-                Intent writeReviewIntent = new Intent(WriteReviewActivity.this,ReviewActivity.class);
-                writeReviewIntent.putExtra("foodTruckId",foodTruckId);
-                startActivity(new Intent(writeReviewIntent));
+
 
 
 
